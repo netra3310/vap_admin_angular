@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-end mt-3 mb-3">
+    <div class="card-toolbar d-flex align-items-center flex-row-fluid justify-content-start gap-5">
+        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+        <span class="svg-icon svg-icon-1 position-absolute ms-4">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+            </svg>
+        </span>
+        <!--end::Svg Icon-->
+        <input type="text" class="form-control form-control-solid w-250px ps-14" placeholder="Search Image..." (keyup)="searchData()" [(ngModel)]="searchKey"/>
+    </div>
+</div>
+<div class="card-body text-center pt-0">
+    <ng-container *ngFor="let item of viewImages" >
+        <div class="image-input image-input-outline mb-5 me-4" data-kt-image-input="true"
+            style="background-image: url('assets/media/svg/avatars/blank.svg')">
+            <!-- <div class="image-input-wrapper w-125px h-125px"
+            [style.background-image]="'url(' + item.src + ')'">
+            </div> -->
+            <img [src]="imageBasePath + item.Image" class="w-125px h-125px rounded" (click)="viewImage(item.Image)"/>
+            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                
+            </span>
+            <span *ngIf="!hideRemove"
+                class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" 
+                data-kt-image-input-action="remove" 
+                data-bs-toggle="tooltip"
+                (click)="removeImage(item)" title="Remove avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </span>
+            <label *ngIf="!hideAdd" 
+                class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" 
+                data-kt-image-input-action="change" 
+                data-bs-toggle="tooltip" (click)="addImage(item)" >
+                <!--begin::Icon-->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+                </svg>
+                <!--end::Icon-->
+            </label>
+        </div>
+        <span>
+            <!-- {{item.ImageName }} -->
+        </span>
+    </ng-container>
+</div>
+<app-generic-modal #modalImage [modalConfig]="modalImageConfig" [transparent]="true">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img [src]="imgSrc" class="d-block w-100" alt="...">
+          </div>
+      </div>
+    </div>
+</app-generic-modal>
+  

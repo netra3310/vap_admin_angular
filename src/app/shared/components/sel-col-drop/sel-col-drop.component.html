@@ -1,0 +1,23 @@
+<div class="card-body pt-2">
+    <!-- begin::Item -->
+    <div *ngFor="let option of options" class="d-flex align-items-center mb-3">
+      <!-- begin::Bullet -->
+      <span class="bullet bullet-vertical h-40px" [ngClass]="{'bg-success': checkedOptions[option.field], 'bg-danger': !checkedOptions[option.field]}"></span>
+      <!-- end::Bullet -->
+      <!-- begin::Checkbox -->
+      <div class="form-check form-check-custom form-check-solid mx-5">
+        <input [id]="option.field" [name]="option.field" class="form-check-input" type="checkbox" [value]="option" [(ngModel)]="checkedOptions[option.field]" (click)="setSelectedColumn(option)"/>
+      </div>
+      <!-- end::Checkbox -->
+      <!-- begin::Description -->
+      <div class="flex-grow-1">
+        <a class="text-gray-800 text-hover-primary fw-bolder fs-6">
+          <label [for]='option.field'>{{option.header}}</label>
+        </a>
+        <!-- <span class="text-muted fw-bold d-block">Due in 2 Days</span> -->
+      </div>
+      <!-- end::Description -->
+      <!-- <span class="badge badge-light-success fs-8 fw-bolder">New</span> -->
+    </div>
+    <!-- end:Item -->
+</div>

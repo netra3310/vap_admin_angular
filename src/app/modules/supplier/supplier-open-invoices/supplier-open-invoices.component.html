@@ -1,0 +1,159 @@
+<div>
+    <div class="mb-5 text-end">
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-secondary me-2" (click)="CloseThis()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat me-2" viewBox="0 0 16 16">
+                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+            </svg>
+            <span title="Close">Cancel</span>
+        </a> 
+        <!--end::Primary button-->
+    </div>
+    <!-- begin::Header-->
+    <div class="d-flex justify-content-between flex-column flex-sm-row mb-5 p-5">
+        <!--end::Logo-->
+        <div class="text-sm-end w-100">      
+            <div class="row">         
+                <!--begin::Text-->
+                <div class="text-sm-end fw-semibold fs-4 text-muted mt-7 col-4 d-grid justify-content-end" > 
+                    <!--begin::Text-->
+                    <div class="text-sm-end fw-semibold fs-4 text-muted col-4">
+                        <div><b><span ><b> Remaining</b></span></b></div>
+                        <div>€{{ txtRemaining | number:'1.2-2' }}</div>
+                    </div>
+                    <!--end::Text-->
+                </div>
+                <!--end::Text-->
+                <!--begin::Text-->
+                <div class="text-sm-end fw-semibold fs-4 text-muted col-4 d-grid justify-content-end">
+                    <!--begin::Label-->
+                    <label class="required form-label"><b> Payment</b></label>
+                    <!--end::Label-->
+                    <!--begin::Select2-->
+                    <app-custom-input
+                        [type]="'number'" [(twBinding)]="EnteredBalance"
+                        (blur)="calculatePayment()"
+                        [classGroup]="'form-control form-control-white form-control-sm w-150px ps-3'"
+                    >
+                    </app-custom-input>
+                    <!--end::Select2-->
+                </div>
+                <!--end::Text-->
+                <!--begin::Text-->
+                <div class="text-sm-end fw-semibold fs-4 text-muted col-4 d-grid justify-content-end">
+                    <div class="w-250px">
+                        <!--begin::Label-->
+                        <label class="required form-label"><b> Payment Mode </b></label>
+                        <!--end::Label-->
+                        <!--begin::Select2-->
+                        <app-custom-dropdown class="fs-6 w-150px"
+                            [options]="PaymentModeDropdown" placeholder="Select Payment Mode" 
+                            [showClear]="true" [(twBinding)]="selectedPaymentModeID" 
+                            required optionLabel="label" [enableSearch]="false">
+                        </app-custom-dropdown>
+                        <!--end::Select2-->
+                    </div>
+                </div>
+                <!--end::Text-->
+            </div>  
+        </div>
+    </div>
+    <!--end::Header-->
+    <!---begin: Editing Invoice table-->
+    <div class="table-responsive border-bottom mb-9">
+        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+            <thead>
+                <tr class="border-bottom fs-6 fw-bold text-muted">
+                    <th class="min-w-175px pb-2">InvoiceNo</th>
+                    <th class="min-w-70px text-end pb-2">DueDate</th>
+                    <th class="min-w-80px text-end pb-2">Total</th>
+                    <th class="min-w-80px text-end pb-2">Paid</th>
+                    <th class="min-w-80px text-end pb-2">Remaining</th>
+                    <th class="min-w-80px text-end pb-2">AddedPayment</th>
+                </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600">
+                <ng-container *ngFor="let supplierinvoice of SupplierOpenInvoicesList; let rowIndex = index">
+                    <!--begin::Products-->
+                    <tr>
+                        <!--begin::Product-->
+                        <td>
+                            <!--begin::SuppierInvoiceNo-->
+                            <a href="javascript:void(0)" class="badge badge-light-warning fs-8 fw-bolder">
+                                <span class="symbol-label">{{supplierinvoice.SuppierInvoiceNo}}</span>
+                            </a>
+                            <!--end::SuppierInvoiceNo-->
+                        </td>
+                        <!--end::Product-->
+                        <td class="text-end">
+                            {{supplierinvoice.DueDate |date: 'dd/MM/YYYY HH:MM' }}
+                        </td>
+                        <td class="text-end"> 
+                            <!--begin::dTotalAmount-->
+                            <div class="ms-5">
+                                <div class="fw-bold"><span >€ </span> {{supplierinvoice.dTotalAmount | number:'1.2-2' }}</div>
+                                <!-- <div class="fs-7 text-muted">Delivery Date: 23/11/2022</div> -->
+                            </div>
+                            <!--end::dTotalAmount-->
+                        </td>
+                        <!--begin::dPaidAmount-->
+                        <td class="text-end"><span >€ </span> {{supplierinvoice.dPaidAmount | number:'1.2-2' }}</td>
+                        <!--end::dPaidAmount-->
+                        <!--begin::dRemainingAmount-->
+                        <td class="text-end"><span >€ </span> {{supplierinvoice.dRemainingAmount | number:'1.2-2' }}</td>
+                        <!--end::dRemainingAmount-->
+                        <!--begin::purchaseAmount-->
+                        <td class="text-end d-flex justify-content-end">
+                            <app-custom-input
+                                [type]="'number'" [(twBinding)]="supplierinvoice.purchaseAmount"
+                                (change)="onChangeFieldAmount(supplierinvoice, rowIndex)"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3 w-100px'"
+                            >
+                            </app-custom-input>
+                        </td>
+                        <!--end::purchaseAmount-->
+                    </tr>
+                    <!--end::Products-->
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <!--end: Editing Invoice table-->
+    <div class="mb-5 text-end">
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-secondary me-2" [routerLink]="['/supplier/supplier-payment']">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat me-2" viewBox="0 0 16 16">
+                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+            </svg>
+            <span title="Close">Cancel</span>
+        </a> 
+        <!--end::Primary button-->
+        
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-primary me-2" (click)="AddPaymentMain()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+            </svg>
+            <span title="Close">Add Payment</span>
+        </a> 
+        <!--end::Primary button-->
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table (emitMenuAction)="emitAction($event)"
+                            [menuItems]="genericMenuItems" 
+                            [data]="AllSupplierLedgerlist" [columnsData]="columns" [initialColumns]="globalFilterFields" 
+                            [globalFilterFields]="globalFilterFields"
+                            [enablePrint]="true" [loadingData]="isLoadingData" [row]='10'
+                            [rowsPerPageOptions]="rowsPerPageOptions">
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

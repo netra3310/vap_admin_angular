@@ -1,0 +1,38 @@
+<!-- begin::Header-->
+
+  <!-- end::Header-->
+  <!-- begin::Body-->
+  <div *ngIf="showCounts" class="card-body pt-5 mb-10" style="height: 350px; overflow: auto;">
+
+    <ng-container *ngFor="let group of groupedByDate" >
+        <div>
+            <div class="card-header align-items-center border-0 mt-4 mb-4">
+                <h3 class="card-title align-items-start flex-column">
+                <span class="fw-bolder mb-2 text-dark">{{ group.date }}</span>
+                </h3>
+            </div>
+            <!-- <ng-container *ngFor="let item of ArrayNotifications(group.value)">
+                {{item}}
+            </ng-container> -->
+            <ng-container *ngIf="group.data">
+                <div class="timeline-label">
+                    <ng-container *ngFor="let action of group.data" >
+                        <div class="timeline-item">
+                            <div class="timeline-label fw-bolder text-gray-800 fs-6">{{action.CreatedAt | date:'shortTime'}}</div>
+                            <div class="timeline-badge">
+                                <i class="fa fa-genderless fs-1" [ngClass]="{'text-primary': action.IsPosted, 'text-danger': !action.IsPosted}"></i>
+                            </div>
+                            <div class="timeline-content fw-bold text-gray-800 ps-3">
+                            
+                            <a href="#" class="text-primary">{{action.ActionID}}</a><br/>
+                            {{action.ActionName}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+  </div>
+  <!-- end: Card Body-->
+  

@@ -1,0 +1,730 @@
+<div>
+    <div class="mb-5 text-end">
+        
+        <app-sale-invoice-report *ngIf="printingData" [SaleDetails]="printingData"></app-sale-invoice-report>
+        <app-sale-preview-report *ngIf="printingDataPreview" [SaleDetails]="printingDataPreview"></app-sale-preview-report>
+        
+        <!--begin::Primary button-->
+        <a (click)="AddSale(false,false)" class="btn btn-sm fw-bold btn-success ms-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save-fill me-2" viewBox="0 0 16 16">
+                <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v7.793L4.854 6.646a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l3.5-3.5a.5.5 0 0 0-.708-.708L8.5 9.293V1.5z"/>
+            </svg>
+            <span translate="REPORTS.SAVE"></span>
+        </a> 
+        <!--end::Primary button-->
+        <!--begin::Primary button-->
+        <a 
+            (click)="Close()"
+            class="btn btn-sm fw-bold btn-secondary ms-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg me-2" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg>
+            <span translate="REPORTS.CLOSE"></span>
+        </a> 
+        <!--end::Primary button-->
+        <app-session-time-counter class="ms-20"> </app-session-time-counter>
+    </div>
+</div>
+
+<!--begin::Content-->
+    <!--begin::Content container-->
+    <div class="app-container ">
+        <!--begin::Form-->
+        
+            <!--begin::Row-->
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                <!--begin::Col-->
+                <div class="col-sm-6 col-xxl-3">
+                    <!--begin::Card widget 15-->
+                    <div class="card card-flush h-xl-100 p-5">
+                        
+                            <!--begin::Input group-->
+                            <div class="fv-row">
+                                <div class="card-title">
+                                    <h4 translate="ADDPURCHASE.ORDERBY"></h4>
+                                </div>
+                                <!--begin::Label-->
+                                <label class="required form-label">Supplier</label>
+                                <!--end::Label-->
+                                <app-custom-select
+                                    [items]="filteredOrderBy" [virtualScroll]="true" [bindLabel]="'label'"
+                                    [(twBinding)]="selectedOrderBy" [searchFn]="dataFunc"
+                                    (onChange)="BindOrderByAddress($event)"
+                                    [placeholder]="'Select Supplier...'">
+                                </app-custom-select>
+                                <!--begin::Description-->
+                                <!-- <div class="text-muted fs-7">Assign a template from your current theme to define how the category products are displayed.</div> -->
+                                <div class="mb-2 color-light" [ngClass]="{'d-none': customerName == ''}">
+                                    <label for="name">{{customerName}}</label> <br>
+                                    <label for="phon">{{orderByContact}}</label>
+                                </div>
+                                <!--end::Description-->
+                                <ng-container *ngIf="IsDisplay">
+                                    <!--begin::Label-->
+                                    <label class="required form-label" translate="REPORTS.ORDEREDBYADDRESS"></label>
+                                    <!--end::Label-->
+                                    <app-custom-dropdown
+                                        [options]="orderByAddressDropdown" [placeholder]="'Select OrderBy Address'" 
+                                        [showClear]="true" [(twBinding)]="selectedOrderByAddress" required [optionLabel]="'label'" [enableSearch]="true"
+                                    >
+                                    </app-custom-dropdown>
+                                </ng-container>
+                                <div *ngxPermissionsOnly="SalePermission.PreviousInvoicesinProformaCreate">
+                                    <label for="firstname1" translate="REPORTS.PREVOIUSINVOICE" class="form-label mt-2 me-3"></label>
+                                    <span  data-bs-toggle="modal" data-bs-target="#previousInvoiceModal" (click)="OpenCustomerPreviousInvoiceDialog()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+
+                                <div *ngxPermissionsOnly="SalePermission.PreviousBalanceinProformaCreate">
+                                    <label for="firstname1" translate="REPORTS.CUSTOMERPREVIOUSBALANCE" class="form-label mt-2"></label>
+                                    <app-custom-input
+                                        [type]="'text'" [(twBinding)]="customerPreviousBalance"
+                                        [isDisabled]="true"
+                                        [classGroup]="'form-control mt-2'"
+                                    >
+                                    </app-custom-input>
+                                </div>
+                                <div class="mt-4" *ngIf="IsDisplay">
+                                    <app-custom-radio
+                                        [name]="'groupname'"
+                                        [value]="'Cash'"
+                                        [(twBinding)]="PaymentType"
+                                        [inputId]="'type1'"
+                                        (click)="onClickPaymentType()"
+                                    >
+                                    </app-custom-radio>
+                                    <label
+                                        class="form-check-label ps-2 ms-2 me-4"
+                                        for="type1"
+                                    >Cash</label>
+                                    <app-custom-radio
+                                        [name]="'groupname'"
+                                        [value]="'Credit'"
+                                        [(twBinding)]="PaymentType"
+                                        [inputId]="'type2'"
+                                        (click)="onClickPaymentType()">
+                                    </app-custom-radio>
+                                    <label
+                                        class="form-check-label ps-2 ms-2 me-4"
+                                        for="type2"
+                                    >Credit</label>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                    </div>
+                    <!--end::Card widget 15-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-sm-6 col-xxl-3">
+                    <!--begin::Card widget 14-->
+                    <div class="card card-flush h-xl-100 p-5">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row">
+                            <div class="card-title">
+                                <h4 translate="REPORTS.DELIVERYTO"></h4>
+                            </div>
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTS.DELIVERYTO"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select
+                                [items]="filteredDeliverTo" [virtualScroll]="true" [bindLabel]="'label'"
+                                [(twBinding)]="selectedDeliverTo" [searchFn]="dataFunc"
+                                (onChange)="BindDeliveryToDetails($event.value)"
+                                [placeholder]="'Select...'"
+                                >
+                            </app-custom-select>
+                            <!--end::Select2-->
+                            <div class="mb-2 color-light" [ngClass]="{'d-none': deliverToContact == ''}">
+                                <label for="name">{{deliverToContact}}</label> <br>
+                                <label for="phon">{{deliverToAddress}}</label>
+                            </div>
+                            <ng-container  *ngIf="IsDisplay">
+                                <!--begin::Label-->
+                                <label class="required form-label" translate="REPORTS.DELIVERYADDRES"></label>
+                                <!--end::Label-->
+                                <!--begin::Select2-->
+                                <app-custom-dropdown
+                                    [placeholder]="'Select Delivery Address'" [options]="deliveryAddressDropdown"
+                                    [(twBinding)]="selectedDeliveryAddress" autoWidth="false" required [enableSearch]="true" 
+                                    [optionLabel]="'label'">
+                                </app-custom-dropdown>
+                                <!--end::Select2-->
+                            </ng-container>
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTS.DELIVERYMETHOD"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select
+                                [items]="filteredDeliveryMethod" [virtualScroll]="true" 
+                                [bindLabel]="'label'" [(twBinding)]="selectedDeliveryMethod" 
+                                [searchFn]="dataFunc" (onChange)="BindShipmentCost($event)"
+                                placeholder="Select...">
+                            </app-custom-select>
+                            <!--end::Select2-->
+
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTS.PAYMENTCONDITION"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+
+                            <app-custom-select
+                                [items]="filteredPaymentCondition" [virtualScroll]="true" [bindLabel]="'label'"
+                                [(twBinding)]="selectedPaymentCondition" [searchFn]="dataFunc" 
+                                [disabled]="disabledAgainstPaymentType" placeholder="Payment Condition">
+                            </app-custom-select>
+                            
+                            <span (click)="OpenPaymentConditionDialog()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </span>
+                            <!--end::Select2-->
+
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <!--end::Card widget 14-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-sm-6 col-xxl-3">
+                    <!--begin::Card widget 14-->
+                    <div class="card card-flush h-xl-100 p-5">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row">
+                            <div class="card-title">
+                                <h4 translate="REPORTS.DATESECTION"></h4>
+                            </div>
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTS.DELIVERDATE"></label>
+                            <!--end::Label-->
+                            <!--begin::Editor-->
+                            <app-custom-date-picker [(twBinding)]="deliverDate" [showIcon]="true" inputId="icon"></app-custom-date-picker>
+                            <!--end::Editor-->
+
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTS.ORDERDATE"></label>
+                            <!--end::Label-->
+                            <!--begin::Editor-->
+                            <app-custom-date-picker [(twBinding)]="orderDate" [showIcon]="true" inputId="icon"></app-custom-date-picker>
+                            <!--end::Editor-->
+                            <label class="form-label" translate="REPORTS.REMARKS"></label>
+                            <!-- <input class="form-control" type="text" id="remarks" value={{addPurchase.remarks}} (onChange)="onChangeRemarks($event)"/> -->
+                            <!-- <input class="form-control"  type="text" id="remarks" [value]="remarks" (change)="onChangeRemarks($event)"> -->
+                            <textarea type="text" [(ngModel)]="remarks" cols="40" rows="5" class="form-control"></textarea>
+                        </div>
+                        <!--end::Input group-->
+                        
+                    </div>
+                    <!--end::Card widget 14-->
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-sm-6 col-xxl-3">
+                    <!--begin::Card widget 14-->
+                    <div class="card card-flush h-xl-100 p-5">
+
+                        <!--begin::Input group-->
+                        <div class="fv-row">
+                            <div class="card-title">
+                                <h4 translate="REPORTS.CARTSUMMARY"></h4>
+                            </div>
+                            <!--begin::Label-->
+                            <!-- <label class="required form-label">Receipt Date</label> -->
+                            <!--end::Label-->
+                            <!--begin::Container-->
+                            <div class="d-flex justify-content-start">
+                                <!--begin::Section-->
+                                <div class="mw-300px">
+                                    <!--begin::Item-->
+                                    <div class="d-flex flex-stack mb-3">
+                                        <!--begin::Accountname-->
+                                        <div class="fw-semibold pe-10 text-gray-600 fs-7">
+                                            <span translate="REPORTS.SUBTOTAL"></span>
+                                        </div>
+                                        <!--end::Accountname-->
+                                        <!--begin::Label-->
+                                        <div class="text-end fw-bold fs-6 text-gray-800">{{subTotal | number:'1.2-2' }}</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex flex-stack mb-3">
+                                        <!--begin::Accountname-->
+                                        <div class="fw-semibold pe-10 text-gray-600 fs-7">
+                                            <span translate="REPORTS.TOTALDISCOUNT"></span>
+                                        </div>
+                                        <!--end::Accountname-->
+                                        <!--begin::Label-->
+                                        <div class="text-end fw-bold fs-6 text-gray-800">{{totalDiscount | number:'1.2-2' }}</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Item-->
+                                    
+                                    <!--begin::Item-->
+                                    <div class="d-flex flex-stack mb-3">
+                                        <!--begin::Accountname-->
+                                        <div class="fw-semibold pe-10 text-gray-600 fs-7">
+                                            <span translate="REPORTS.SHIPPINGCOST"></span>
+                                        </div>
+                                        <!--end::Accountname-->
+                                        <!--begin::Label-->
+                                        <div class="text-end fw-bold fs-6 text-gray-800">
+                                            <!-- <input class="form-control" type="text" [(ngModel)]="shipmentCost"
+                                                (blur)="CalculateCartTotals()" /> -->
+                                                <app-custom-input
+                                                    [type]="'number'" [(twBinding)]="shipmentCost"
+                                                    (blur)="CalculateCartTotals()"
+                                                    [classGroup]="'form-control'"
+                                                >
+                                                </app-custom-input>
+                                        </div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="d-flex flex-stack mb-3">
+                                        <!--begin::Accountnumber-->
+                                        <div class="fw-semibold pe-10 text-gray-600 fs-7">
+                                            <span translate="REPORTS.GRANDTOTAL"></span>
+                                        </div>
+                                        <!--end::Accountnumber-->
+                                        <!--begin::Number-->
+                                        <div class="text-end fw-bold fs-6 text-gray-800">{{grandTotal | number:'1.2-2' }}</div>
+                                        <!--end::Number-->
+                                    </div>
+                                    <!--end::Item-->
+                                </div>
+                                <!--end::Section-->
+                            </div>
+                            <!--end::Container-->
+                        </div>
+                        <!--end::Input group-->
+                        <div class="separator mb-5"></div>
+                        <!--begin::Item-->
+                        <div class=" fv-row">
+                            <div class="card-title">
+                                <h4 translate="REPORTS.DATESECTION"></h4>
+                            </div>
+                            <!--begin::Label-->
+                            <!-- <label class="required form-label">Receipt Date</label> -->
+                            <!--end::Label-->
+                            <!--begin::Container-->
+                            <div class="d-flex justify-content-start">
+                                <!--begin::Section-->
+                                <div class="mw-300px">
+                                    <!--begin::Item-->
+                                    <div class="d-flex flex-stack mb-3" *ngIf="IsDisplay">
+                                        <!--begin::Accountname-->
+                                        <div class="fw-semibold pe-10 text-gray-600 fs-7">
+                                            <span translate="REPORTS.PAID"></span>
+                                        </div>
+                                        <!--end::Accountname-->
+                                        <!--begin::Label-->
+                                        <div class="text-end fw-bold fs-6 text-gray-800">{{ paidPayment | number:'1.2-2' }}</div>
+                                        <!--end::Label-->
+                                    </div>
+                                    <!--begin::Item-->
+                                    <div class="d-flex flex-stack mb-3">
+                                        <!--begin::Accountname-->
+                                        <div class="fw-semibold pe-10 text-gray-600 fs-7">
+                                            <span translate="REPORTS.CUSTOMERCURRENTBALANCE"></span>
+                                        </div>
+                                        <!--end::Accountname-->
+                                        <!--begin::Label-->
+                                        <div class="text-end fw-bold fs-6 text-gray-800">{{ customerCurrentBalance | number:'1.2-2' }}</div>
+                                        <!--end::Label-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Item-->
+                        <div class="separator mb-5"></div>
+                        <!--begin::Item-->
+                        <div class=" fv-row" *ngIf="!disabledAgainstPaymentType && IsDisplay">
+
+                            <label class="form-label">AddPaymentInInvoice</label>
+                            <app-custom-input
+                                [type]="'number'"  [(twBinding)]="payment"
+                                [classGroup]="'form-control'"
+                                [isDisabled]="!disabledAgainstPaymentType"
+                            >
+                            </app-custom-input>
+
+                            <label class="form-label">Password</label>
+                            <app-custom-input #input_payment_password
+                                [type]="'password'" [(twBinding)]="password"
+                                [classGroup]="'form-control '"
+                                [isDisabled]="!disabledAgainstPaymentType"
+                            >
+                            </app-custom-input>
+                            <!--begin::Filter-->
+                            <div class="d-flex flex-stack justify-content-end mt-6">
+                                <button type="button" class="btn btn-sm btn-flex btn-light-primary"
+                                    (click)="onClickPaymentPasswordSubmit()" [disabled]="!disabledAgainstPaymentType">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                    <span class="svg-icon svg-icon-3">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                                            <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                                            <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                    <span translate="REPORTS.PAYMENT"></span>
+                                </button>
+                            </div>
+                            <!--end::Filter-->
+                        </div>
+                        <!--end::Item-->
+                        
+                    </div>
+                    <!--end::Card widget 14-->
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Row-->
+            <!--begin::Main column-->
+            <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+                <!--begin::Order details-->
+                <div class="card card-flush py-4">
+                    <!--begin::Card header-->
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>Select Products</h2>
+                        </div>
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <div class="d-flex flex-column gap-10">
+                            <!--begin::Input group-->
+                            <div>
+                                <!--begin::Label-->
+                                <label class="form-label">Add products to this order</label>
+                                <!--end::Label-->
+                                <!--begin::Selected products-->
+                                <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 border border-dashed rounded pt-3 pb-1 px-2 mb-5 mh-500px overflow-scroll" >
+                                    
+                                    <!-- begin::Body -->
+                                    <div class="card-body py-3">
+                                        <!-- begin::Table container -->
+                                        <div class="table-responsive">
+                                        <!-- begin::Table -->
+                                        <table class="table align-middle gs-0 gy-4">
+                                            <!-- begin::Table head -->
+                                            <thead>
+                                                <tr class="fw-bolder text-muted bg-light">
+                                                    <th class="ps-4 rounded-start" style="width: 70px"><span translate="REPORTS.ACTION"></span></th>  <!-- style="width: 80px" -->
+                                                    <th class="product-width"><span translate="REPORTS.PRODUCT"></span></th>
+                                                    <th><span translate="REPORTS.QUANTITY" style="width: 260px"></span></th>  <!-- style="width: 90px" -->
+                                                    <!-- <th style="width: 90px">UOM</th> -->
+                                                    <th ><span translate="REPORTS.UNITPRICE"></span></th><!--  style="width: 80px" -->
+                                                    <th><span translate="REPORTS.DSICOUNT">(%)</span></th>
+                                                    <th><span translate="REPORTS.DSICOUNT"></span></th>
+                                                    <th class="rounded-end"><span translate="REPORTS.NETPRICE"></span></th>
+                                                </tr>
+                                            </thead>
+                                            <!-- end::Table head -->
+                                            <!-- begin::Table body -->
+                                            <tbody>
+                                                <ng-container *ngFor="let product of cartProducts">
+                                                    <tr>
+                                                        <td>
+                                                            <button pButton pRipple style="margin-right: 5px" type="button" icon="pi pi-list"
+                                                              *ngIf="product.IsTrackable" class="p-button-rounded p-button-outlined" title="Open Trackables"
+                                                              (click)="OpenProductTrackables(product)">
+                                                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                                                <span class="svg-icon svg-icon-3 m-0">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                                                                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                                                                        <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </button>
+                                                            <!-- <button pButton pRipple type="button" (click)="RemoveCartProduct(ri)" icon="pi pi-times"
+                                                              class="p-button-rounded p-button-danger btn-round"></button> -->
+                                                            <button pButton pRipple type="button" (click)="RemoveCartProduct(product)"
+                                                                icon="pi pi-times" class="btn btn-sm btn-flex btn-light-danger d-flex m-auto">
+                                                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                                                <span class="svg-icon svg-icon-3 m-0">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="symbol symbol-50px me-5">
+                                                                <!-- <img
+                                                                    src="./assets/media/stock/600x400/img-3.jpg"
+                                                                    class=""
+                                                                    alt=""
+                                                                /> -->
+                                                                </div>
+                                                                <div class="d-flex justify-content-start flex-column">
+                                                                <a class="text-dark fw-bolder text-hover-primary mb-1 fs-6 me-5">
+                                                                    {{product.selectedProductCart.label}}
+                                                                </a>
+                                                                </div>
+                                                                <button style="margin-left: 2px" pButton pRipple type="button" icon="pi pi-list"
+                                                                    *ngIf="product.IsSelectedTrackables" class="rounded"
+                                                                    title="Show selected Trackables" (click)="OpenSelectedProductTrackables(product)">
+                                                                    <span class="badge badge-light-warning fs-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                                                                            <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                                                                            <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                            <!-- {{OnChangeText(product)}} -->
+                                                        </td>
+                                                        <td>
+                                                            <!-- <input  type="number" *ngIf="!product.IsTrackable" [(ngModel)]="product.Quantity"
+                                                                (blur)="OnChangeText(product)" [disabled]="product.IsQtyDisable" /> -->
+                                                            <!-- <app-custom-input
+                                                                [type]="'number'" *ngIf="!product.IsTrackable" [(twBinding)]="product.Quantity"
+                                                                (blur)="OnChangeText(product)" [isDisabled]="product.IsQtyDisable"
+                                                                [classGroup]="'form-control form-control-white form-control-sm w-80px ps-3'"
+                                                                (keyup)="OnChangeText(product)" 
+                                                            >
+                                                            </app-custom-input> -->
+                                                            <input  type="number" [(ngModel)]="product.Quantity"
+                                                                (keyup)="OnChangeText(product)" (change)="onChangeProductQuantity(product)"
+                                                                [disabled]="product?.IsQtyDisable" class="form-control form-control-white form-control-sm w-80px ps-3 d-inline"/>
+                                                            <!-- <div>
+                                                                <button *ngIf="!usermodel.IsReseller && product.IsLocation" pButton pRipple type="button" 
+                                                                    icon="fa fa-map-marker" class="rounded ms-2 bg-light"
+                                                                    (click)="OpenProductLocations(product)">
+                                                                    <span class="badge badge-light-warning fs-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                                                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+
+                                                                <button pButton pRipple type="button" class="rounded ms-2 bg-light"
+                                                                    *ngIf="product.IsLastAvgPrice && !usermodel.IsReseller" icon="pi pi-money-bill" 
+                                                                    title="Last Avarage Purchase Price" (click)="OpenLastAvaragePriceDialog(product)">
+                                                                    <span class="badge badge-light-warning fs-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
+                                                                            <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
+                                                                            <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
+                                                                            <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button>
+
+                                                                <button pButton pRipple type="button" icon="pi pi-shopping-cart" *ngIf="product.IsAddToWishList"
+                                                                    class="rounded ms-2 bg-light" title="Add to wishlist"
+                                                                    (click)="OpenAddToWishlistPopup(product)">
+                                                                    <span class="badge badge-light-warning fs-1">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                                                                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                                                        </svg>
+                                                                    </span>
+                                                                </button> 
+                                                            </div> -->
+                                                        </td>
+                                                        <td>
+                                                            <!-- <app-custom-input  [type]="'number'" [(ngModel)]="product.Price" 
+                                                                (blur)="OnChangeText(product)" (change)="changePrice(product)"
+                                                                [classGroup]="'form-control form-control-white form-control-sm w-80px ps-3'">
+                                                            </app-custom-input> -->
+                                                            <input  type="number" [(ngModel)]="product.UnitPrice"
+                                                                (blur)="OnChangeText(product)" class="form-control form-control-white form-control-sm w-80px ps-3" />
+                                                        </td>
+                                                        <td>
+                                                            <!-- <app-custom-input  [type]="'number'" [(ngModel)]="product.SalePrice" 
+                                                                (blur)="OnChangeText(product)"
+                                                                [classGroup]="'form-control form-control-white form-control-sm w-80px ps-3'">
+                                                            </app-custom-input> -->
+                                                            <input  type="number" [(ngModel)]="product.DiscPer"
+                                                                (blur)="OnChangeText(product)" class="form-control form-control-white form-control-sm w-80px ps-3"/>
+                                                        </td>
+                                                        <td>
+                                                            <!-- <app-custom-input  [type]="'number'" [isDisabled]="!product.disabledShopSalePrice"  [(ngModel)]="product.ShopSalePrice" 
+                                                                (blur)="OnChangeText(product)"
+                                                                [classGroup]="'form-control form-control-white form-control-sm w-80px ps-3'">
+                                                            </app-custom-input> -->
+                                                            <input  type="text" [(ngModel)]="product.DiscVal" [disabled]="true" class="form-control form-control-white form-control-sm w-80px ps-3"/>
+                                                        </td>
+                                                        <td>
+                                                            <!-- <app-custom-input  [type]="'number'" [(ngModel)]="product.DiscPer" 
+                                                                (blur)="OnChangeText(product)" [classGroup]="'form-control form-control-white form-control-sm w-80px ps-3'"
+                                                            >
+                                                            </app-custom-input> -->
+                                                            <input  type="text" [(ngModel)]="product.NetPrice" [disabled]="true" class="form-control form-control-white form-control-sm w-80px ps-3"/>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                            <!-- end::Table body -->
+                                        </table>
+                                        <!-- end::Table -->
+                                        </div>
+                                        <!-- end::Table container -->
+                                    </div>
+                                    <!-- begin::Body -->
+                                </div>
+                                <!--begin::Selected products-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Separator-->
+                            <div class="separator"></div>
+                            <!--end::Separator-->
+                            <app-genric-table  [menuItems]="[]" 
+                                [columnsData]="productsColumn" [initialColumns]="initialProductsColumns" 
+                                [totalRecords]="AllProductListwithDiscountForSelection.length" [enablePrint]="false" [loadingData]="isLoadingProducts"
+                                (emitRowClick)="onSelectProductValue($event)" [data]="AllProductListwithDiscountForSelection" [row]="rows">
+                            </app-genric-table>
+                            
+                        </div>
+                    </div>
+                    <!--end::Card header-->
+                </div>
+                <!--end::Order details-->
+            </div>
+            <!--end::Main column-->
+
+        <!--end::Form-->
+    </div>
+    <!--end::Content container-->
+
+
+<app-generic-modal #modalLocation [modalConfig]="modalLocationConfig">
+    
+    <!--begin::Table Widget 4-->
+    <div class="card card-flush h-xl-100">
+        <!--begin::Card header-->
+        <div class="card-header pt-7">
+            <!--begin::Title-->
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold text-gray-800">{{selectedRowForDialogs?.selectedProductCart?.label}}</span>
+            </h3>
+            <!--end::Title-->
+            <!--begin::Actions-->
+            <div class="card-toolbar">
+                <!--begin::Filters-->
+                <div class="d-flex flex-stack flex-wrap gap-4">
+                    <!--begin::Search-->
+                    <div class="position-relative my-1">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                        <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                        <input type="text" data-kt-table-widget-4="search" class="form-control w-150px fs-7 ps-12" [(ngModel)]="mySearch" type="text" placeholder="Global Search"/>
+                    </div>
+                    <!--end::Search-->
+                </div>
+                <!--begin::Filters-->
+            </div>
+            <!--end::Actions-->
+        </div>
+        <!--end::Card header-->
+        <!--begin::Card body-->
+        <div class="card-body pt-2">
+            <!--begin::Table-->
+            <table class="table align-middle table-row-dashed fs-6 gy-3" id="kt_table_widget_4_table">
+                <!--begin::Table head-->
+                <thead>
+                    <!--begin::Table row-->
+                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <th class="min-w-100px">Location</th>
+                        <th class="text-end min-w-100px">Selected</th>
+                        <th class="text-end min-w-125px">Quantity</th>
+                    </tr>
+                    <!--end::Table row-->
+                </thead>
+                <!--end::Table head-->
+                <!--begin::Table body-->
+                <tbody class="fw-bold text-gray-600">
+                    <tr data-kt-table-widget-4="subtable_template" class="d-none">
+                        <td colspan="2">
+                            <div class="d-flex align-items-center gap-3">
+                                <a href="#" class="symbol symbol-50px bg-secondary bg-opacity-25 rounded">
+                                    <img src="" data-kt-src-path="assets/media/stock/ecommerce/" alt="" data-kt-table-widget-4="template_image" />
+                                </a>
+                                <div class="d-flex flex-column text-muted">
+                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold" data-kt-table-widget-4="template_name">Product name</a>
+                                    <div class="fs-7" data-kt-table-widget-4="template_description">Product description</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <div class="text-gray-800 fs-7">Cost</div>
+                            <div class="text-muted fs-7 fw-bold" data-kt-table-widget-4="template_cost">1</div>
+                        </td>
+                        <td class="text-end">
+                            <div class="text-gray-800 fs-7">Qty</div>
+                            <div class="text-muted fs-7 fw-bold" data-kt-table-widget-4="template_qty">1</div>
+                        </td>
+                        <td class="text-end">
+                            <div class="text-gray-800 fs-7">Total</div>
+                            <div class="text-muted fs-7 fw-bold" data-kt-table-widget-4="template_total">name</div>
+                        </td>
+                        <td class="text-end">
+                            <div class="text-gray-800 fs-7 me-3">On hand</div>
+                            <div class="text-muted fs-7 fw-bold" data-kt-table-widget-4="template_stock">32</div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <ng-container *ngFor="let location of AllProductLocationList | searchPipe:['Location']: mySearch">
+                        <tr>
+                            <td> {{location.Location=== null ? 'No location assigned':location.Location }} </td>
+                            <td class="d-flex justify-content-end"> 
+                                <input class="form-control form-control-white form-control-sm w-80px ps-3" type="number" [(ngModel)]="location.selectedProductQuantity" style="width: 100px"
+                                (change)="onChangeSelectedProductQuantity(location)" c> 
+                            </td>
+                            <td class="text-end"> {{location.Quantity }} </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <!--end::Table body-->
+            </table>
+            <!--end::Table-->
+        </div>
+        <!--end::Card body-->
+    </div>
+    <!--end::Table Widget 4-->
+</app-generic-modal>
+
+<app-generic-modal #modalProduct [modalConfig]="modalProductConfig">
+    <app-product-last-average-price-dialog [ProductName]="selectedRowForDialogs?.selectedProductCart?.label"
+    [selectedCartRow]="selectedRowForDialogs"></app-product-last-average-price-dialog>
+</app-generic-modal>
+
+<app-generic-modal #modalWishlist [modalConfig]="modalWishlistConfig">
+    <app-addwishlist-dialog [ProductVariantID]="selectedRowForDialogs?.selectedProductCart?.value"
+        [ProductName]="selectedRowForDialogs?.selectedProductCart?.label" (ReturnCall)="CloseDialog($event)">
+    </app-addwishlist-dialog>
+</app-generic-modal>
+
+<app-generic-modal #modalPaymentCondition [modalConfig]="modalPaymentConditionConfig">
+    <app-payment-condition (onPaymentConditionSelectValue)="onPaymentConditionSelectValue($event)">
+    </app-payment-condition>
+</app-generic-modal>
+
+<!-- <app-generic-modal #modal [modalConfig]="modalConfig">
+    <app-customer-previous-invoice [OrderByID]="selectedOrderBy"></app-customer-previous-invoice>
+</app-generic-modal> -->
+<jw-modal [modalId]="'previousInvoiceModal'" [modalTitle]="'Manual Address'" [modalSize]="'xl'">
+    <app-customer-previous-invoice [OrderByID]="selectedOrderBy"></app-customer-previous-invoice>
+</jw-modal>

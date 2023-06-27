@@ -1,0 +1,249 @@
+<div>
+    <div class="mb-5 text-end">
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="Print()">
+            <span title="Print">Print</span>
+        </a> 
+        <!--end::Primary button-->
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-secondary ms-2" (click)="Close()">
+            <span title="Close">Close</span>
+        </a> 
+        <!--end::Primary button-->
+        <app-sale-refund-report *ngIf="SaleDetails" [SaleDetails]="SaleDetails"></app-sale-refund-report>
+    </div>
+</div>
+
+<!--begin::Content-->
+<div class="app-content flex-column-fluid" *ngIf="SaleDetails" id="printArea">
+    <!--begin::Content container-->
+    <div class="app-container container-xxl">
+        <!--begin::Invoice 2 main-->
+        <div class="card">
+            <app-custom-spinner [isLoading]="loadingData" class="position-absolute start-50 top-50 z-index-1"></app-custom-spinner>
+            <!--begin::Body-->
+            <div class="card-body p-lg-20">
+                <!--begin::Layout-->
+                <div class="d-flex flex-column flex-xl-row">
+                    <!--begin::Content-->
+                    <div class="flex-lg-row-fluid mb-10 mb-xl-0">
+                        <!--begin::Invoice 2 content-->
+                        <div class="mt-n1">
+                            <!--begin::Top-->
+                            <div class="d-flex flex-stack pb-10">
+                                <!--begin::Logo-->
+                                <a href="#">
+                                    <img alt="Logo" src="assets/media/svg/brand-logos/code-lab.svg" />
+                                </a>
+                                <!--end::Logo-->
+                            </div>
+                            <!--end::Top-->
+                            <!--begin::Wrapper-->
+                            <div class="m-0">
+                                <!--begin::Label-->
+                                <!-- <div class="fw-bold fs-3 text-gray-800 mb-8">Invoice #34782</div> -->
+                                <!--end::Label-->
+                                <!--begin::Row-->
+                                <div class="row g-5 mb-11">
+                                    <!--end::Col-->
+                                    <div class="col-sm-4">
+                                        <!--end::Label-->
+                                        <div class="fw-semibold fs-7 text-gray-600 mb-1">Order by:</div>
+                                        <!--end::Label-->
+                                        <!--end::Col-->
+                                        <div class="fw-bold fs-6 text-gray-800">
+                                            {{ SaleDetails.Customer }}
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--end::Col-->
+                                        <div class="fw-bold fs-6 text-gray-800">
+                                            {{ customerDetails.Number }}
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--end::Col-->
+                                        <div class="fw-bold fs-6 text-gray-800">
+                                            {{ customerDetails.Address }}
+                                        </div>
+                                        <!--end::Col-->
+                                        <ng-container *ngxPermissionsOnly="SalePermission.CurrentBalanceinRefundSaleDetails">
+                                            <!--end::Label-->
+                                            <div class="fw-semibold fs-7 text-gray-600 mb-1" >
+                                                Customer Balance: 
+                                            </div>
+                                            <!--end::Label-->
+                                            <!--end::Col-->
+                                            <div class="fw-bold fs-6 text-gray-800">
+                                                <span>€ </span> {{ customerDetails.CurrentBalance | number:'1.2-2' }}
+                                            </div>
+                                            <!--end::Col-->
+                                        </ng-container>
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--start::Col-->
+                                    <div class="col-sm-4">
+                                        <!--end::Label-->
+                                        <div class="fw-semibold fs-7 text-gray-600 mb-1">ORDER NO:</div>
+                                        <!--end::Label-->
+                                        <!--end::Text-->
+                                        <div class="fw-bold fs-6 text-gray-800">{{ SaleDetails.OriginalSaleID }} </div>
+                                        <!--end::Text-->
+                                        <!--end::Label-->
+                                        <div class="fw-semibold fs-7 text-gray-600 mb-1">REFUND NO:</div>
+                                        <!--end::Label-->
+                                        <!--end::Text-->
+                                        <div class="fw-bold fs-6 text-gray-800">{{ SaleDetails.ID }}</div>
+                                        <!--end::Text-->
+                                        <!--end::Label-->
+                                        <div class="fw-semibold fs-7 text-gray-600 mb-1">REFUND DATE:</div>
+                                        <!--end::Label-->
+                                        <!--end::Text-->
+                                        <div class="fw-bold fs-6 text-gray-800">{{ SaleDetails.CreatedAt | date: "dd/MM/yyyy" }}</div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--start::Col-->
+                                    <div class="col-sm-4">
+                                        <!--end::Label-->
+                                        <div class="fw-semibold fs-7 text-gray-600 mb-1">PAYMENT METHOD:</div>
+                                        <!--end::Label-->
+                                        <!--end::Text-->
+                                        <div class="fw-bold fs-6 text-gray-800">{{ SaleDetails.PaymentMode }}</div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                                <!--begin::Content-->
+                                <div class="flex-grow-1">
+                                    <!--begin::Table-->
+                                    <div class="table-responsive border-bottom mb-9">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                            <thead>
+                                                <tr class="border-bottom fs-6 fw-bold text-muted">
+                                                    <th class="min-w-175px pb-2">Product</th>
+                                                    <th class="min-w-70px text-end pb-2">Model No</th>
+                                                    <th class="min-w-80px text-end pb-2">QTY</th>
+                                                    <th class="min-w-80px text-end pb-2">Unit Price</th>
+                                                    <th class="min-w-80px text-end pb-2">Discount</th>
+                                                    <th class="min-w-80px text-end pb-2">Sub Total</th>
+                                                    <th class="min-w-100px text-end pb-2">Net Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="fw-semibold text-gray-600">
+                                                <ng-container *ngFor="let product of SaleDetails.ReturnSaleDetails">
+                                                    <!--begin::Products-->
+                                                    <tr>
+                                                        <!--begin::Product-->
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <!--begin::Thumbnail-->
+                                                                <img
+                                                                    (click)="openImageGellary(product.Image)" 
+                                                                    style="cursor:pointer;"
+                                                                    [src]="product.Image ? product.Image != '' ? imageBasePath + product.Image.split('|')[0]:'../../../../assets/layout/images/no-image.png' : '../../../../assets/layout/images/no-image.png'"
+                                                                    alt="Image Not Found" width="45" height="45" class="p-shadow-2 rounded" 
+                                                                />
+                                                                <!--end::Thumbnail-->
+                                                                <!--begin::Title-->
+                                                                <div class="ms-5">
+                                                                    <div class="fw-bold">
+                                                                        {{
+                                                                            product.ProductVariant == null ||
+                                                                            product.ProductVariant == "" ||
+                                                                            product.ProductVariant == "Color N.A, Size N.A"
+                                                                            ? product.Product
+                                                                            : product.Product + " (" + product.ProductVariant + ")"
+                                                                        }}
+                                                                    </div>
+                                                                    <!-- <div class="fs-7 text-muted">Delivery Date: 23/11/2022</div> -->
+                                                                </div>
+                                                                <!--end::Title-->
+                                                            </div>
+                                                        </td>
+                                                        <!--end::Product-->
+                                                        <!--begin::SKU-->
+                                                        <td class="text-end">{{ product.BLabel }}</td>
+                                                        <!--end::SKU-->
+                                                        <!--begin::Quantity-->
+                                                        <td class="text-end">{{ product.Quantity }}</td>
+                                                        <!--end::Quantity-->
+                                                        <!--begin::Unit Price-->
+                                                        <td class="text-end"><span>€ </span> {{ product.dTotalUnitValue | number:'1.2-2' }}</td>
+                                                        <!--end::Unit Price-->
+                                                        <!--begin::Dic Percent-->
+                                                        <td class="text-end">{{ product.dTotalDiscount | number:'1.2-2' }}</td>
+                                                        <!--end::Dic Percent-->
+                                                        <!--begin::Dic Price-->
+                                                        <td class="text-end"><span>€ </span> {{ product.dTotalValue | number:'1.2-2' }}</td>
+                                                        <!--end::Dic Price-->
+                                                        <!--begin::Total-->
+                                                        <td class="text-end"><span>€ </span> {{ (product.dTotalValue - product.dTotalDiscount) | number:'1.2-2'  }}</td>
+                                                        <!--end::Total-->
+                                                    </tr>
+                                                    <!--end::Products-->
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                    <!--begin::Container-->
+                                    <div class="d-flex justify-content-end">
+                                        <!--begin::Section-->
+                                        <div class="mw-300px">
+                                            <!--begin::Item-->
+                                            <div class="d-flex flex-stack mb-3">
+                                                <!--begin::Subtotal-->
+                                                <div class="fw-semibold pe-10 text-gray-600 fs-5 text-end">Subtotal</div>
+                                                <!--end::Subtotal-->
+                                                <!--begin::Label-->
+                                                <div class="text-end fw-bold fs-4 text-gray-800"><span>€ </span> {{ SaleDetails.txtSubTotal | number:'1.2-2' }}</div>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Item-->
+                                            <!--begin::Item-->
+                                            <div class="d-flex flex-stack mb-3">
+                                                <!--begin::Total Discount-->
+                                                <div class="fw-semibold pe-10 text-gray-600 fs-5">Total Discount</div>
+                                                <!--end::Total Discount-->
+                                                <!--begin::Label-->
+                                                <div class="text-end fw-bold fs-4 text-gray-800"><span>€ </span> {{ SaleDetails.txtTotalDiscount | number:'1.2-2' }}</div>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Item-->
+                                            <!--begin::Item-->
+                                            <div class="d-flex flex-stack mb-3">
+                                                <!--begin::Grand Total-->
+                                                <div class="fw-semibold pe-10 text-gray-600 fs-1">Grand Total</div>
+                                                <!--end::Grand Total-->
+                                                <!--begin::Number-->
+                                                <div class="text-end fw-bold fs-1 text-gray-800">{{ SaleDetails.txtTotal | number:'1.2-2' }}</div>
+                                                <!--end::Number-->
+                                            </div>
+                                            <!--end::Item-->
+                                        </div>
+                                        <!--end::Section-->
+                                    </div>
+                                    <!--end::Container-->
+                                </div>
+                                <!--end::Content-->
+                            </div>
+                            <!--end::Wrapper-->
+                        </div>
+                        <!--end::Invoice 2 content-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Layout-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Invoice 2 main-->
+    </div>
+    <!--end::Content container-->
+</div>
+<!--end::Content-->
+<button type="button" hidden class="btn btn-primary" #btn_open_multi_img_modal data-bs-toggle="modal" data-bs-target="#multiImageModal">
+    Launch demo modal
+</button>
+<app-custom-image-gallery [imgSrc]="imgSrc">
+</app-custom-image-gallery>

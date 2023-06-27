@@ -1,0 +1,241 @@
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-lg-row mt-15">
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-lg-350px w-xl-400px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush mb-0">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Search Options</h2>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label">Brands</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 "
+                                [options]="BrandDropdown" placeholder="Select Brand" 
+                                (onChange)="productBrandChange($event)"
+                                [showClear]="true" [(twBinding)]="selectedBrandID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.BRANDTYPE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="BrandType" name="BrandType"
+                                [options]="BrandTypeDropdown" placeholder="Select Brand Type" 
+                                [showClear]="true" [(twBinding)]="selectedBrandTypeID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="SSGENERIC.PRODUCTSERIES"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Series" name="Series"
+                                [options]="SeriesDropdown" placeholder="Select Series" 
+                                [showClear]="true" [(twBinding)]="selectedSeriesID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.SIZE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " name="size" id=size
+                                [options]="ProductSizeDD" placeholder="Select Size" 
+                                [showClear]="true" [(twBinding)]="selectedProductSizeID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.CONNECTERTYPE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " name="connecterType" id=connecterType
+                                [options]="ProductConnecterTypeDD" placeholder="Select Connecter Type" 
+                                [showClear]="true" [(twBinding)]="selectedProductConnecterTypeID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.PACKAGING"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " name="packaging" id=packaging
+                                [options]="ProductPackagingDD" placeholder="Select Packaging" 
+                                [showClear]="true" [(twBinding)]="selectedProductPackagingID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.CAPACITY"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="capacity" name="capacity"
+                                [options]="ProductCapacityDD" placeholder="Select Capacity" 
+                                [showClear]="true" [(twBinding)]="selectedProductCapacityID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.POWER"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="power" name="power"
+                                [options]="ProductPowerDD" placeholder="Select Power" 
+                                [showClear]="true" [(twBinding)]="selectedProductPowerID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.PRINT"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="printlbl" name="printlbl"
+                                [options]="ProductPrintDD" placeholder="Select Print" 
+                                [showClear]="true" [(twBinding)]="selectedProductPrintID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="">Models</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Models" name="Models"
+                                [options]="ProductModelDropdown" placeholder="Select Model" 
+                                (onChange)="productModelChange($event)"
+                                [showClear]="true" [(twBinding)]="selectedProductModelID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="">{{'MANAGEDPRODUCT.TYPE'| translate}} </label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="subModelNumber" name="subModelNumber"
+                                [options]="ProductSubModelDD" placeholder="Select Model" 
+                                [showClear]="true" [(twBinding)]="selectedProductSubModelID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="">Quality Label</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 "
+                                [options]="QualityLabelDropdown" placeholder="Select Quality Label" 
+                                [showClear]="true" [(twBinding)]="selectedQualityLabelID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="">Color</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Color" name="Color"
+                                [options]="ColorDropdown" placeholder="Select Color" 
+                                [showClear]="true" [(twBinding)]="selectedColorID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            
+                            <a class="btn btn-sm fw-bold btn-primary ms-2"
+                                (click)="Reset()">
+                                <span>Search</span>
+                                <ng-container *ngIf="isLoadingProducts">
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </ng-container>
+                            </a> 
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
+        <!--begin::Card-->
+        <div class="card card-flush pt-3 mb-5 mb-xl-10">
+            <!--begin::Card body-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table
+                                (emitMenuAction)="emitAction($event)" 
+                                [menuItems]="genericMenuItems" 
+                                [data]="Products" 
+                                [globalFilterFields]="globalFilterFields"  
+                                [filterGlobal]=true
+                                [columnsData]="columns" 
+                                [totalRecords]="totalRecords" 
+                                (getLazyData)="GetAllProductWithLazyLoadFunction($event)" 
+                                [initialColumns]="initialColumns"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]='10' 
+                                [isLoading] = "isLoadingProducts">
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Layout-->
+<!-- <app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal> -->

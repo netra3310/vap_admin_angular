@@ -1,0 +1,74 @@
+<div>
+    <div class="mb-5 text-end">
+        <app-sel-date-btn
+            [options]="SearchByDateDropdown" 
+            (emitSelDate)="onChangeDate($event)"
+            [placeholderSelector]="'Select Search By Date'"
+            [(twBinding)]="selectedSearchByDateID"
+        >
+        </app-sel-date-btn>
+        <!-- end the select date dropdown -->
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        <!-- begin::Header -->
+        <div class="card-header card-header-stretch overflow-auto">
+            <ul class="
+                nav nav-stretch nav-line-tabs
+                fw-bold
+                border-transparent
+                flex-nowrap
+            " role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'all' }"
+                (click)="setActiveTab('all')" role="all">
+                {{ "ORDERS.ALLORDERS" | translate }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'online' }"
+                (click)="setActiveTab('online')" role="online">
+                {{ "ORDERS.ONLINEORDERS" | translate }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'software' }"
+                (click)="setActiveTab('software')" role="software">
+                {{ "ORDERS.VPORDERS" | translate }}
+                </a>
+            </li>
+            </ul>
+        </div>
+        <!-- end::Header -->
+        
+        <div class="tab-content pt-3">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-genric-table 
+                                [menuItems]="genericMenuItems" [data]="AllSalelist" 
+                                [globalFilterFields]="globalFilterFields" [columnsData]="columns"
+                                [rowsPerPageOptions]="rowsPerPageOptions" [rowGroup]="rowGroup"
+                                [initialColumns]="initialColumns" [totalRecords]="totalRecords" [row]='10' 
+                                [loadingData]="isLoadingData" (emitMenuAction)="emitAction($event)"
+                                (emitHref)="Details($event)" (emitHref2)="OriginalInvoiceID($event)"
+                                [initPageNo]="initPageNo"
+                            >
+                            </app-genric-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Order details-->
+        </div>
+    </div>
+</div>
+
+<!-- <app-generic-modal #modal [modalConfig]="modalConfig">
+    {{DialogRemarks}}
+</app-generic-modal> -->
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

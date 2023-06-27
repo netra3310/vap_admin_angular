@@ -1,0 +1,343 @@
+<div class="mb-5 text-end">
+    <!--begin::Secodary button-->
+    <a class="btn btn-sm fw-bold btn-secondary" [routerLink]="['/customer/customer-index']">
+      <span class="svg-icon svg-icon-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+            <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+        </svg>
+      </span>
+      <span translate="Cancel"></span>
+    </a>
+    <!--end::Secodary button-->
+</div>
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-lg-row">
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+        <!--begin::Card-->
+        <div class="card">
+            <!--begin::Card body-->
+            <div class="card-body p-12">
+                <!--begin::Form-->
+                <form action="" id="kt_invoice_form">
+                    
+                    <!--begin::Wrapper-->
+                    <div class="mb-0">
+                        <app-genric-table (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems"
+                            (emitSwitch)="UpdateCustomerProductsDiscountStatus($event)" [data]="AllCustomerProductsDiscountList"
+                            [columnsData]="columns" [globalFilterFields]="globalFilterFields"
+                            [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [loadingData]="isLoadingDiscount" [min_height]="'low'">
+                        </app-genric-table>
+                    </div>
+                    <!--end::Wrapper-->
+                
+                    <!--begin::Table wrapper-->
+                    <div class="table-responsive mb-10 border border-dashed rounded p-5 ">
+                        <!--begin::Table-->
+                        <table class="table g-5 gs-0 mb-0 fw-bold text-gray-700" data-kt-element="items">
+                            <!--begin::Table head-->
+                            <thead>
+                                <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
+                                    <th class="min-w-300px w-475px">Item</th>
+                                    <th class="min-w-100px w-150px">Minimum Discount %</th>
+                                    <th class="min-w-150px w-150px">Maximum Discount %</th>
+                                    <th class="min-w-75px w-75px text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody>
+                                <tr class="border-bottom border-bottom-dashed" data-kt-element="item">
+                                    <td class="pe-7">
+                                        <input type="text" class="form-control form-control-solid mb-2" value={{selectedProduct.label}} placeholder="Item name" disabled/>
+                                    </td>
+                                    <td class="ps-0">
+                                        <!-- <input class="form-control form-control-solid" type="number" min="1" name="quantity[]" placeholder="1" value="1" data-kt-element="quantity" /> -->
+                                        <app-custom-input
+                                            [type]="'number'" [(twBinding)]="MinDiscPer" id="MinimumDiscount"
+                                            [classGroup]="'form-control '" placeholder="Enter Minimum Discount" 
+                                        >
+                                        </app-custom-input>
+                                    </td>
+                                    <td>
+                                        <!-- <input type="text" class="form-control form-control-solid text-end" name="price[]" placeholder="0.00" value="0.00" data-kt-element="price" /> -->
+                                        <app-custom-input
+                                            [type]="'number'" [(twBinding)]="MaxDiscPer" id="MaximumDiscount"
+                                            [classGroup]="'form-control '" placeholder="Enter Maximum Stock" 
+                                        >
+                                        </app-custom-input>
+                                    </td>
+                                    <td class="pt-5 text-end">
+                                        <button type="button" class="btn btn-sm btn-icon btn-active-color-success bg-light-primary" (click)="SaveCustomerProductsDiscount();">
+                                            <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                                            <span class="svg-icon svg-icon-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                </svg>
+                                            </span>
+                                            <!--end::Svg Icon-->
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                    </div>
+                    <!--end::Table-->
+                    <app-genric-table (emitRowClick)="selectValue($event)" [menuItems]="[]" [data]="ProductData" [loadingData]="isLoadingProduct"
+                        [columnsData]="productsColumn">
+                    </app-genric-table>
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Sidebar-->
+    <div class="flex-lg-auto w-300px">
+        <!--begin::Card-->
+        <div class="card" data-kt-sticky="true" data-kt-sticky-name="invoice" 
+            data-kt-sticky-offset="{default: false, lg: '200px'}" 
+            data-kt-sticky-width="{lg: '250px', xl: '300px'}" 
+            data-kt-sticky-left="auto" 
+            data-kt-sticky-top="150px" 
+            data-kt-sticky-animation="false" 
+            data-kt-sticky-zindex="95"
+        >
+            <!--begin::Card body-->
+            <div class="card-body pt-15">
+                <!--begin::Summary-->
+                <div class="d-flex flex-center flex-column mb-1">
+                    <!--begin::Avatar-->
+                    <div class="symbol symbol-100px symbol-circle mb-7">
+                        <img [src]="userImage != null ? (imageBasePath + userImage) : 'assets/media/svg/avatars/blank.svg'" alt="image" />
+                    </div>
+                    <!--end::Avatar-->
+                    <!--begin::Name-->
+                    <a class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">{{txtName}}</a>
+                    <!--end::Name-->
+                    <!--begin::Position-->
+                    <div class="fs-5 fw-semibold text-muted mb-6">{{txtEmail !== 'Email: null' ? txtEmail : 'Email: ---'}}</div>
+                    <!--end::Position-->
+                </div>
+                <!--end::Summary-->
+                <!--begin::Details content-->
+                <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed mb-9 ">
+                    <div class="card-body p-2">
+                        <div class="d-flex align-items-center mb-3">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-50px me-5">
+                                <span class="symbol-label bg-light-success">
+                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+                                    <span class="svg-icon svg-icon-2x svg-icon-success" 
+                                        [inlineSVG]="'./assets/media/icons/duotune/communication/com014.svg'">
+                                        <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="currentColor" />
+                                            <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="currentColor" />
+                                        </svg> -->
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Group</a>
+                                <span class="text-muted fw-bold">{{txtDiscountGroup}}</span>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center mb-3">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-50px me-5">
+                                <span class="symbol-label bg-light-warning">
+                                    <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+                                    <span class="svg-icon svg-icon-2x svg-icon-warning">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
+                                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                                            <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Group Type</a>
+                                <span class="text-muted fw-bold">{{txtDiscountGroupType != '' ? txtDiscountGroupType : 'No group type'}}</span>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center mb-3">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-50px me-5">
+                                <span class="symbol-label bg-light-primary">
+                                    <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                                    <span class="svg-icon svg-icon-2x svg-icon-primary"
+                                        [inlineSVG]="'./assets/media/icons/duotune/finance/fin002.svg'">
+                                        <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z" fill="currentColor" />
+                                            <rect x="6" y="12" width="7" height="2" rx="1" fill="currentColor" />
+                                            <rect x="6" y="7" width="12" height="2" rx="1" fill="currentColor" />
+                                        </svg> -->
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Current Bal</a>
+                                <span class="text-muted fw-bold">{{txtCurrentBalance}}</span>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center mb-3">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-50px me-5">
+                                <span class="symbol-label bg-light-danger">
+                                    <!--begin::Svg Icon | path: icons/duotune/coding/cod008.svg-->
+                                    <span class="svg-icon svg-icon-2x svg-icon-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings" viewBox="0 0 16 16">
+                                            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z"/>
+                                            <path d="M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z"/>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Company</a>
+                                <span class="text-muted fw-bold">{{txtCompany != null ? txtCompany : '---'}}</span>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center mb-3">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-50px me-5">
+                                <span class="symbol-label bg-light-info">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen049.svg-->
+                                    <span class="svg-icon svg-icon-2x svg-icon-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Tel</a>
+                                <span class="text-muted fw-bold">{{txtPhoneNo != null ? txtPhoneNo : '---'}}</span>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-center">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-50px me-5">
+                                <span class="symbol-label bg-light-info">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen049.svg-->
+                                    <span class="svg-icon svg-icon-2x svg-icon-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-vibrate" viewBox="0 0 16 16">
+                                            <path d="M10 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4zM6 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H6z"/>
+                                            <path d="M8 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM1.599 4.058a.5.5 0 0 1 .208.676A6.967 6.967 0 0 0 1 8c0 1.18.292 2.292.807 3.266a.5.5 0 0 1-.884.468A7.968 7.968 0 0 1 0 8c0-1.347.334-2.619.923-3.734a.5.5 0 0 1 .676-.208zm12.802 0a.5.5 0 0 1 .676.208A7.967 7.967 0 0 1 16 8a7.967 7.967 0 0 1-.923 3.734.5.5 0 0 1-.884-.468A6.967 6.967 0 0 0 15 8c0-1.18-.292-2.292-.807-3.266a.5.5 0 0 1 .208-.676zM3.057 5.534a.5.5 0 0 1 .284.648A4.986 4.986 0 0 0 3 8c0 .642.12 1.255.34 1.818a.5.5 0 1 1-.93.364A5.986 5.986 0 0 1 2 8c0-.769.145-1.505.41-2.182a.5.5 0 0 1 .647-.284zm9.886 0a.5.5 0 0 1 .648.284C13.855 6.495 14 7.231 14 8c0 .769-.145 1.505-.41 2.182a.5.5 0 0 1-.93-.364C12.88 9.255 13 8.642 13 8c0-.642-.12-1.255-.34-1.818a.5.5 0 0 1 .283-.648z"/>
+                                        </svg>
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Text-->
+                            <div class="d-flex flex-column">
+                                <a href="#" class="text-dark text-hover-primary fs-6 fw-bold">Mobile</a>
+                                <span class="text-muted fw-bold">{{txtMobileNo != null ? txtMobileNo : '---'}}</span>
+                            </div>
+                            <!--end::Text-->
+                        </div>
+                        <!--end::Item-->
+                    </div>
+                </div>
+                <!--end::Details content-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+</div>
+<!--end::Layout-->
+
+<app-generic-modal #modalUpdateDiscount [modalConfig]="modalUpdateDiscountConfig">
+  
+    <!--begin::Title-->
+    <h6 class="mb-8 fw-bolder text-gray-600 ">
+        <span class="p-h">Product Name:</span>
+        <span class="p-n fs-4 text-light"> {{updateProductName}}</span>
+    </h6>
+    <!--end::Title-->
+    
+    <!--begin::Item-->
+    <div class="mb-6">
+        <label for="quantity"> Minimum Discount (%) <span class="RequiredEror">*</span> </label>
+        <!-- <span class="p-input-icon-left">
+            <i class="fas fa-shopping-basket"></i>
+            <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                placeholder="Enter Quantity" />
+        </span> -->
+        <div class="position-relative my-1">
+            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+            <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-percent" viewBox="0 0 16 16">
+                    <path d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+            <input name="MinimumDiscount" id="MinimumDiscount" [(ngModel)]="updateMinDiscPer" type="number" class="form-control fs-7 ps-12" placeholder="Enter Minimum Stock"/>
+        </div>
+    </div>
+    <!--end::Item-->
+    
+    <!--begin::Item-->
+    <div class="mb-6">
+        <label for="remarks"> Maximum Discount (%) </label>
+        <!-- <span class="p-input-icon-left">
+            <i class="fas fa-comments"></i>
+            <input type="text" name="remarks" id=remarks rows="3" cols="50" [(ngModel)]="Remarks"
+                aria-multiline="true" pInputText placeholder="Enter Remarks" />
+        </span> -->
+        <div class="position-relative my-1">
+            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+            <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-percent" viewBox="0 0 16 16">
+                    <path d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+            <input name="MaximumDiscount" id="MaximumDiscount" [(ngModel)]="updateMaxDiscPer" type="number" class="form-control fs-7 ps-12" placeholder="Enter Maximum Stock"/>
+        </div>
+    </div>
+    <!--end::Item-->
+    <a  class="btn btn-sm fw-bold btn-primary ms-2"
+            (click)="UpdateSelectedDiscountDetails()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save me-3" viewBox="0 0 16 16">
+                <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+            </svg>
+        <span >Save</span>
+    </a> 
+</app-generic-modal>

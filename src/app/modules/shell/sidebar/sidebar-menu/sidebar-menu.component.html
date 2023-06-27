@@ -1,0 +1,1877 @@
+<!--begin::Menu wrapper-->
+<div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true"
+  data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+  data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
+  data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+  <!--begin::Menu-->
+  <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true"
+    data-kt-menu-expand="false">
+    <!-- Dashboard -->
+    <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/dashboard" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+        </span>
+        <span class="menu-title" translate="MENU.DASHBOARD"></span></a>
+    </div>
+
+    <!-- Layout builder -->
+    <!-- <div class="menu-item">
+      <a class="menu-link without-sub" routerLink="/builder" routerLinkActive="active"><span class="menu-icon">
+          <span [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'" class="svg-icon svg-icon-2"></span>
+        </span><span class="menu-title">Layout Builder</span></a>
+    </div> -->
+    <!-- Separator -->
+    <!-- purchases -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/finance/fin008.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.PURCHASES"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link">
+            <span class="menu-bullet">
+              <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+            </span>
+            <span class="menu-title" data-link="/crafted/pages/profile" translate="PurchaseOrder"></span>
+            <span class="menu-arrow"></span>
+          </span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/purchase-order-report">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title" translate="MENU.OVERVIEW"></span>
+              </a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/return-purchase-report">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title" translate="ReturnPurchases"></span>
+              </a>
+            </div>
+            <!-- begin hidden tags -->
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/add" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Add Purchase</span></a>
+            </div>
+
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/details/" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Purchase Details</span></a>
+            </div>
+
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/refund/" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Purchase Refund</span></a>
+            </div>
+            
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/return-details/" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Purchase Return Detail</span></a>
+            </div>
+            <!-- end hidden tags -->
+          </div>
+        </div>
+      </div>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link">
+            <span class="menu-bullet">
+              <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+            </span>
+            <span class="menu-title" data-link="/crafted/pages/profile" translate="BackOrder"></span>
+            <span class="menu-arrow"></span>
+          </span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/back-order-report">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title" translate="MENU.OVERVIEW"></span>
+              </a>
+            </div>
+          </div>
+          <!-- begin hidden tags -->
+          <div class="menu-item" hidden>
+            <a class="menu-link without-sub" routerLink="/purchase/add-back-order/" routerLinkActive="active"><span class="menu-icon">
+                <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+              </span>
+              <span class="menu-title">Backorder</span></a>
+          </div>
+          <div class="menu-item" hidden>
+            <a class="menu-link without-sub" routerLink="/purchase/backorder-details/" routerLinkActive="active"><span class="menu-icon">
+                <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+              </span>
+              <span class="menu-title">Purchase Backorder Detail</span></a>
+          </div>
+          <!-- begin hidden tags -->
+        </div>
+      </div>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link">
+            <span class="menu-bullet">
+              <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+            </span>
+            <span class="menu-title" data-link="/crafted/pages/profile" translate="PreOrder"></span>
+            <span class="menu-arrow"></span>
+          </span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/pre-order-report">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title" translate="MENU.OVERVIEW"></span>
+              </a>
+            </div>
+            <!-- begin hidden tags -->
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/opendetails/" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Pre Order Details</span></a>
+            </div> 
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/addPreOrder/" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Pre Order</span></a>
+            </div> 
+            <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/pre-order-history/">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title">Pre Order History</span>
+              </a>
+            </div>
+            <!-- begin hidden tags -->
+          </div>
+        </div>
+      </div>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link">
+            <span class="menu-bullet">
+              <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+            </span>
+            <span class="menu-title" data-link="/crafted/pages/profile" translate="HoldPurchase"></span>
+            <span class="menu-arrow"></span>
+          </span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/hold-purchase-report">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title" translate="MENU.OVERVIEW"></span>
+              </a>
+            </div>
+             <!-- begin hidden tags -->
+             <div class="menu-item" hidden>
+              <a class="menu-link without-sub" routerLink="/purchase/add-hold/" routerLinkActive="active"><span class="menu-icon">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'" class="svg-icon svg-icon-2"></span>
+                </span>
+                <span class="menu-title">Hold Purchase</span></a>
+            </div> 
+            <!-- begin hidden tags -->
+          </div>
+        </div>
+      </div>     
+    </div>
+    <!-- Sale -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/finance/fin007.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.SALE"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Statistics"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/sale-stats">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Today"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/sale-stats-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SaleStatsReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="SaleInvoice"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/sale-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="UpdateOrders"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/salerefundreport-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CreditNote"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/opensalereport-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="HoldSale"></span>
+                </a>
+              </div>
+              <!--hidden tags-->
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/update-sale-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Update Sale Detail</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/add-receipt-new">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Order</span>
+                </a>
+              </div>
+
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/sale-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Sale Detail</span>
+                </a>
+              </div>
+
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/add-sale-refund">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Sale Refund</span>
+                </a>
+              </div>
+              
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/refundsale-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Refund Sale Detail</span>
+                </a>
+              </div>
+              
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/hold-sale-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Hold Sale Detail</span>
+                </a>
+              </div>
+              <!--hidden tags-->
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Performa"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/performainvoice-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MENU.OVERVIEW"></span>
+                </a>
+              </div>
+              <!--hidden tags-->
+              
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/add-performa-invoice">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Performa Sale</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/performainvoice-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Performa Sale Detail</span>
+                </a>
+              </div>
+              <!--hidden tags-->
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="ORDERS.Orders"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/online-orders">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ORDERS.ONLINEORDERS"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/vp-orders">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ORDERS.VPORDERS"></span>
+                </a>
+              </div>     
+              <!--hidden tags--> 
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/online-order-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Online Order Detail</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/vp-sale-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Vp Order Detail</span>
+                </a>
+              </div>
+              <!--hidden tags-->       
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Accounts -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/general/gen049.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.ACCOUNTS"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Customers"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/customer-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ViewCustomers" ></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/customer-payments">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CustomerAccounts"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/customer-reportbyaddress">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="AddressReports"></span>
+                </a>
+              </div>
+              <!--hidden tags-->
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/addcustomer">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Customer</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/customer-productdiscount">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" >Discount</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/payments-new">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" >Payment</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/customer-ledger/">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" >Customer Ledger</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/customer/customer-payment-details/">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" >Customer Payment</span>
+                </a>
+              </div>
+              <!--hidden tags end-->
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Suppliers"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/supplier/supplier-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ViewSuppliers"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/supplier/supplier-payments">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SupplierAccounts"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/supplier-invoices">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="InvoicePayments"></span>
+                </a>
+              </div>
+              <!--hidden tags-->
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/supplier/add-supplier">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Supplier</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/supplier/payments-new">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Payment</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/supplier/supplier-openinvoices">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Open Invoices</span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/supplier/supplier-ledger">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Supplier Ledger</span>
+                </a>
+              </div>
+              <!--hidden tags-->
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="InventoryReport"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/inventory-value-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="InventoryValue"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Catalog -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/layouts/lay010.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.CATALOG"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Products"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/managed-products">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ManageProducts"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/add-product/0">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="AddProduct"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/post-to-shop">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.POSTTOSHOP"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/folder-hierarchy">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="FolderHierachy"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/export-product">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ProductsExport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-images">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ProductImagesDetails"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/incoming-quantity">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ProductIncomingQuantityDetails"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/managed-products-filter">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="FilterProducts"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-stock-balance">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ProductStockBalance"></span>
+                </a>
+              </div>
+              <!--hidden tags-->
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/add-product">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title">Update Product</span>
+                </a>
+              </div>
+              <!---->
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Defination"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/classification">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Classification"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/department">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Department"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/category">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Category"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/shop-category">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ShopCategories"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/sub-category">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Subcategory"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Attributes"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/colors">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Colors"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/sizes">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Sizes"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/brands">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.BRAND"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/brand-type">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.BRANDTYPE"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/codes">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Codes"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/quality-label">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="QualityLabel"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-model">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Model"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-types">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Type"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/connecter-types">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.CONNECTERTYPE"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-power">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.POWER"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-print">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Print"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-capacity">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.CAPACITY"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-packaging">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.PACKAGING"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-series">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SSGENERIC.PRODUCTSERIES"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Transfer"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/check-out">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CheckOut"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/check-in">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CheckIn"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Location"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/assign-locations">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="AssignLocations"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/manage-location">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ManageLocation"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/warehouses">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Warehouses"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/zones">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Zones"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/sections">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Sections"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/levels">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Levels"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="DiscountManagement"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/discoun-groups">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="DiscountGroup"></span>
+                </a>
+              </div>
+              <!--hidden tags-->
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/catalog/product-discount">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="">Product Discount</span>
+                </a>
+              </div>
+              <!--hidden tags-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Reports -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/graphs/gra012.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.REPORTS"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Stock"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/available-stock">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="AvailableStock"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/stock-index-prices">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="StockPurchasePrice"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/stock-index-prices-detail">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="StockPurchasePriceDetails"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/stock-shop-categories">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="StockByShopCategories"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/stock-location-details">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="StockByLocationDetails"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/stock-by-models">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="StockByProductModels"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/stock-alert-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="StockAlertReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Supplier"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/supplier-invoices">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SupplierInvoices"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="SaleInvoice"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/sale-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SaleReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/opensalereport-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="HoldSaleReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/performainvoice-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="PerformaReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/salerefundreport-index">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CreditNote"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/salereport-byproduct">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="OverviewProductwise"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/salereport-byuser">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="OverviewUserwise"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/sale/salereport-bysubcategory">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="OverviewSubCategorywise"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Purchases"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/purchase-order-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="PurchaseReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/return-purchase-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="PurchaseReturnReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/pre-order-customized-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="PreOrderCustomizedReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/purchase/purchase-order-customized-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CustomizedPurchaseReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="REPORTS.INCOMINGSHIPMENT"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/shipping-transfer-new">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="REPORTS.INCOMINGSHIPMENTRPORT"></span>
+                </a>
+              </div>
+              <!-- /orders/shipping-transfer/Details/ID -->
+              <!-- start hidden tags -->
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/shipping-transfer/Details/ID">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Incoming Shipping Details"></span>
+                </a>
+              </div>
+              <div class="menu-item" hidden>
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/shipping-transfer/Receive/ID">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Receive Shipping"></span>
+                </a>
+              </div>
+              <!-- end hidden tags -->
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="LifeLineReports"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/single-product-life-line">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SingleProductLifeLine"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/customer-life-line-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CustomerLifeLineReport"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/supplier-life-line-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="SupplierLifeLineReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="DashboardReports"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/customer-dashboard-report">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CustomerDashboardReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="OpenCart"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/opencartlogs">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="OpenCartLogsReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="CashHistory"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/cash-in-out">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="CashInOutReport"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Supply Chain -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs045.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.SUPPLYCHAIN"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="WishList"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/manage-internalorder">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ShoppingCart"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/approve-internalorder">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ApproveOrders"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/purchase-internalorder">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="PurchaseOrders"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/shipping-transfer">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="IncomingShipping"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="ExternalOrders"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/orders/manage-incoming-order">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Orders"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- System -->
+    <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link">
+        <span class="menu-icon">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/general/gen015.svg'"></span>
+        </span>
+        <span class="menu-title" translate="MENU.SYSTEM"></span><span class="menu-arrow"></span>
+      </span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Client"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ClientSource"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="PaymentCondition"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="DeliveryMethod"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Users"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ManageUsers"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ManageRoles"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Activity"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MANAGEDPRODUCT.ADDDEVELOPMENTACTIVITY"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="DevelopmentActivity"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="EXTRAS.REPORTINGPASSWORD"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Regions"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="Country"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="State"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="City"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Expenses"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MENU.OVERVIEW"></span>
+                </a>
+              </div>
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="ManageWages"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="ExpenseType"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MENU.OVERVIEW"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+          <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+            <span class="menu-link">
+              <span class="menu-bullet">
+                <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+              </span>
+              <span class="menu-title" data-link="/crafted/pages/profile" translate="Outlet"></span>
+              <span class="menu-arrow"></span>
+            </span>
+            <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+              <div class="menu-item">
+                <a class="menu-link without-sub" routerLinkActive="active">
+                  <span class="menu-bullet">
+                    <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                  </span>
+                  <span class="menu-title" translate="MENU.OVERVIEW"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+             <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link">
+            <span class="menu-bullet">
+              <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/abstract/abs039.svg'"></span>
+            </span>
+            <span class="menu-title" data-link="/crafted/pages/profile" translate="DatabaseBackup"></span>
+            <span class="menu-arrow"></span>
+          </span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active">
+                <span class="menu-bullet">
+                  <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+                </span>
+                <span class="menu-title" translate="DatabaseBackup"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+                        
+    
+
+
+
+
+
+
+
+
+
+
+    <!-- Separator -->
+    <!-- <div class="menu-item">
+      <div class="menu-content pt-8 pb-2">
+        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Crafted</span>
+      </div>
+    </div> -->
+
+    <!-- Pages -->
+    <!-- <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'"></span></span><span
+          class="menu-title">Pages</span><span class="menu-arrow"></span></span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title" data-link="/crafted/pages/profile">Profile</span><span
+              class="menu-arrow"></span></span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/profile/overview"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Overview</span></a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/profile/projects"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Projects</span></a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/profile/campaigns"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Campaigns</span></a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/profile/documents"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Documents</span></a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/profile/connections"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Connections</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title" data-link="/crafted/pages/wizards">Wizards</span><span
+              class="menu-arrow"></span></span>
+          <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/wizards/horizontal"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Horizontal</span></a>
+            </div>
+            <div class="menu-item">
+              <a class="menu-link without-sub" routerLinkActive="active"
+                routerLink="/crafted/pages/wizards/vertical"><span class="menu-bullet"><span
+                    class="bullet bullet-dot"></span></span><span class="menu-title">Vertical</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Accounts -->
+    <!-- <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/communication/com006.svg'"></span></span><span class="menu-title"
+          data-link="/crafted/account">Accounts</span><span class="menu-arrow"></span></span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/account/overview"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Overview</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/account/settings"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Settings</span></a>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Errors -->
+    <!-- <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/general/gen040.svg'"></span></span><span class="menu-title"
+          data-link="/error">Errors</span><span class="menu-arrow"></span></span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/error/404" routerLinkActive="active"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Error
+              404</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLink="/error/500" routerLinkActive="active"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Error
+              500</span></a>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Widgets -->
+    <!-- <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/layouts/lay008.svg'"></span></span><span class="menu-title"
+          data-link="/crafted/widgets">Widgets</span><span class="menu-arrow"></span></span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/widgets/lists"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Lists</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/widgets/statistics"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Statistics</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/widgets/charts"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Charts</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/widgets/mixed"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Mixed</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/widgets/tables"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Tables</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/widgets/feeds"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Feeds</span></a>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Separator -->
+    <!-- <div class="menu-item">
+      <div class="menu-content pt-8 pb-2">
+        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Apps</span>
+      </div>
+    </div> -->
+
+    <!-- Chat -->
+    <!-- <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+      <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
+            [inlineSVG]="'./assets/media/icons/duotune/communication/com012.svg'"></span></span><span class="menu-title"
+          data-link="/apps/chat">Chat</span><span class="menu-arrow"></span></span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/apps/chat/private-chat"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Private
+              Chat</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/apps/chat/group-chat"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Group
+              Chart</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/apps/chat/drawer-chat"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Drawer
+              Chart</span></a>
+        </div>
+      </div>
+    </div> -->
+
+
+
+<!--start global hidden tags-->
+    <div class="menu-item" hidden>
+      <a class="menu-link without-sub" routerLinkActive="active" routerLink="/reports/single-product-life-line">
+        <span class="menu-bullet">
+          <span class="svg-icon svg-icon-2" [inlineSVG]="'./assets/media/icons/duotune/ecommerce/ecm004.svg'"></span>
+        </span>
+        <span class="menu-title">Single Product Life Line</span>
+      </a>
+    </div>
+
+  </div>
+  
+<!--end global hidden tags-->
+
+
+  <!--end::Menu-->
+</div>
+<!--end::Menu wrapper-->

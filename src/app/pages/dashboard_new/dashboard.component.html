@@ -1,0 +1,77 @@
+
+<!--begin::Row-->
+<div class="row g-5 g-xl-10 mb-5 mb-xl-10 mt-10">
+    <!--begin::Col-->
+    <div class="row col-xxl-12" style="padding-top: 30px; justify-content: center;">
+        <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4 mb-md-5 mb-xl-10">
+        <app-quick-link class="h-lg-30"></app-quick-link>
+        </div>
+
+        <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4 mb-md-5 mb-xl-10">
+        <!--begin::Slider Widget 1-->
+        <app-overview-card 
+            [TotalSupplierBalance]="TotalSupplierBalance" 
+            [TotalCustomerBalance]="TotalCustomerBalance"
+            [isLoading] = "isHeadQuarterLoading"
+        ></app-overview-card>
+        <!--end::Slider Widget 1-->
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-4 mb-md-5 mb-xl-10">
+        <!--begin::Slider Widget 1-->
+        <app-reading-card
+            [TodayExpenses]="TodayExpenses" 
+            [TodayPurchases]="TodayPurchases"
+            [TodaySales]="TodaySales"
+            [TodayProfit]="TodayProfit" 
+            [TotalOnlineOrder]="TotalOnlineOrder" 
+            [TotalVaplongOrder]="TotalVaplongOrder" 
+            [TotalVaplongOrderAmount]="TotalVaplongOrderAmount" 
+            [isLoading] = "isHeadQuarterLoading"
+        ></app-reading-card>
+        <!--end::Slider Widget 1-->
+        </div>
+        
+        <!--end::Col-->
+    </div>
+    <!--end::Row-->
+    <!-- begin::Row -->
+    <div class="row gy-5 gx-xl-8 bg-light" style="border-radius: 10px;">
+        <div class="card-toolbar">
+            <ul class="nav" id="kt_chart_widget_8_tabs">
+      
+              <li class="nav-item">
+                <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-light fw-bold px-4 me-1"
+                  [ngClass]="{'active': tab === 'sale'}" data-bs-toggle="tab" (click)="setTab('sale')"
+                  id="kt_chart_widget_8_month_toggle"><span translate="VAPV2.Sale">Sale</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-light fw-bold px-4 me-1"
+                  [ngClass]="{'active': tab === 'purchase'}" data-bs-toggle="tab" (click)="setTab('purchase')"
+                  id="kt_chart_widget_8_week_toggle">Purchase</a>
+              </li>
+            </ul>
+        </div>
+        <div class="col-xxl-6">
+            <app-annual-chart 
+                    (eventSelYear)="changeyear($event)" class="card card-xxl-stretch mb-xl-3 m" 
+                    [years]="yearList" [data]="tab === 'sale' ? lineSaleChartdata : linePurchaseChartdata"
+                    [isLoading] = "isAnnualLoading" 
+            >
+            </app-annual-chart>
+        </div>
+        <div class="col-xxl-6">
+            <app-product-table class="card card-xxl-stretch mb-5 mb-xl-8" 
+                    (eventSelDate)="onChangeDate($event)" [data]="tab === 'sale' ? pieSaleChartData : piePurchaseChartData" 
+                    [isLoading] = "isTopProductsLoading" [title]="tab === 'sale' ? 'Top Selling Products' : 'Top Purchasing Products'"
+            >
+            </app-product-table>
+        </div>
+    </div>
+</div>  
+<!-- <div *ngIf="!showDashboard">
+    <h1>Welcome to system</h1>
+</div> -->
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

@@ -1,0 +1,122 @@
+<div class="mt-20">
+    <!-- begin::Header-->
+    <div class="card card-flush">
+        <div class="row">
+            <!--begin::Card title-->
+            <div class="card-title col-9">
+                <!-- begin::Header -->
+                <div class="card-header border-0 pt-5 row ">
+                    <div class="d-block col-4">
+                        
+                        <label class="form-label">Search By Date</label>
+                        <br />
+                        <app-sel-date-btn
+                            [options]="SearchByDateDropdown"
+                            (emitSelDate)="SearchByDate($event)"
+                            [placeholderSelector]="'Select Search By Date'"
+                            [(twBinding)]="selectedSearchByDateID"
+                        >
+                        </app-sel-date-btn>
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Supplier</label>
+                        <app-custom-select
+                            class="w-100"
+                            [items]="filteredOrderBy"
+                            [virtualScroll]="true" 
+                            bindLabel="label"
+                            [(twBinding)]="selectedOrderBy" 
+                            [searchFn]="dataFunc"
+                            placeholder="Select Customer..."
+                        >
+
+                        </app-custom-select>
+                    </div>
+                    <div class="col-4">
+                        <label class="form-label">Product</label>
+                        <app-custom-select
+                            class="w-100"
+                            [items]="filteredProduct"
+                            [virtualScroll]="true" 
+                            bindLabel="label"
+                            [(twBinding)]="selectedProduct" 
+                            [searchFn]="dataFunc"
+                            placeholder="Select Customer..."
+                        >
+
+                        </app-custom-select>
+                    </div>
+                </div>
+                <!-- end::Header -->
+            </div>
+            <!--end::Card title-->
+            <!--begin::Card toolbar-->
+            <div class="col-3 d-flex m-auto justify-content-center">
+                <a (click)="filterReport();" class="btn btn-sm fw-bold btn-primary">
+                        <span class="svg-icon svg-icon-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </span>
+                        <span translate="">
+                            Search
+                            <ng-container *ngIf="isLoadingData">
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </ng-container>
+                        </span>
+                    </a> 
+            </div>
+            <!--end::Card toolbar-->
+        </div>
+    </div>
+    <!--end::Header-->
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        
+        
+        <div class="tab-content pt-3">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table
+                                (emitMenuAction)="emitAction($event)"
+                                [menuItems]="genericMenuItems" 
+                                [data]="AllProductList" 
+                                [filterGlobal]=true
+                                [columnsData]="columns" 
+                                [totalRecords]="totalRecords" 
+                                (getLazyData)="GetAllProductWithLazyLoadinFunction($event)" 
+                                [initialColumns]="initialCoulumns"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]='10' 
+                                [isLoading] = "isLoadingData"
+                            >
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Order details-->
+        </div>
+    </div>
+</div>
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>
+
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_add_incoming_order data-bs-toggle="modal" data-bs-target="#modalAddIncomingOrder">
+    Open Add Incoming Order Modal
+</button>
+  
+<jw-modal [modalId]="'modalAddIncomingOrder'" [modalTitle]="'Add to Incoming Order'" [modalSize]="'xl'">
+    <app-addincomingquantity-dialog  
+        #incomingList 
+        [ProductID]='selectedProductIDforincomingQuantitylist'
+        [ProductName]='selectedProductNameforincomingQuantitylist'  
+        [ExistedQuantity]='ExistedQuantity' 
+        (ReturnCall)='CloseDialog($event)'>
+    </app-addincomingquantity-dialog>
+</jw-modal>

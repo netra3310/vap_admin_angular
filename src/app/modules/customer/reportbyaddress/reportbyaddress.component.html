@@ -1,0 +1,163 @@
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-lg-row mt-15">
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
+        <!--begin::Card-->
+        <div class="card card-flush pt-3 mb-5 mb-xl-10">
+            <!--begin::Card body-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-genric-table
+                                (emitMenuAction)="emitAction($event)"
+                                [menuItems]="genericMenuItems"
+                                [data]="AllCustomerList"
+                                [columnsData]="columns"
+                                [globalFilterFields]="globalFilterFields"
+                                [rowsPerPageOptions]="rowsPerPageOptions"
+                                [loadingData]="isLoadingData"
+                                [rowGroup]="rowGroup"
+                                [row]='10'>
+                            </app-genric-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-lg-350px w-xl-400px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush mb-0" data-kt-sticky="true" 
+            data-kt-sticky-name="subscription-summary" 
+            data-kt-sticky-offset="{default: false, lg: '200px'}" 
+            data-kt-sticky-width="{lg: '350px', xl: '400px'}" 
+            data-kt-sticky-left="auto" data-kt-sticky-top="150px" 
+            data-kt-sticky-animation="false" 
+            data-kt-sticky-zindex="95">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Summary</h2>
+                </div>
+                <!--end::Card title-->
+                <!--begin::Card toolbar-->
+                <div class="card-toolbar">
+                    
+                    <div class="text-sm-end fw-semibold fs-4 text-muted">
+                        <!--begin::Label-->
+                        <!-- <label class="required form-label" translate="GENRIC.SEARCHBYDATE"></label> -->
+                        <!--end::Label-->
+                        <br />
+                        <app-sel-date-btn class="fs-5 "
+                            [options]="SearchByDateDropdown"
+                            (emitSelDate)="SearchByDate($event)"
+                            [placeholderSelector]="'Select Search By Date'"
+                            [(twBinding)]="selectedSearchByDateID"
+                        >
+                        </app-sel-date-btn>
+                    </div>
+                </div>
+                <!--end::Card toolbar-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTBYADDRESS.CUSTOMER"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 "
+                                [options]="CustomerDropdown" placeholder="Select Customer" 
+                                (onChange)="onChangeCustomer($event)"
+                                [showClear]="true" [(twBinding)]="selectedCustomerID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-4 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="REPORTBYADDRESS.ADDRESS"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 "
+                                [options]="AddressDropdown" placeholder="Select Address" 
+                                (onChange)="onChangeAddress($event)"
+                                [showClear]="true" [(twBinding)]="selectedAddressID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4">Details</h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <table class="table fs-6 fw-semibold gs-0 gy-2 gx-2">
+                        <!--begin::Row-->
+                        <tr class="">
+                            <td class="text-gray-400" translate="REPORTBYADDRESS.PREVIOUSBALANCE"></td>
+                            <td class="text-gray-800">
+                                <span class=" badge badge-light-success">
+                                    <span >€ </span> {{ txtPreviousBalance | number:'1.2-2' }}
+                                </span>
+                            </td>
+                        </tr>
+                        <!--end::Row-->
+                        <!--begin::Row-->
+                        <tr class="">
+                            <td class="text-gray-400" translate="REPORTBYADDRESS.CURRENTBALANCE"></td>
+                            <td class="text-gray-800">
+                                <span class=" badge badge-light-success">
+                                    <span >€ </span> {{ txtCurrentBalance | number:'1.2-2' }}
+                                </span>
+                            </td>
+                        </tr>
+                        <!--end::Row-->
+                        <!--begin::Row-->
+                        <tr class="">
+                            <td class="text-gray-400"  translate="REPORTBYADDRESS.ADDRESS"></td>
+                            <td>
+                                <span class="badge-light-success">{{ txtAddress }}</span>
+                            </td>
+                        </tr>
+                        <!--end::Row-->
+                    </table>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+</div>
+<!--end::Layout-->
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

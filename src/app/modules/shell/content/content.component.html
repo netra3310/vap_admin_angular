@@ -1,0 +1,13 @@
+<ng-container *ngIf="appContentContiner">
+  <!--begin::Content container-->
+  <div id="kt_app_content_container" class="app-container  align-items-stretch justify-content-between" 
+    [ngClass]="appContentContainerClass + ' ' + contentContainerCSSClass"
+    [ngClass]="{'container-xxl': appContentContiner === 'fixed', 'container-fluid': appContentContiner === 'fluid'}">
+    <router-outlet style="width: 100%;"></router-outlet>
+  </div>
+  <!-- d-flex deleted by bunny  -->
+  <!--end::Content container-->
+</ng-container>
+<ng-container *ngIf="!appContentContiner">
+  <router-outlet></router-outlet>
+</ng-container>

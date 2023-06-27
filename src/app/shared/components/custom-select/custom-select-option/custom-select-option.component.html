@@ -1,0 +1,22 @@
+
+
+<div>
+    <div *ngIf="enableSearch" class="p-2">
+        <input type="text" placeholder="Search..." class="form-control" (keyup)="onSearch($event)"/>
+    </div>
+    <div style="overflow-y: auto; max-height: 300px;" *ngIf="!virtualScroll">
+
+        <ng-container *ngFor="let item of viewItems">
+            <div class="menu-item px-3">
+                <a class="menu-link px-3 cursor-pointer" (click)="onClickDrop(item)"> {{item[bindLabel]}} </a>
+            </div>
+        </ng-container>
+    </div>
+    <cdk-virtual-scroll-viewport itemSize="10" class="viewport" style="height: 300px;" *ngIf="virtualScroll">
+        <ng-container *cdkVirtualFor="let item of viewItems">
+            <div class="menu-item px-3">
+                <a class="menu-link px-3 cursor-pointer" (click)="onClickDrop(item)">{{ item[bindLabel] }}</a>
+            </div>
+        </ng-container>
+    </cdk-virtual-scroll-viewport>
+</div>

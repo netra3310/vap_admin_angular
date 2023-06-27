@@ -1,0 +1,203 @@
+<app-loading [status]="IsSpinner"></app-loading>
+<div class="mb-5 text-end">
+    <app-shipping-transfer-details-report [selectedshipping]="selectedshipping" [FromOutLetData]="FromOutLetData"
+    [ToOutLetData]="ToOutLetData" [totalData]="totalData"></app-shipping-transfer-details-report>
+    <!-- end the select date dropdown -->
+    <!--begin::Primary button-->
+    <a (click)="viewDocuments();" class="ms-5 btn btn-sm fw-bold btn-success me-5">
+        <span class="svg-icon svg-icon-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+                <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
+            </svg>
+        </span>
+        <span >Documents</span>
+    </a> 
+    <!--end::Primary button-->
+    <!--begin::Primary button-->
+    <a (click)="cancelClick();" class="btn btn-sm fw-bold btn-secondary">
+        <span class="svg-icon svg-icon-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+            </svg>
+        </span>
+        <span >Close</span>
+    </a> 
+    <!--end::Primary button-->
+</div>
+<div class="card">
+    <!--begin::Body-->
+    <div class="card-body p-lg-20">
+        <!--begin::Layout-->
+        <div class="d-flex flex-column flex-xl-row">
+            <!--begin::Content-->
+            
+            <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+                <!--begin::Order details-->
+                <div class="card card-flush py-4">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column gap-10">
+                            <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                <app-genric-table 
+                                    [data]="ShipmentDetails" 
+                                    [columnsData]="columns"
+                                    [rowsPerPageOptions]="rowsPerPageOptions" 
+                                    [globalFilterFields]="globalFilterFields"
+                                    [row]='10' 
+                                    [loadingData]="false">
+                                </app-genric-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Content-->
+            <!--begin::Sidebar-->
+            <div class="m-0">
+                <!--begin::Invoice 2 sidebar-->
+                <div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten">
+                    <div class="py-5 fs-6">
+                        
+                        <h6 class="mb-8 fw-bolder text-gray-600 text-hover-primary">DETAILS</h6>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="badge badge-light-primary d-inline mb-2">FROM</div>
+                                <div class="text-gray-600">{{FromOutLetData.Name}}</div>
+                                <div class="text-gray-600">{{FromOutLetData.PhoneNo}}</div>
+                                <div class="text-gray-600">{{FromOutLetData.City}}</div>
+                            </div>
+                            <div class="col-6"> 
+                                <div class="badge badge-light-success d-inline mb-2">TO</div>
+                                <div class="text-gray-600">{{ToOutLetData.Name}}</div>
+                                <div class="text-gray-600">{{ToOutLetData.PhoneNo}}</div>
+                                <div class="text-gray-600">{{ToOutLetData.City}}</div>
+                            </div>
+                        </div>
+
+                        <div class="separator mt-2 mb-2"></div>
+                        
+                        <div class="fw-bold mt-5">
+                            Shipment Date: 
+                            <span class="text-gray-600">{{ selectedshipping?.dtDate | date: 'M/dd/yyyy h:m:s a'}}</span>
+                        </div>
+
+                        <div class="fw-bold mt-5">
+                            Receive Date:  
+                            <span class="text-gray-600">
+                                {{selectedshipping?.ReceivedDate ? (selectedshipping?.ReceivedDate | date: 'M/dd/yyyy h:m:s a') : 'Not yet received'}} 
+                            </span>
+                        </div>
+
+                        <div class="fw-bold mt-5">
+                            Tracking Code:  
+                            <span class="text-gray-600">
+                                {{selectedshipping?.TrackingCode}}
+                            </span>
+                        </div>
+
+                        <div class="fw-bold mt-5">
+                            Tracking Website:  
+                            <span class="text-gray-600">
+                                {{selectedshipping?.TrackingWebsite}}
+                            </span>
+                        </div>
+                        
+                        <div class="separator mt-2 mb-2"></div>
+                        
+                        <div class="mb-2">
+                            <div class="fw-semibold text-gray-600 fs-7">Delivery Method</div>
+                            <div class="fw-bold text-gray-800 fs-6">{{ selectedshipping?.ShippingMethod}}</div>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="fw-semibold text-gray-600 fs-7">Remarks</div>
+                            <textarea id="remarks" type="text" rows="3" cols="30" class="form-control"
+                                                [(ngModel)]="selectedshipping.sRemarks"></textarea>
+                        </div>
+                        
+                        <div class="separator mt-2 mb-2"></div>
+                        
+                        <!--begin::Container-->
+                        <div class="d-flex justify-content-end">
+                            <!--begin::Section-->
+                            <div class="mw-300px">
+                                <!--begin::Item-->
+                                <div class="d-flex flex-stack mb-3">
+                                    <!--begin::Accountname-->
+                                    <div class="fw-semibold pe-10 text-gray-600 fs-7">Total:</div>
+                                    <!--end::Accountname-->
+                                    <!--begin::Label-->
+                                    <div class="text-end fw-bold fs-6 text-gray-800">{{totalData.totalQuantity}}</div>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-stack mb-3">
+                                    <!--begin::Accountname-->
+                                    <div class="fw-semibold pe-10 text-gray-600 fs-7">Total Price (RMB) </div>
+                                    <!--end::Accountname-->
+                                    <!--begin::Label-->
+                                    <div class="text-end fw-bold fs-6 text-gray-800"><span>€ </span>  {{totalData.totalRMB | number:'1.2-2' }} </div>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-stack mb-3">
+                                    <!--begin::Accountnumber-->
+                                    <div class="fw-semibold pe-10 text-gray-600 fs-7">Total Price (Dollar)</div>
+                                    <!--end::Accountnumber-->
+                                    <!--begin::Number-->
+                                    <div class="text-end fw-bold fs-6 text-gray-800"><span>€ </span>  {{totalData.totalDollar | number:'1.2-2' }} </div>
+                                    <!--end::Number-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Code-->
+                                    <div class="fw-semibold pe-10 text-gray-600 fs-7">Total Price (Euro)</div>
+                                    <!--end::Code-->
+                                    <!--begin::Label-->
+                                    <div class="text-end fw-bold fs-6 text-gray-800"><span>€ </span>  {{totalData.totalEuro | number:'1.2-2' }} </div>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Item-->
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Container-->
+                    </div>
+                </div>
+                <!--end::Invoice 2 sidebar-->
+            </div>
+            <!--end::Sidebar-->
+        </div>
+        <!--end::Layout-->
+    </div>
+    <!--end::Body-->
+</div>
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_documents data-bs-toggle="modal" data-bs-target="#modalDocuments">
+    Open documents modal
+</button>
+<jw-modal [modalId]="'modalDocuments'" [modalTitle]="'Documents'" [modalSize]="'xl'">
+    <ng-container *ngIf="selectedshipping.ShipmentDocuments">
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table 
+                            (emitRowClick)="selectValue($event)" 
+                            [menuItems]="[]" 
+                            [data]="selectedshipping.ShipmentDocuments"
+                            [columnsData]="documentsColumns" 
+                            [globalFilterFields]="documentGlobalFilterFields" 
+                            [rowsPerPageOptions]="rowsPerPageOptions"
+                            [loadingData]="IsSpinner" 
+                            [min_height]="'low'"
+                            [row]='10'>
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</jw-modal>

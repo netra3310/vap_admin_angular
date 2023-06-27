@@ -1,0 +1,29 @@
+.ellipsis-background {
+    width: 50px;
+    height: 50px;
+    position: relative; /* Set position to relative for pseudo-element */
+}
+
+.ellipsis-background:before {
+    content: "..."; /* Set content to ellipsis */
+    position: absolute; /* Position pseudo-element absolutely within parent */
+    top: 50%; /* Position pseudo-element vertically in center of parent */
+    left: 50%; /* Position pseudo-element horizontally in center of parent */
+    transform: translate(-50%, -50%); /* Center pseudo-element exactly */
+    font-size: 24px; /* Set font size of ellipsis */
+}
+
+.context-menu {
+    position: absolute;
+    right: 50px;
+    border-radius: 10px;
+    z-index: 1;
+    transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -ms-transition: opacity 1s linear;
+}
+.menu-item:hover {
+    opacity: 0.9;
+}

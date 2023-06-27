@@ -1,0 +1,151 @@
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-lg-row mt-15">
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
+        <!--begin::Form-->
+        <form class="form" action="#" id="kt_subscriptions_create_new">
+            <!--begin::Customer-->
+            <div class="card card-flush pt-3 mb-5 mb-lg-10">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2 class="fw-bold">Purchases</h2>
+                    </div>
+                    <!--begin::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <app-ss-generic-table                        
+                        [menuItems]="genericMenuItems" [data]="Purchases" 
+                        (emitHref)="getPurchasesByInvoiceNo($event)"
+                        [globalFilterFields]="purchaseGlobalFilterFields" 
+                        [columnsData]="purchaseColumns" [rowGroup]="rowGroup"
+                        [totalRecords]="purchaseTotalRecords" 
+                        (getLazyData)="GetAllPurchaseDataWithLazyLoadinFunction($event)"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [isLoading]="isLoadingPurchase" 
+                        [initialColumns]="purchaseGlobalFilterFields"
+                        [row]='10'
+                        [min_height]="'low'"
+                        >
+                    </app-ss-generic-table>
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Customer-->
+            <!--begin::Pricing-->
+            <div class="card card-flush pt-3 mb-5 mb-lg-10">
+                <!--begin::Card header-->
+                <div class="card-header">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <h2 class="fw-bold">Pre Order Details</h2>
+                    </div>
+                    <!--begin::Card title-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <app-genric-table  [menuItems]="genericMenuItems" [data]="PreOrderDetails"
+                        [globalFilterFields]="detailGlobalFilterFields" [columnsData]="detailColumn" 
+                        [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [loadingData]="isLoadingPreOrder">
+                    </app-genric-table> 
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Pricing-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Content-->
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-100 w-lg-250px w-xl-300px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush pt-3 mb-0" data-kt-sticky="true" data-kt-sticky-name="subscription-summary" data-kt-sticky-offset="{default: false, lg: '200px'}" data-kt-sticky-width="{lg: '250px', xl: '300px'}" data-kt-sticky-left="auto" data-kt-sticky-top="150px" data-kt-sticky-animation="false" data-kt-sticky-zindex="95">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Summary</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Section-->
+                <div class="mb-7">
+                    <!--begin::Title-->
+                    <h5 class="mb-3">Quantity details</h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="d-flex align-items-center mb-1">
+                        <!--begin::Name-->
+                        <a class="fw-bold text-gray-800 text-hover-primary me-2" translate="REPORTS.QUANTITY">
+                        </a>
+                        <!--end::Name-->
+                        <!--begin::Status-->
+                        <span class="badge badge-light-success">{{(preOrderHistory.PurchaseQuantity || 0) }}</span>
+                        <!--end::Status-->
+                    </div>
+                    <!--end::Details-->
+                    <!--begin::Details-->
+                    <div class="d-flex align-items-center mb-1">
+                        <!--begin::Name-->
+                        <a class="fw-bold text-gray-800 text-hover-primary me-2" translate="REPORTS.RECEIVEDQUANTITY">
+                        </a>
+                        <!--end::Name-->
+                        <!--begin::Status-->
+                        <span class="badge badge-light-success">{{(preOrderHistory.ReceivedQuantity || 0) }}</span>
+                        <!--end::Status-->
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-7">
+                    <!--begin::Title-->
+                    <h5 class="mb-3" translate="REPORTS.PREORDERDATE"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <!--begin::Plan-->
+                        <!-- <span class="badge badge-light-info me-2">Basic Bundle</span> -->
+                        <!--end::Plan-->
+                        <!--begin::Price-->
+                        <span class="fw-semibold text-gray-600">{{preOrderHistory.PurchaseDate | date}}</span>
+                        <!--end::Price-->
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-3" translate="REPORTS.STATUS"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <!--begin::Card info-->
+                        <div class="fw-semibold text-gray-600 d-flex align-items-center">{{preOrderHistory.Status }}
+                        <!--end::Card info-->
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+</div>
+<!--end::Layout-->

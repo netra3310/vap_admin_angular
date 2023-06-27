@@ -1,0 +1,1240 @@
+<app-generic-modal #modalCaptcha [modalConfig]="modalCaptchaConfig">
+    <app-captcha-dialog  [firstNumber]='firstNumber'
+        [secondNumber]='secondNumber' (ReturnCall)='ValidateCaptcha($event)'></app-captcha-dialog>
+</app-generic-modal>
+<app-loading [status]="loadingCategory"></app-loading>
+<app-loading [status]="loadingAction"></app-loading>
+<app-qr-print
+ *ngIf="QRProductDetails"
+ [ProductDetails]="QRProductDetails"
+ ></app-qr-print>
+<!--begin::Form-->
+<form class="form d-flex flex-column flex-lg-row mt-15">
+    <!--begin::Aside column-->
+    <div class="flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+        <!--begin::Attach Images settings-->
+        <div class="card card-flush py-4 mb-5">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Attach Images</h2>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div class="fv-row mb-2">
+                    <!--begin::Dropzone-->
+                    <div class="dropzone">
+                        <!--begin::Message-->
+                        <div class="dz-message needsclick">
+                            <!--begin::Icon-->
+                            <i class="bi bi-file-earmark-arrow-up text-primary fs-3x" (click)="AttachImagesFunction()"  data-bs-toggle="modal" data-bs-target="#modalAttachImage"></i>
+                            <!--end::Icon-->
+                            <!--begin::Info-->
+                            <div class="ms-4">
+                                <h3 class="fs-5 fw-bold text-gray-900 mb-1">Attach Images</h3>
+                                <span class="fs-7 fw-semibold text-gray-400">Please press icon.</span>
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <ng-container *ngFor="let item of selectedImages">
+                            <div class="image-input image-input-outline mb-5" data-kt-image-input="true"
+                                style="background-image: url('assets/media/svg/avatars/blank.svg')">
+                                <!-- <div class="image-input-wrapper w-125px h-125px"
+                                [style.background-image]="'url(' + item.src + ')'">
+                                </div> -->
+                                <img [src]="item.src" class="w-125px h-125px rounded"/>
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                (click)="DeleteImage(item)" title="Remove avatar">
+                                    <i class="bi bi-x fs-2"></i>
+                                </span>
+                                <!-- {{item.name }}@@@{{ item.src}} -->
+                            </div>
+                        </ng-container>
+                    </div>
+                    <!--end::Dropzone-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Set the product media gallery.</div>
+                <!--end::Description-->
+            </div>
+            <!--end::Card header-->
+        </div>
+        <!--end::Attach Images settings-->
+        <!--begin::QR settings-->
+        <div class="card card-flush py-4 mb-5" *ngIf="!IsAdd">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>QR Code</h2>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <div class="fv-row mb-2">
+                    <!--begin::Dropzone-->
+                    <div class="dropzone bg-transparent">
+                        <div class="image-input image-input-outline mb-5" data-kt-image-input="true"
+                            style="background-image: url('assets/media/svg/avatars/blank.svg')">
+                            <img [src]="imageBasePath+addProduct.QRCode" class="w-125px h-125px rounded mb-5" *ngIf="addProduct.QRCode"/>
+                            <!-- <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span> -->
+                            <!-- <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                            (click)="DeleteImage(item)" title="Remove avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span> -->
+                            <a (click)="GenerateQRCode()" class="btn btn-light-success btn-sm mb-5" *ngIf="!addProduct.QRCode">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                                <span class="svg-icon svg-icon-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
+                                        <path d="M2 2h2v2H2V2Z"/>
+                                        <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
+                                        <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/>
+                                        <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/>
+                                        <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/>
+                                    </svg>
+                                </span>
+                                Generate QR Code
+                            </a>
+                            <a (click)="PrintQRCode()" class="btn btn-light-primary btn-sm mb-5" *ngIf="addProduct.QRCode">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                                <span class="svg-icon svg-icon-2 me-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer me-2" viewBox="0 0 16 16">
+                                        <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                                        <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                                    </svg>
+                                </span>
+                                Print Now
+                            </a>
+                        </div>
+                    </div>
+                    <!--end::Dropzone-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Description-->
+                <div class="text-muted fs-7">Set the product media gallery.</div>
+                <!--end::Description-->
+            </div>
+            <!--end::Card header-->
+        </div>
+        <!--end::QR settings-->
+        <!--begin::Status-->
+        <div class="card card-flush py-4 mb-5">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Status</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <div class="separator"></div>
+
+                <div class="text-muted fs-7 pt-3 pb-5">Set posting to shop.</div>
+                <!--begin::Select2-->
+                <div class="form-check form-check-custom form-check-solid mb-2">
+                    <input name="bShowInShop" id="bShowInShop" class="form-check-input me-5"
+                        type="checkbox" value="" [(ngModel)]="bShowInShop">
+                    <label class="form-check-label" for="bShowInShop"><b>{{'MANAGEDPRODUCT.POSTTOSHOP'| translate}}</b></label>
+                </div>
+                <!--end::Select2-->
+                <!--begin::Description-->
+                <div class="separator"></div>
+
+                <div class="text-muted fs-7 pt-3">Set the product trackable.</div>
+                
+                <div class="mt-4">
+                     <!--begin::Col-->
+                     <div class="col pb-5">
+                        <!--begin::Option-->
+                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-3" [ngClass]="{'active': trackable === 'Trackable'}" data-kt-button="true">
+                            <!--begin::Radio-->
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" name="Trackable" value="Trackable" [(ngModel)]="trackable" />
+                            </span>
+                            <!--end::Radio-->
+                            <!--begin::Info-->
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bold text-gray-800 d-block">{{'MANAGEDPRODUCT.TRACKABLE'| translate}}</span>
+                            </span>
+                            <!--end::Info-->
+                        </label>
+                        <!--end::Option-->
+                    </div>
+                    <!--end::Col-->
+                     <!--begin::Col-->
+                     <div class="col">
+                        <!--begin::Option-->
+                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-3" [ngClass]="{'active': trackable === 'nonTrackable'}" data-kt-button="true">
+                            <!--begin::Radio-->
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" name="Non-Trackable" value="nonTrackable" [(ngModel)]="trackable" />
+                            </span>
+                            <!--end::Radio-->
+                            <!--begin::Info-->
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bold text-gray-800 d-block">{{'MANAGEDPRODUCT.NONTRACKABLE'| translate}}</span>
+                            </span>
+                            <!--end::Info-->
+                        </label>
+                        <!--end::Option-->
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Description-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Status-->
+        <!--begin::Category & tags-->
+        <div class="card card-flush py-4 mb-5">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Product Details</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Input group-->
+                <!--begin::Select store template-->
+                <label for="MeasuringUnit" class="form-label">{{'MANAGEDPRODUCT.MEASURINGUNIT'| translate}} </label>
+                <!--end::Select store template-->
+                <!--begin::Select2-->
+                <app-custom-dropdown
+                    id="MeasuringUnit" name="MeasuringUnit" 
+                    [placeholder]="'Select Classification'" 
+                    [options]="MeasuringUnitDropdown"
+                    [(twBinding)]="selectedMeasuringUnitID" 
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+                <!--begin::Description-->
+                <div class="text-muted fs-7 mb-7">{{'MANAGEDPRODUCT.CATEGORYASSIGNMENT'| translate}}</div>
+                <!--end::Description-->
+                <!--end::Input group-->
+                <!--begin::Button-->
+                <a (click)="CategoryAssignment()" class="btn btn-light-primary btn-sm mb-10">
+                <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                    <span class="svg-icon svg-icon-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor" />
+                            <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor" />
+                        </svg>
+                    </span>
+                <!--end::Svg Icon-->Assign Shop Category</a>
+                <!--end::Button-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Category & tags-->
+        <!--begin::Template settings-->
+        <div class="card card-flush py-4">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Product Classification</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Select store template-->
+                <label for="Classification" class="form-label">{{'MANAGEDPRODUCT.CLASSIFICATION'| translate}} </label>
+                <!--end::Select store template-->
+                <!--begin::Select2-->
+                <app-custom-dropdown
+                    id="Classification" 
+                    [placeholder]="'Select Classification'" 
+                    [options]="ClassificationDropdown"
+                    [(twBinding)]="selectedClassificationID" 
+                    (onChange)="onChangeClassification($event)"
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+                <!--end::Select2-->
+            </div>
+            <!--end::Card body-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Select store template-->
+                <label for="Department" class="form-label">{{'MANAGEDPRODUCT.DEPARTMENT'| translate}} </label>
+                <!--end::Select store template-->
+                <!--begin::Select2-->
+                <app-custom-dropdown
+                    id="Department" 
+                    [placeholder]="'Select Department'" 
+                    [options]="DepartmentDropdown"
+                    [(twBinding)]="selectedDepartmentID" 
+                    (onChange)="onChangeDepartment($event)"
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+                <!--end::Select2-->
+            </div>
+            <!--end::Card body-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Select store template-->
+                <label for="Category" class="form-label">{{'MANAGEDPRODUCT.CATEGORY'| translate}} </label>
+                <!--end::Select store template-->
+                <!--begin::Select2-->
+                <app-custom-dropdown
+                    id="Category" 
+                    [placeholder]="'Select Category'" 
+                    [options]="CategoryDropdown"
+                    [(twBinding)]="selectedCategoryID" 
+                    (onChange)="onChangeCategory($event)"
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+                <!--end::Select2-->
+            </div>
+            <!--end::Card body-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Select store template-->
+                <label for="SubCategory" class="form-label">{{'MANAGEDPRODUCT.SUBCATEGORY'| translate}} </label>
+                <!--end::Select store template-->
+                <!--begin::Select2-->
+                <app-custom-dropdown
+                    id="SubCategory" 
+                    [placeholder]="'Select SubCategory'" 
+                    [options]="SubCategoryDropdown"
+                    [(twBinding)]="selectedSubCategoryID" 
+                    (onChange)="onChangeClassification($event)"
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+                <!--end::Select2-->
+            </div>
+            <!--end::Card body-->
+            
+        </div>
+        <!--end::Template settings-->
+    </div>
+    <!--end::Aside column-->
+    <!--begin::Main column-->
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+        <!--begin:::Tabs-->
+        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">General</a>
+            </li>
+            <!--end:::Tab item-->
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Advanced</a>
+            </li>
+            <!--end:::Tab item-->
+        </ul>
+        <!--end:::Tabs-->
+        <!--begin::Tab content-->
+        <div class="tab-content">
+            <!--begin::Tab pane-->
+            <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                <div class="d-flex flex-column gap-7 gap-lg-10">
+                    <!--begin::General options-->
+                    <div class="card card-flush py-4">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>General</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+                            <!--begin::Input group-->
+                            <div class="mb-10 fv-row">
+                                <!--begin::Label-->
+                                <label class="required form-label" for="ProductName">{{'MANAGEDPRODUCT.PRODUCTNAME'| translate}}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control mb-2"type="text" name="ProductName" id=ProductName
+                                    (blur)="onProductNameChange($event.target)" [(ngModel)]="addProduct.Name" required
+                                    placeholder="Enter Product Name"/>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-10 fv-row">
+                                <!--begin::Label-->
+                                <label class="form-label" for="EAN">{{'MANAGEDPRODUCT.EAN'| translate}}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control mb-2" type="text" id="EAN" name="EAN" 
+                                [(ngModel)]="addProduct.Barcode"
+                                placeholder="Enter EAN" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="mb-10 fv-row">
+                                <!--begin::Label-->
+                                <label class="form-label" for="Tags">{{'MANAGEDPRODUCT.TAGS'| translate}}</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control mb-2" type="text" id="Tags" name="Tags" 
+                                [(ngModel)]="addProduct.Tags"
+                                placeholder="Enter Tags" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div>
+                                <!--begin::Label-->
+                                <label class="form-label">{{'MANAGEDPRODUCT.DESCRIPTION'| translate}}</label>
+                                <!--end::Label-->
+                                <!--begin::Editor-->
+                                <textarea class="form-control mb-2" name="Description" rows="5" id="Description" [(ngModel)]="addProduct.Description"
+                                 placeholder="Enter Description" ></textarea>                                <!--end::Editor-->
+                                <!--begin::Description-->
+                                <div class="text-muted fs-7">Set a description to the product for better visibility.</div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Card header-->
+                    </div>
+                    <!--end::General options-->
+                    <!--begin::Pricing-->
+                    <div class="card card-flush py-4">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>Pricing</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+                            <h4>{{'MANAGEDPRODUCT.PRICINGINFORMATION'| translate}}</h4>
+                            <div class="separator mb-5"></div>
+                            <!--begin::Input group-->
+                            <div class="mb-10 fv-row">
+                                <div class="row">
+                                    <div class="col-6" *ngxPermissionsOnly="this.routeID !== '0' ? CatalogPermission.ProductBuyingPrice : CatalogPermission.ProductBuyingPrice" >
+                                        <!--begin::Label-->
+                                        <label class="required form-label">{{'MANAGEDPRODUCT.BUYINGPRICE'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">€</span>
+                                            </div>
+                                            <app-custom-input 
+                                                [isDisabled]="PurchasePriceDisabled"
+                                                name="PurchasePrice"
+                                                [type]="'number'" 
+                                                [(twBinding)]="addProduct.PurchasePrice"
+                                                placeholder="Enter Buying Price"
+                                                [classGroup]="'form-control mb-2'"
+                                                style="flex: auto;"
+                                            ></app-custom-input>
+                                            <!-- <input class="form-control mb-2" type="number" value="0" [(ngModel)]="addProduct.PurchasePrice" 
+                                            name="PurchasePrice" (ngModelChange)="setPriceDefaultValueForFeilds($event)" 
+                                            id="PurchasePrice"   placeholder="Enter Buying Price"/> -->
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.BUYINGPRICE'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div class="col-6">
+                                        <!--begin::Label-->
+                                        <label class="required form-label">{{'MANAGEDPRODUCT.SHOPSALEVAP'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">€</span>
+                                            </div>
+                                            <input class="form-control mb-2" type="number"  id="SalePriceVAP" name="SalePriceVAP" 
+                                            [(ngModel)]="addProduct.SalePrice"    placeholder="Enter Sale Price System"/>
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.SHOPSALEVAP'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div class="col-6">
+                                        <!--begin::Label-->
+                                        <label class="form-label">{{'MANAGEDPRODUCT.MINIMUMDISCOUNT'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input class="form-control mb-2" type="number" name="MinimumDiscount" id="MinimumDiscount"  
+                                            [(ngModel)]="addProduct.MinDiscPer"  placeholder="Enter Minimum Discount" />
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.MINIMUMDISCOUNT'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div class="col-6">
+                                        <!--begin::Label-->
+                                        <label class="form-label">{{'MANAGEDPRODUCT.MAXIMUMDISCOUNT'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input class="form-control mb-2" type="number" name="MaximumDiscount" id="MaximumDiscount"   
+                                            [(ngModel)]="addProduct.MaxDiscPer"  placeholder="Enter Maximum Stock" />
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.MAXIMUMDISCOUNT'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Tax-->
+                            <h4>{{'MANAGEDPRODUCT.SHOPDETAIL'| translate}}</h4>
+                            <div class="separator mb-5"></div>
+                            <div class="row" *ngIf="shopEnable">
+                                <div class="col-6" *ngxPermissionsOnly="this.routeID !== '0' ? CatalogPermission.ProductBuyingPrice : CatalogPermission.ProductBuyingPrice" >
+                                    <!--begin::Label-->
+                                    <label class="required form-label">{{'MANAGEDPRODUCT.SHOPSALEPRICE'| translate}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">€</span>
+                                        </div>
+                                        <input class="form-control mb-2" type="number" name="salePrice" [(ngModel)]="addProduct.ShopSalePrice"
+                                         id="SalePriceShop" placeholder="Enter Sale Price Shop"/>
+                                    </div>
+                                    <!--end::Input-->
+                                    <!--begin::Description-->
+                                    <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.SHOPSALEPRICE'| translate}}.</div>
+                                    <!--end::Description-->
+                                </div>
+                                <div class="col-6">
+                                    <!--begin::Label-->
+                                    <label class="form-label">{{'MANAGEDPRODUCT.ADVICEPRICE'| translate}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">€</span>
+                                        </div>
+                                        <input class="form-control mb-2" type="number" name="AdvicePrice"  id="AdvicePrice"
+                                        [(ngModel)]="addProduct.ShopAdvicePrice" placeholder="Enter Advice Price"/>
+                                    </div>
+                                    <!--end::Input-->
+                                    <!--begin::Description-->
+                                    <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.ADVICEPRICE'| translate}}.</div>
+                                    <!--end::Description-->
+                                </div>
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-10 mt-5">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-semibold mb-2">Allow Discount
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Select a discount type that will be applied to this product"></i></label>
+                                    <!--End::Label-->
+                                    <!--begin::Row-->
+                                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9" data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+                                        <!--begin::Col-->
+                                        <div class="col">
+                                            <!--begin::Option-->
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary  d-flex text-start p-6" [ngClass]="{'active': !addProduct.bShopAllowDiscount}" data-kt-button="true">
+                                                <!--begin::Radio-->
+                                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="radio" name="discount_option" [value]="false" [(ngModel)]="addProduct.bShopAllowDiscount"/>
+                                                </span>
+                                                <!--end::Radio-->
+                                                <!--begin::Info-->
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">No Discount</span>
+                                                </span>
+                                                <!--end::Info-->
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
+                                        <!--end::Col-->
+                                        <!--begin::Col-->
+                                        <div class="col">
+                                            <!--begin::Option-->
+                                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6" [ngClass]="{'active': addProduct.bShopAllowDiscount}" data-kt-button="true">
+                                                <!--begin::Radio-->
+                                                <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                                    <input class="form-check-input" type="radio" name="discount_option" [value]="true" [(ngModel)]="addProduct.bShopAllowDiscount" />
+                                                </span>
+                                                <!--end::Radio-->
+                                                <!--begin::Info-->
+                                                <span class="ms-5">
+                                                    <span class="fs-4 fw-bold text-gray-800 d-block">Allow Discount</span>
+                                                </span>
+                                                <!--end::Info-->
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
+                                        <!--end::Col-->
+                                    </div>
+                                    <!--end::Row-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end:Tax-->
+                        </div>
+                        <!--end::Card header-->
+                    </div>
+                    <!--end::Pricing-->
+                </div>
+            </div>
+            <!--end::Tab pane-->
+            <!--begin::Tab pane-->
+            <div class="tab-pane fade" id="kt_ecommerce_add_product_advanced" role="tab-panel">
+                <div class="d-flex flex-column gap-7 gap-lg-10">
+                    <!--begin::Stock -->
+                    <div class="card card-flush py-4">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>{{'MANAGEDPRODUCT.STOCKINFORMATION'| translate}}</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+                            <!--begin::Input group-->
+                            <div class="mb-10 fv-row">
+                                <div class="row">
+                                    <div class="col-6" >
+                                        <!--begin::Label-->
+                                        <label class="form-label">{{'MANAGEDPRODUCT.MAXIMUMSTOCK'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">€</span>
+                                            </div>
+                                            <input class="form-control mb-2" id="MaximumStock" value="0" [(ngModel)]="addProduct.MaximumStock" type="number"
+                                                 placeholder="Enter Maximum Stock"
+                                                [ngModelOptions]="{standalone: true}"/>
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.MAXIMUMSTOCK'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div class="col-6" *ngIf="bShowForReseller">
+                                        <!--begin::Label-->
+                                        <label class="form-label">{{'MANAGEDPRODUCT.RESERVEDQUANTITY'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">€</span>
+                                            </div>
+                                            <input class="form-control mb-2" id="ReservedQuantity" value="0" 
+                                            [(ngModel)]="addProduct.ReservedQuantity" type="number"
+                                             placeholder="Enter Reserved Quantity"
+                                            [ngModelOptions]="{standalone: true}"/>
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.RESERVEDQUANTITY'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div class="col-6" *ngIf="bAddToWishList" >
+                                        <!--begin::Label-->
+                                        <label class="required form-label">{{'MANAGEDPRODUCT.REORDERPOINT'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input class="form-control mb-2" type="number" value="0" required 
+                                            [(ngModel)]="addProduct.ReorderPoint" id="ReorderPoint"
+                                             placeholder="Enter Reorder Point"
+                                            [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.REORDERPOINT'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div class="col-6" *ngIf="bAddToWishList" >
+                                        <!--begin::Label-->
+                                        <label class="form-label">{{'MANAGEDPRODUCT.REORDERQUANTITY'| translate}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <input class="form-control mb-2" type="number" value="0" 
+                                            [(ngModel)]="addProduct.ReorderQuantity" id="ReorderQuantity"
+                                             placeholder="Enter Reorder Quantity"
+                                            [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <div class="text-muted fs-7">Set the product {{'MANAGEDPRODUCT.REORDERQUANTITY'| translate}}.</div>
+                                        <!--end::Description-->
+                                    </div>
+                                    <div *ngIf="!IsAdd" class="col-6">
+                                        <!--begin::Label-->
+                                        <label class="required form-label">Assigned Location</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+
+                                            <!-- <input class="form-control mb-2" id="AssignLocation" 
+
+                                                [(ngModel)]="addProduct.AssignLocation" type="text"
+                                                [ngModelOptions]="{standalone: true}" /> -->
+                                                
+                                            <app-custom-input 
+                                                [isDisabled]="true"
+                                                name="assigned_location"
+                                                [(twBinding)]="addProduct.AssignLocation"
+                                                [classGroup]="'form-control mb-2'"
+                                                style="flex: auto;"
+                                            ></app-custom-input>
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <!--end::Description-->
+                                    </div>
+                                    <div *ngIf="!IsAdd" class="col-6">
+                                        <!--begin::Label-->
+                                        <label class="required form-label">Stock Quantity</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">%</span>
+                                            </div>
+                                            <app-custom-input 
+                                                [isDisabled]="true"
+                                                name="AvailibleQuantity"
+                                                [(twBinding)]="addProduct.AvailibleQuantity"
+                                                [classGroup]="'form-control mb-2'"
+                                                style="flex: auto;"
+                                            ></app-custom-input>
+                                            <!-- <input class="form-control mb-2" id="AvailibleQuantity" readonly 
+                                            [(ngModel)]="addProduct.AvailibleQuantity" type="number" 
+                                            [ngModelOptions]="{standalone: true}" /> -->
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Description-->
+                                        <!--end::Description-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row">
+                                <!--begin::Input-->
+                                <div class="form-check form-check-custom form-check-solid mb-2">
+                                    <div class="me-5">
+                                        <input class="form-check-input" type="checkbox" name="bAddToWishList" id="bAddToWishList" 
+                                        [(ngModel)]="bAddToWishList" />
+                                        <label class="form-check-label" for="bAddToWishList">{{'MANAGEDPRODUCT.ISAUTOADDTOWISH'| translate}}</label>
+                                    </div>
+                                    <div class="me-5">
+                                        <input class="form-check-input" type="checkbox" name="bShowForReseller" id="bShowForReseller" 
+                                        [(ngModel)]="bShowForReseller"/>
+                                        <label class="form-check-label" for="bShowForReseller">{{'MANAGEDPRODUCT.BSHOWTORESELLER'| translate}}</label>
+                                    </div>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" name="IsObselete" id="IsObselete" 
+                                        [(ngModel)]="IsObselete" />
+                                        <label class="form-check-label" for="IsObselete">{{'MANAGEDPRODUCT.ISOBSELETE'| translate}}</label>
+                                    </div>
+                                </div>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Card header-->
+                    </div>
+                    <!--end::Stock -->
+                    <!--begin::attributes-->
+                    <div class="card card-flush py-4">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>Attributes</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <!--begin::Card body-->
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label">{{'MANAGEDPRODUCT.MODELNUMBER'| translate}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="ProductName" name="modelNumber" 
+                                        [placeholder]="'Select Model Number'" 
+                                        [options]="ProductModelApiList"
+                                        [(twBinding)]="selectedProductModelID" 
+                                        (onChange)="productModelChange($event)"
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+                                
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label"> {{'MANAGEDPRODUCT.TYPE'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="subModelNumber" name="subModelNumber" 
+                                        [placeholder]="'Select Type'" 
+                                        [options]="ProductSubModelDD"
+                                        [(twBinding)]="selectedProductSubModelID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+                                
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="BLabel">BLabel</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control" type="text" style="background-color: #cccc;" name="BLabel" id="Blabel"
+                                    [(ngModel)]="addProduct.BLabel" pInputText />
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label required" for="QualityLabel"> {{'MANAGEDPRODUCT.QUALITYLABEL'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="QualityLabel" name="QualityLabel" 
+                                        [placeholder]="'Select Quality Label'" 
+                                        [options]="QualityLabelDropdown"
+                                        [(twBinding)]="selectedQualityLabelID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="Color"> {{'MANAGEDPRODUCT.COLOR'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="Color" name="Color" 
+                                        [placeholder]="'Select Quality Label'" 
+                                        [options]="ColorDropdown"
+                                        [(twBinding)]="selectedColorID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="Brand"> {{'MANAGEDPRODUCT.BRAND'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="Brand" name="Brand" 
+                                        [placeholder]="'Select Quality Label'" 
+                                        [options]="BrandDropdown"
+                                        [(twBinding)]="selectedBrandID" 
+                                        (onChange)="productBrandChange($event)"
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="BrandType"> {{'MANAGEDPRODUCT.BRANDTYPE'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="BrandType" name="BrandType" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="BrandTypeDropdown"
+                                        [(twBinding)]="selectedBrandTypeID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="Series"> {{'SSGENERIC.PRODUCTSERIES' | translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="Series" name="Series" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="SeriesDropdown"
+                                        [(twBinding)]="selectedSeriesID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="size"> {{'MANAGEDPRODUCT.SIZE'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="size" name="size" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="ProductSizeDD"
+                                        [(twBinding)]="selectedProductSizeID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="connecterType"> {{'MANAGEDPRODUCT.CONNECTERTYPE'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="connecterType" name="connecterType" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="ProductConnecterTypeDD"
+                                        [(twBinding)]="selectedProductConnecterTypeID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="packaging"> {{'MANAGEDPRODUCT.PACKAGING'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="packaging" name="packaging" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="ProductPackagingDD"
+                                        [(twBinding)]="selectedProductPackagingID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="capacity"> {{'MANAGEDPRODUCT.CAPACITY'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="capacity" name="capacity" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="ProductCapacityDD"
+                                        [(twBinding)]="selectedProductCapacityID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="power"> {{'MANAGEDPRODUCT.POWER'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="power" name="power" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="ProductPowerDD"
+                                        [(twBinding)]="selectedProductPowerID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+
+                                <div class="col-4">
+                                    <!--begin::Label-->
+                                    <label class="form-label" for="printlbl"> {{'MANAGEDPRODUCT.PRINT'| translate}} </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <app-custom-dropdown
+                                        id="printlbl" name="printlbl" 
+                                        [placeholder]="'Select Brand Type'" 
+                                        [options]="ProductPrintDD"
+                                        [(twBinding)]="selectedProductPrintID" 
+                                        autoWidth="false" 
+                                        required 
+                                        [enableSearch]="true" 
+                                        [optionLabel]="'label'">
+                                    </app-custom-dropdown>
+                                
+                                    <!--end::Input-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                    </div>
+                    <!--end::attributes-->
+                </div>
+            </div>
+            <!--end::Tab pane-->
+        </div>
+        <!--end::Tab content-->
+        <div class="d-flex justify-content-end">
+            <!--begin::Button-->
+            <a [routerLink]="['/catalog/managed-products']" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">{{'MANAGEDPRODUCT.CANCLE'| translate}}</a>
+            <!--end::Button-->
+            <!--begin::Button-->
+            <button class="btn btn-primary" 
+                *ngxPermissionsOnly="this.routeID !== '0' ? CatalogPermission.UpdateProduct : CatalogPermission.AddProduct"
+                (click)="checkConfirmation();">
+                <span class="indicator-label">{{ProductButtonLabel}}</span>
+                <span class="indicator-progress">Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+            </button>
+            <!--end::Button-->
+        </div>
+    </div>
+    <!--end::Main column-->
+</form>
+<!--end::Form-->
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_attach_img data-bs-toggle="modal" data-bs-target="#modalAttachImage">
+    Launch demo modal
+</button>
+
+<jw-modal [modalId]="'modalAttachImage'" [modalTitle]="'Attach Images'" [modalSize]="'xxl'">
+    <label class="form-label">Images</label>
+    <div class="row-cols-1 row-cols-xl-3 row-cols-md-2 border border-dashed rounded pt-3 pb-1 px-2 mb-5 mh-500px overflow-scroll min-h-100px" >
+        <app-custom-image-list
+            class="mt-2"
+            [images]="Images"
+            (emitAdd)="ImageSrcFunction($event)"
+            [hideRemove]='true'
+            [imageColumns]="columns"
+        >
+        </app-custom-image-list>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <app-ss-generic-table class="card col-12 mb-5 mb-xl-8"
+                (emitRowClick)="onRowSelect($event)"   
+                [data]="folderHierarchys" 
+                [globalFilterFields]="['Name', 'Description']" 
+                [filterGlobal]='true'
+                [columnsData]="folderColumns" 
+                [totalRecords]="totalRecords"
+                (getLazyData)="LazyLoadFolderFunction($event)" 
+                (emitNarration)="UpdateImages($event)"
+                [rowsPerPageOptions]="[5, 10, 20, 50, 100]" 
+                [row]='5' 
+                [isLoading] = "isLoading" 
+                [print] = 'false'
+                [initialColumns]="initialColumns" 
+                [min_height]="'low'">
+            </app-ss-generic-table>
+        </div>
+        <!-- <div class="col-6">
+            <app-genric-table class="card col-12 mb-5 mb-xl-8"
+               (emitRowClick)="ImageSrcFunction($event)"
+               [data]="Images" [columnsData]="columns" [globalFilterFields]="globalFilterFields"
+               [rowsPerPageOptions]="rowsPerPageOptions" [row]='5' [initialColumns]="initialColumnsImages"
+               [loadingData]="false">
+            </app-genric-table> 
+        </div> -->
+    </div>
+</jw-modal>
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_doc_attach data-bs-toggle="modal" data-bs-target="#modalDocAttach">
+    Launch demo modal
+</button>
+
+<jw-modal [modalId]="'modalDocAttach'" [modalTitle]="'Document Attachment'" [modalSize]="'lg'" (emitClose)="showAttachModal()" [actionClose]="true">
+    <div class="row">
+        <div class="col-12">
+            <app-custom-file-uploader
+                [mutiple]="true"
+                (onSelect)="onUpload($event)"
+                (uploadHandler)="UpdateImage($event)"
+            >
+            </app-custom-file-uploader>
+        </div>
+
+        <div class="separator mb-5"></div>
+
+        <app-custom-image-list
+            [images]="Images"
+            (emitAdd)="ImageSrcFunction($event)"
+            (emitRemove)="DeleteImage1($event.ImageName)"
+            [hideAdd]='true'
+            [imageColumns]="columns"
+        >
+        </app-custom-image-list>
+
+        <!-- <div class="col-12">
+            <app-genric-table class="card col-12 mb-5 mb-xl-8"
+               (emitDeleteBtnClick)="DeleteImage1($event)" 
+               [data]="Images" [columnsData]="columns" [globalFilterFields]="globalFilterFields"
+               [rowsPerPageOptions]="rowsPerPageOptions" [row]='5' [initialColumns]="initialColumnsImages"
+               [loadingData]="false" [hideToolbar]="true">
+            </app-genric-table> 
+        </div> -->
+    </div>
+</jw-modal>
+<!-- <app-generic-modal #modalDocAttach [modalConfig]="modalDocAttachConfig">
+    <div class="row">
+        <div class="col-12">
+            <app-custom-file-uploader
+                [mutiple]="true"
+                (onSelect)="onUpload($event)"
+                (uploadHandler)="UpdateImage($event)"
+            >
+            </app-custom-file-uploader>
+        </div>
+
+        <div class="separator mb-5"></div>
+
+        <app-custom-image-list
+            [images]="Images"
+            (emitAdd)="ImageSrcFunction($event)"
+            (emitRemove)="DeleteImage1($event.ImageName)"
+            [hideAdd]='true'
+            [imageColumns]="columns"
+        >
+        </app-custom-image-list>
+    </div>
+</app-generic-modal> -->
+<!-- 
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_attachment data-bs-toggle="modal" data-bs-target="#modalAttachment">
+    Launch demo modal
+</button>
+  
+<jw-modal [modalId]="'modalAttachment'" [modalTitle]="'Attachment'" [modalSize]="'xxl'">
+    <div class="row">
+        <div class="col-6">
+            <app-custom-file-uploader
+                [mutiple]="true"
+                (onSelect)="onUpload($event)"
+                (uploadHandler)="UpdateImage($event)"
+            >
+            </app-custom-file-uploader>
+        </div>
+        <div class="col-6">
+            <app-genric-table class="card col-12 mb-5 mb-xl-8"
+               (emitRowClick)="ImageSrcFunction($event)"
+               [data]="Images" [columnsData]="columns" [globalFilterFields]="globalFilterFields"
+               [rowsPerPageOptions]="rowsPerPageOptions" [row]='5' [initialColumns]="initialColumnsImages"
+               [loadingData]="true" [hideToolbar]='true'>
+            </app-genric-table> 
+        </div>
+    </div>
+</jw-modal> -->
+
+
+<app-generic-modal #modalCategoryAssignment [modalConfig]="modalCategoryAssignmentConfig">
+    <app-custom-picklist [source]="Sourcelist" [target]="Targetlist" sourceHeader="All Categories"
+        targetHeader="Assigned Categories" dragdrop="true" [responsive]="true" [sourceStyle]="{'height':'19vw'}"
+        [targetStyle]="{'height':'19vw'}" filterBy="Name" sourceFilterPlaceholder="Search by Name"
+        targetFilterPlaceholder="Search by Name" (emitChangeTarget)="setCategoryAssignment($event)">
+        <ng-template let-Category pTemplate="item">
+            <div>{{Category.Name}}</div>
+        </ng-template>
+    </app-custom-picklist>
+</app-generic-modal>

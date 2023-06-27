@@ -1,0 +1,62 @@
+<div>
+    <!-- begin::Header-->
+    <div class="d-flex justify-content-between flex-column flex-sm-row p-5">
+        <!--end::Logo-->
+        <div class="text-sm-end w-100">      
+            <div class="row ">       
+                <div class="col-4 position-relative">
+                    <!-- begin::Header -->
+                    <div class="card-header card-header-stretch overflow-auto position-absolute bottom-0">
+                        <ul class="
+                            nav nav-stretch nav-line-tabs
+                            fw-bold
+                            border-transparent
+                            flex-nowrap
+                        " role="tablist">
+
+                            <li class="nav-item">
+                                <a class="nav-link cursor-pointer active"
+                                    role="all">
+                                {{ "Inventory Details" | translate }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end::Header -->
+                </div>  
+                <!--begin::Text-->
+                <div class="text-sm-end fw-semibold fs-4 text-muted mt-7 col-8">
+                    <div><b><span translate="REPORTS.STOCKNETWORTH"></span></b></div>
+                    <div><span>€ </span>
+                        {{InventoryNetWorth | number:'1.2-2' }}</div>
+                </div>
+                <!--end::Text-->
+            </div> 
+        </div>
+    </div>
+    <!--end::Header-->
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        
+        
+        <div class="tab-content pt-3">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table
+                            [menuItems]="genericMenuItems" 
+                            [data]="AllInventoryList" [globalFilterFields]="InventoryGlobalFilterFields"  [filterGlobal]=true
+                            [columnsData]="columns" [totalRecords]="InventoryTotalRecords" 
+                            (getLazyData)="GetInventoryWithLazyLoadinFunction($event)" [initialColumns]="initialCoulumns"
+                            [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [isLoading] = "isLoadingData"
+                            >
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Order details-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="mt-20">
+    <!-- begin::Header-->
+    <div class="card card-flush justify-content-start">
+        <!-- begin::Header -->
+        <div class="border-0 pt-5 d-flex ms-10">
+            <!--begin::Label-->
+            <label class="required form-label d-flex align-items-center me-3" translate="Product"></label>
+            <!--end::Label-->
+            <!--begin::Select2-->
+            <div class="w-50vw" style="width: 50vw;">
+                <app-custom-select
+                    [items]="filteredProduct" [virtualScroll]="true" 
+                    [bindLabel]="'label'"
+                    [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                    [placeholder]="'Select Product'"
+                    (twBindingChange)="SearchByProduct($event)">
+                
+                </app-custom-select> 
+            </div>
+            <span (click)="OpenProductDialog()"
+                [inlineSVG]="
+                    './assets/media/icons/duotune/general/gen004.svg'
+                "
+                class="ms-5 m-auto svg-icon svg-icon-1 me-1 svg-icon-primary"
+            ></span>
+            <!--end::Select2-->
+        </div>
+        <!-- end::Header -->
+    </div>
+    <!--end::Header-->
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        
+        
+        <div class="tab-content pt-3">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table
+                                (emitMenuAction)="emitAction($event)"
+                                [menuItems]="genericMenuItems" 
+                                [data]="AllStockList" 
+                                [filterGlobal]=true
+                                [columnsData]="columns" 
+                                [totalRecords]="totalRecords" 
+                                (getLazyData)="GetAllStockDataWithLazyLoadinFunction($event)" 
+                                [initialColumns]="initialCoulumns"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]='10' 
+                                [isLoading] = "isLoadingData"
+                            >
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Order details-->
+        </div>
+    </div>
+</div>
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_products data-bs-toggle="modal" data-bs-target="#modalProducts">
+    Open Products Modal
+</button>
+  
+<jw-modal [modalId]="'modalProducts'" [modalTitle]="'Products'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <app-genric-table (emitRowClick)="selectValue($event)" [menuItems]="[]" [data]="ProductData"
+            [columnsData]="productsColumn" [loadingData]="false">
+        </app-genric-table>
+    </div>
+</jw-modal>
+
+<app-loading [status]="isLoadingProducts"></app-loading>

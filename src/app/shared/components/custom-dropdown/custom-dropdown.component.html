@@ -1,0 +1,14 @@
+<div class="position-relative">
+    <div class="form-select fw-bold text-start w-75 d-inline-block w-100 mb-2" 
+    data-kt-menu-trigger="click"
+    data-kt-menu-placement="bottom-end"
+    data-kt-menu-flip="top-end">{{placeholder}}</div>
+
+    <app-custom-dropdown-option
+        [options]="options"
+        (emitSelOption)="onSelOption($event)"
+        [enableSearch]="enableSearch"
+        [optionLabel]="optionLabel"
+        [optionKey]="optionKey">
+    </app-custom-dropdown-option>
+</div>

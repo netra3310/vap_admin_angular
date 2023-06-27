@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-between align-items-center flex-wrap" *ngIf="this.pager && size > 0">
+    <ul class="pagination justify-content-center">
+    <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="paginate_button page-item">
+        <a (click)="setPage(1)" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"><span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr079.svg'"
+            class="svg-icon svg-icon-3"
+          ></span></a>
+    </li>
+    <li [ngClass]="{ disabled: pager.currentPage === 1 }" class="paginate_button page-item">
+        <a (click)="setPage(pager.currentPage - 1)" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"><span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr074.svg'"
+            class="svg-icon svg-icon-3"
+          ></span></a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{ active : pager.currentPage === page }" class="paginate_button page-item">
+            <a (click)="pager.currentPage !== page ? setPage(page) : ''" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">{{page}}</a>
+    </li>
+    <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="paginate_button page-item">
+        <a (click)="setPage(pager.currentPage + 1)" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"><span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr071.svg'"
+            class="svg-icon svg-icon-3"
+          ></span></a>
+    </li>
+    <li [ngClass]="{ disabled: pager.currentPage === pager.totalPages }" class="paginate_button page-item">
+        <a (click)="setPage(pager.totalPages)" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"> <span
+            [inlineSVG]="'./assets/media/icons/duotune/arrows/arr080.svg'"
+            class="svg-icon svg-icon-3"
+          ></span></a>
+    </li>
+</ul>
+    <div class="d-flex align-items-center py-3">
+        <!-- <div class="d-flex align-items-center">
+            <div class="mr-2 text-muted">Loading...</div>
+            <div class="spinner spinner-success mr-10"></div>
+        </div> -->
+
+        <select class="form-control form-control-sm text-primary font-weight-bold mr-4 border-0 bg-light-primary"
+                style="width: 75px;" (change)="onPageSize($event)">
+                <ng-container *ngFor="let option of rowsPerPageOptions">
+                    <option [value]="option">{{option}}</option>
+                </ng-container>
+        </select>
+        <span class="text-muted"> &nbsp;{{pager.currentPage}} of {{pager.totalPages}} pages</span>
+    </div>
+</div>
+<div *ngIf="!(this.size > 0)" class="text-center">
+    <span class="badge badge-light-info me-2">No results were found.</span>
+</div>

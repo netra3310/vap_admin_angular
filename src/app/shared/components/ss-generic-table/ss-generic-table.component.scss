@@ -1,0 +1,57 @@
+
+@keyframes toggle-display {
+    0% {
+      display: none;
+    }
+    50% {
+      display: block;
+    }
+    100% {
+      display: none;
+    }
+}
+.context-menu {
+    position: fixed;
+    z-index: 1000;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 0.5em;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    animation-name: toggle-display;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.context-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu li {
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+}
+
+.context-menu li:hover {
+    background-color: #eee;
+}
+
+.ellipsis-background {
+    width: 50px;
+    height: 50px;
+    position: relative; /* Set position to relative for pseudo-element */
+}
+
+.ellipsis-background:before {
+    content: "..."; /* Set content to ellipsis */
+    position: absolute; /* Position pseudo-element absolutely within parent */
+    top: 50%; /* Position pseudo-element vertically in center of parent */
+    left: 50%; /* Position pseudo-element horizontally in center of parent */
+    transform: translate(-50%, -50%); /* Center pseudo-element exactly */
+    font-size: 24px; /* Set font size of ellipsis */
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}

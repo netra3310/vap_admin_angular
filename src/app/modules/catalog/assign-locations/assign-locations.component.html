@@ -1,0 +1,399 @@
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-xl-row mt-15">
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-lg-350px w-xl-400px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush mb-0" data-kt-sticky="true" 
+            data-kt-sticky-name="subscription-summary" 
+            data-kt-sticky-offset="{default: false, lg: '200px'}" 
+            data-kt-sticky-width="{lg: '350px', xl: '400px'}" 
+            data-kt-sticky-left="auto" data-kt-sticky-top="100px" 
+            data-kt-sticky-animation="false" 
+            data-kt-sticky-zindex="95">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Search Options</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-5"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Warehouse" translate="MANAGEDPRODUCT.WAREHOUSE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Warehouse" name="Warehouse"
+                                [placeholder]="'Select Warehouse'" 
+                                [options]="WarehouseDropdown"
+                                [(twBinding)]="selectedWarehouseID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeWareHouse($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Zone" translate="MANAGEDPRODUCT.ZONE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Zone" name="Zone"
+                                [placeholder]="'Select Zone'" 
+                                [options]="ZoneDropdown"
+                                [(twBinding)]="selectedZoneID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeZone($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Section" translate="MANAGEDPRODUCT.SECTION"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Section" name="Section"
+                                [placeholder]="'Select Section'" 
+                                [options]="SectionDropdown"
+                                [(twBinding)]="selectedSectionID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeSection($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Level" translate="MANAGEDPRODUCT.LEVEL"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Level" name="Level"
+                                [placeholder]="'Select Level'" 
+                                [options]="LevelDropdown"
+                                [(twBinding)]="selectedLevelID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeLevel($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.QUANTITY"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-input
+                                [type]="'number'" 
+                                [(twBinding)]="txtQuantity"
+                                [isDisabled]="IsTrackable? true : false"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3'"
+                            ></app-custom-input>
+                            <!--end::Select2-->
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                <div *ngIf="!btnDisabled">
+                    <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="Save()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+                        </svg>
+                        <span title="Close" translate="MANAGEDPRODUCT.SAVE"></span>
+                    </a> 
+                </div>
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-5 mt-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-6 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.PRODUCT"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select class="fs-6"
+                                [items]="filteredProduct" [virtualScroll]="true" 
+                                [bindLabel]="'label'"
+                                [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                                [placeholder]="'Select Product...'"
+                                (twBindingChange)="BindProductLocationDetail(($event))">
+                                
+                                <span (click)="OpenProductDialog()"
+                                    [inlineSVG]="
+                                        './assets/media/icons/duotune/general/gen004.svg'
+                                    "
+                                    class="ms-5 m-auto svg-icon svg-icon-1 me-1 svg-icon-primary"
+                                ></span>
+                            </app-custom-select>
+                            
+                            <!--end::Select2-->
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                
+                <div *ngxPermissionsOnly="reportPermission.SingleProductLifeLine" >
+                    <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="GoToLifelineReport()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
+                            <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
+                            <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
+                        </svg>
+                        <span >goto life line report</span>
+                    </a> 
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-5">
+        <!--begin:::Tab content-->
+        <div class="tab-content" id="myTabContent">
+            <!--begin:::Tab pane-->
+            <div class="tab-pane fade show active" id="kt_customer_view_overview_tab" role="tabpanel">
+                <!--begin::Card-->
+                <div class="card pt-4 mb-6 mb-xl-9">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>Products</h2>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0 pb-5">
+                        
+                        <app-genric-table *ngIf="IsTrackable" [data]="AllTrackableProductsLocationList"
+                            (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems"
+                            (emitCheckbox)="TrackableCheckboxChange($event)" [columnsData]="trackableColumns"
+                            [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="rowsPerPageOptions" [row]='50'
+                            [loadingData]="IsSpinner" [min_height]="'low'">
+                        </app-genric-table>
+                        <app-genric-table *ngIf="!IsTrackable" [data]="AllNonTrackableProductsLocationList"
+                            (emitRowClick)="NonTrackableCheckboxChange($event)" (emitMenuAction)="emitAction($event)"
+                            [menuItems]="genericMenuItems" [columnsData]="nonTrackableColumns"
+                            [globalFilterFields]="globalFilterFields1" [rowsPerPageOptions]="rowsPerPageOptions" [row]='50' 
+                            [loadingData]="IsSpinner" [min_height]="'low'">
+
+                        </app-genric-table>
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+                <!--begin::Card-->
+                <div class="card pt-4 mb-6 mb-xl-9">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2 class="fw-bold mb-0">Overview</h2>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div id="kt_customer_view_payment_method" class="card-body pt-0">
+                        <!--begin::Option-->
+                        <div class="py-0" data-kt-customer-payment-method="row">
+                            <!--begin::Header-->
+                            <div class="py-3 d-flex flex-stack flex-wrap">
+                                <!--begin::Toggle-->
+                                <div class="d-flex align-items-center collapsible collapsed rotate" data-bs-toggle="collapse" data-bs-target="#kt_customer_view_payment_method_2">
+                                    <!--begin::Arrow-->
+                                    <div class="me-3 rotate-90">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Arrow-->
+                                    <!--begin::Summary-->
+                                    <div class="me-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="text-gray-800 fw-bold">{{'LocationStock'| translate}}</div>
+                                        </div>
+                                       
+                                    </div>
+                                    <!--end::Summary-->
+                                </div>
+                                <!--end::Toggle-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div id="kt_customer_view_payment_method_2" class="collapse fs-6 ps-10">
+                                <!--begin::Details-->
+                                <div class="d-flex flex-wrap py-5">
+                                    <!--begin::Col-->
+                                    <div class="flex-equal me-5">
+                                        
+                                        <app-genric-table [data]="NonTrackableProductsLocationQuantityList"               
+                                            [menuItems]="genericMenuItems" [columnsData]="productsQuantityColumn"
+                                            [globalFilterFields]="globalFilterFields2" [rowsPerPageOptions]="rowsPerPageOptions" [row]='50' [min_height]="'low'" [loadingData]="IsSpinner">
+                                        </app-genric-table>
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Details-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Option-->
+                        <div class="separator separator-dashed"></div>
+                        <!--begin::Option-->
+                        <div class="py-0" data-kt-customer-payment-method="row">
+                            <!--begin::Header-->
+                            <div class="py-3 d-flex flex-stack flex-wrap">
+                                <!--begin::Toggle-->
+                                <div class="d-flex align-items-center collapsible collapsed rotate" data-bs-toggle="collapse" data-bs-target="#kt_customer_view_payment_method_3">
+                                    <!--begin::Arrow-->
+                                    <div class="me-3 rotate-90">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr071.svg-->
+                                        <span class="svg-icon svg-icon-3">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12.6343 12.5657L8.45001 16.75C8.0358 17.1642 8.0358 17.8358 8.45001 18.25C8.86423 18.6642 9.5358 18.6642 9.95001 18.25L15.4929 12.7071C15.8834 12.3166 15.8834 11.6834 15.4929 11.2929L9.95001 5.75C9.5358 5.33579 8.86423 5.33579 8.45001 5.75C8.0358 6.16421 8.0358 6.83579 8.45001 7.25L12.6343 11.4343C12.9467 11.7467 12.9467 12.2533 12.6343 12.5657Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Arrow-->
+                                    <!--begin::Summary-->
+                                    <div class="me-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="text-gray-800 fw-bold">{{'ProductLocation'| translate}}</div>
+                                        </div>
+                                    </div>
+                                    <!--end::Summary-->
+                                </div>
+                                <!--end::Toggle-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div id="kt_customer_view_payment_method_3" class="collapse fs-6 ps-10" >
+                                <!--begin::Details-->
+                                <div class="d-flex flex-wrap py-5">
+                                    <!--begin::Col-->
+                                    <div class="flex-equal me-5">
+                                         
+                                        <app-custom-spinner [isLoading]="IsSpinner"></app-custom-spinner>
+                                        <div class="table-responsive border-bottom mb-9">
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+                                                <thead>
+                                                    <tr class="border-bottom fs-6 fw-bold text-muted">
+                                                        <th>{{'Product' | translate}} </th>
+                                                        <th> {{'SSGENERIC.QUANTITY' | translate}}  </th>
+                                                        <th class="min-w-70px text-end pb-2">{{'Location' | translate}} </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="fw-semibold text-gray-600">
+                                                    <ng-container *ngFor="let product of AllProductLocations">
+                                                        <!--begin::Trackables-->
+                                                        <tr>
+                                                            <!--begin::checkbox-->
+                                                            <td>
+                                                                {{product.ProductVariant}}
+                                                            </td>
+                                                            <!--end::checkbox-->
+                                                            <!--begin::TrackableCode-->
+                                                            <td>{{product.Quantity}}</td>
+                                                            <td>
+                                                                <div *ngFor="let loc of product.Location.split(';')">
+                                                                    {{loc || ''}}
+                                                                </div>
+                                                            </td>
+                                                            <!--end::TrackableCode-->
+                                                        </tr>
+                                                        <!--end::Trackables-->
+                                                    </ng-container>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Details-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Option-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end:::Tab pane-->
+        </div>
+        <!--end:::Tab content-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Layout-->
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_products data-bs-toggle="modal" data-bs-target="#modalProducts">
+    Open products modal
+</button>
+<jw-modal [modalId]="'modalProducts'" [modalTitle]="'Products'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-genric-table (emitRowClick)="selectValue($event)" [menuItems]="[]" [data]="ProductData"
+                        [columnsData]="productsColumn" (emitCheckbox)="TrackableCheckboxChange($event)"
+                        [loadingData]="isLoadingProducts">
+                    </app-genric-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+<app-loading [status]="isLoadingProducts"></app-loading>

@@ -1,0 +1,267 @@
+<app-loading [status]="IsSpinner"></app-loading>
+<!-- <span class="mt-20">
+    {{"@@" + QRDetails + "@@"}}
+</span> -->
+<app-qr-print
+    *ngIf="QRDetails"
+    [ProductDetails]="QRDetails"
+ ></app-qr-print>
+
+<div>
+    <div class="mb-5 text-end">
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="AddLevel()" *ngxPermissionsOnly="CatalogPermission.AddLevel" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+            </svg>
+            <span title="Close" translate="MANAGEDPRODUCT.ADDLEVEL"></span>
+        </a> 
+        <!--end::Primary button-->
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <!-- <app-genric-table 
+                            (emitMenuAction)="emitAction($event)" 
+                            [menuItems]="genericMenuItems" 
+                            (emitSwitch)="UpdateLevelStatus($event)"
+                            [data]="AllLevelList" 
+                            [columnsData]="columns" 
+                            [globalFilterFields]="globalFilterFields"
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [row]='10'
+                            [loadingData]="IsSpinner"
+                            >
+                        </app-genric-table> -->
+                        
+                        <app-ss-generic-table 
+                            (emitMenuAction)="emitAction($event)" 
+                            [menuItems]="genericMenuItems" 
+                            [data]="AllLevelList"
+                            [globalFilterFields]="globalFilterFields" 
+                            (emitSwitch)="UpdateLevelStatus($event)" 
+                            [columnsData]="columns"
+                            [totalRecords]="totalRecords" 
+                            (getLazyData)="GetAllLevelDataWithLazyLoadinFunction($event)"
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [row]='10'
+                            [initialColumns]="initialColumns"
+                            [isLoading]="false">
+                        </app-ss-generic-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_add_level data-bs-toggle="modal" data-bs-target="#modalAddLevel">
+    Open Modal Add Level
+</button>
+<jw-modal [modalId]="'modalAddLevel'" [modalTitle]="'Add to Level'" [modalSize]="'md'">
+    <div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten">
+        <!--begin::Item-->
+        <div class="mb-6" *ngIf="level.ID>0">
+            <!--begin::Dropzone-->
+            <div class="dropzone bg-transparent">
+                <div class="image-input image-input-outline mb-5" data-kt-image-input="true"
+                    style="background-image: url('assets/media/svg/avatars/blank.svg')">
+                    <img [src]="imageBasePath+level.QRCode" class="w-125px h-125px rounded mb-5" *ngIf="level.QRCode"/>
+                    <!-- <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span> -->
+                    <!-- <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                    (click)="DeleteImage(item)" title="Remove avatar">
+                        <i class="bi bi-x fs-2"></i>
+                    </span> -->
+                    <a (click)="GenerateQRCode()" class="btn btn-light-success btn-sm mb-5" *ngIf="!level.QRCode">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
+                                <path d="M2 2h2v2H2V2Z"/>
+                                <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
+                                <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/>
+                                <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/>
+                                <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/>
+                            </svg>
+                        </span>
+                        Generate QR Code
+                    </a>
+                    <a (click)="PrintQRCode()" class="btn btn-light-primary btn-sm mb-5 ms-3" *ngIf="level.QRCode">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr087.svg-->
+                        <span class="svg-icon svg-icon-2 me-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer me-2" viewBox="0 0 16 16">
+                                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                                <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                            </svg>
+                        </span>
+                        Print Now
+                    </a>
+                </div>
+            </div>
+            <!--end::Dropzone-->
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="level_name"> {{'MANAGEDPRODUCT.NAME'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <input name="level_name" type="text" class="form-control fs-7 ps-12" [(ngModel)]="level.Name" type="text" placeholder="Enter Name"/>
+            </div>
+        </div>
+        <!--end::Item-->
+        
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="level_warehouse"> {{'MANAGEDPRODUCT.WAREHOUSE'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                
+                <app-custom-dropdown
+                    id="level_classification" name="level_classification" 
+                    [placeholder]="'Select Warehouse'" 
+                    [options]="WarehouseDropdown"
+                    [(twBinding)]="selectedWarehouseID" 
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    (onChange)="BindZones($event)"
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+            </div>
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="level_zone"> {{'MANAGEDPRODUCT.ZONE'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                
+                <app-custom-dropdown
+                    id="level_zone" name="level_zone" 
+                    [placeholder]="'Select Zone'" 
+                    [options]="ZoneDropdown"
+                    [(twBinding)]="selectedZoneID" 
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    (onChange)="BindSection($event)"
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+            </div>
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="level_section"> {{'MANAGEDPRODUCT.SECTION'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                
+                <app-custom-dropdown
+                    id="level_section" name="level_section" 
+                    [placeholder]="'Select Section'" 
+                    [options]="SectionDropdown"
+                    [(twBinding)]="selectedSectionID" 
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+            </div>
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="level_description"> {{'MANAGEDPRODUCT.DESCRIPTION'| translate}} </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-comments"></i>
+                <input type="text" name="remarks" id=remarks rows="3" cols="50" [(ngModel)]="Remarks"
+                    aria-multiline="true" pInputText placeholder="Enter Remarks" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <input name="level_description" type="text" class="form-control fs-7 ps-12" [(ngModel)]="level.Description" type="text" placeholder="Enter Description"/>
+            </div>
+        </div>
+        <!--end::Item-->
+        <a  class="btn btn-sm fw-bold btn-primary ms-2"
+                (click)="SaveUpdateLevelDetails()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+            </svg>
+            <span >{{'MANAGEDPRODUCT.SAVE'| translate}}</span>
+                        
+            <ng-container *ngIf="IsSpinner">
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </ng-container>
+        </a> 
+        
+        <a  class="btn btn-sm fw-bold btn-primary ms-2"
+                (click)="CloseAddSection()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace me-2" viewBox="0 0 16 16">
+                <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/>
+                <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
+            </svg>
+            <span >{{'MANAGEDPRODUCT.CLOSE' | translate}}</span>
+        </a> 
+    </div>
+</jw-modal>

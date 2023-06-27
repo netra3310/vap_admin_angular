@@ -1,0 +1,13 @@
+.pagination li.active a {
+  background-color: #009ef7!important;
+  color: white;
+}
+
+.pagination li a:hover {
+  background-color: #009ef7!important;
+  color: white!important;
+}
+
+.pagination li a:hover span{
+  color: white!important;
+}

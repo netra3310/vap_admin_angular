@@ -1,0 +1,177 @@
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>
+
+<app-generic-modal #modalWishlist [modalConfig]="modalWishlistConfig">
+    <app-addwishlist-dialog #wishList [ProductVariantID]='selectedVariantIDforWishlist'
+        [ProductName]='selectedProductNameforWishlist' (ReturnCall)='CloseDialog($event)'></app-addwishlist-dialog>
+</app-generic-modal>
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-lg-row mt-15">
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-lg-350px w-xl-400px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush mb-0">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Search Options</h2>
+                </div>
+                <app-sel-date-btn class="m-auto"
+                    [options]="SearchByDateDropdown"
+                    (emitSelDate)="SearchByDate($event)"
+                    [placeholderSelector]="'Select date'"
+                    [(twBinding)]="selectedSearchByDateID"
+                >
+                </app-sel-date-btn>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-6 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" for="Outlet">Outlet</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 "
+                                id="Outlet" name="Outlet"
+                                [options]="OutletDropdown" placeholder="Select Outlet" 
+                                [showClear]="true" [(twBinding)]="selectedOutletID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-7" *ngIf="IsClassificationSearch">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="Classification"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Classification" name="Classification"
+                                [options]="ClassificationDropdown" placeholder="Select Classification" 
+                                [showClear]="true" [(twBinding)]="selectedClassificationID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-7" *ngIf="IsDepartmentSearch">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="Department"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Department" name="Department"
+                                [options]="DepartmentDropdown" placeholder="Select Department" 
+                                [showClear]="true" [(twBinding)]="selectedDepartmentID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-7" *ngIf="IsCategorySearch">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="Category"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " name="Category" id='Category'
+                                [options]="CategoryDropdown" placeholder="Select Category" 
+                                [showClear]="true" [(twBinding)]="selectedCategoryID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-7" *ngIf="IsSubCategorySearch">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="Sub Category"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " name="SubCategory" id=SubCategory
+                                [options]="SubCategroyDropdown" placeholder="Select Sub Category" 
+                                [showClear]="true" [(twBinding)]="selectedSubCategoryID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-7" *ngIf="IsProductSearch">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="Product"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            
+                            <app-custom-select
+                                [items]="filteredProduct" [virtualScroll]="true" 
+                                [bindLabel]="'label'"
+                                [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                                [placeholder]="'Select Product'">
+                            </app-custom-select>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-7">
+                            
+                            <a class="btn btn-sm fw-bold btn-primary ms-2"
+                                (click)="Reset()">
+                                <span>Search</span>
+                                <ng-container *ngIf="isLoadingData">
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </ng-container>
+                            </a> 
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
+        <!--begin::Card-->
+        <div class="card card-flush pt-3 mb-5 mb-xl-10">
+            <!--begin::Card body-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table
+                                (emitMenuAction)="emitAction($event)" 
+                                (emitHref)="Details($event)"
+                                [menuItems]="genericMenuItems" 
+                                [data]="AllStockList" 
+                                [globalFilterFields]="globalFilterFields"  
+                                [filterGlobal]=true
+                                [columnsData]="columns" 
+                                [totalRecords]="totalRecords" 
+                                (getLazyData)="GetAllStockDataWithLazyLoadinFunction($event)" 
+                                [initialColumns]="initialColumns"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]='10' 
+                                [isLoading] = "isLoadingData"
+                                [min_height]="'low'">
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Layout-->
+<!-- <app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal> -->
+<app-loading [status]="IsSpinner"></app-loading>

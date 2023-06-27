@@ -1,0 +1,21 @@
+/* Define the keyframes for the animation */
+@keyframes show-hide {
+    // 0% { display: block; opacity: 0; }
+    // 100% { display: none; opacity: 1; }
+  }
+  
+  /* Apply the animation to the div element */
+  div carousel-item {
+    // animation-name: show-hide;
+    // animation-duration: 3s;
+    // animation-fill-mode: forwards;
+  }
+  
+  /* Define a class to toggle the animation on and off */
+  .show {
+    // animation-name: show-hide;
+    // animation-duration: 0.5s;
+    // animation-fill-mode: forwards;
+  }
+  
+//      

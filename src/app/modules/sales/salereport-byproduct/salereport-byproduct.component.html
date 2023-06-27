@@ -1,0 +1,75 @@
+<div class="mt-20">
+    <!-- begin::Header-->
+    <div class="card card-flush">
+        <div class="row">
+            <!--begin::Card title-->
+            <div class="card-title col-9">
+                <!-- begin::Header -->
+                <div class="card-header border-0 pt-5 row ">
+                    <div class="d-block col-4">
+                        
+                        <label class="form-label">Search By Date</label>
+                        <br />
+                        <app-sel-date-btn
+                            [options]="SearchByDateDropdown"
+                            (emitSelDate)="onChangeDate($event)"
+                            [placeholderSelector]="'Select Search By Date'"
+                            [(twBinding)]="selectedSearchByDateID"
+                        >
+                        </app-sel-date-btn>
+                    </div>
+                    <div class="col-8">
+                        <label class="form-label">Product</label>
+                        <app-custom-select
+                            class="w-100"
+                            [items]="filteredProduct"
+                            [virtualScroll]="true" 
+                            bindLabel="label"
+                            [(twBinding)]="selectedProduct" 
+                            [searchFn]="dataFunc"
+                            placeholder="Select Customer..."
+                            (twBindingChange)="onSelectProduct($event)"
+                        >
+
+                        </app-custom-select>
+                    </div>
+                </div>
+                <!-- end::Header -->
+            </div>
+            <!--end::Card title-->
+        </div>
+    </div>
+    <!--end::Header-->
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        
+        
+        <div class="tab-content pt-3">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-genric-table 
+                                (emitMenuAction)="emitAction($event)" 
+                                [menuItems]="genericMenuItems" 
+                                [data]="AllSalelist" 
+                                [columnsData]="columns" 
+                                [globalFilterFields]="globalFilterFields"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]='10'
+                                [loadingData]="isLoadingData">
+                            </app-genric-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Order details-->
+        </div>
+    </div>
+</div>
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>
+
+<app-loading [status]="IsSpinner"></app-loading>

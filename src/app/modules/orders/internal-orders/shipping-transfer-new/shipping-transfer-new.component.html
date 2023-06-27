@@ -1,0 +1,137 @@
+
+<app-loading [status]="IsSpinner"></app-loading>
+<div class="mb-5 text-end">
+    <app-sel-date-btn
+        [options]="SearchByDateDropdown"
+        (emitSelDate)="onChangeDate($event)"
+        [placeholderSelector]="'Select Search By Date'"
+        [(twBinding)]="selectedSearchByDateID"
+    >
+    </app-sel-date-btn>
+    <!-- end the select date dropdown -->
+</div>
+<div class="row">
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10 col-xxl-6">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-header pt-7">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-gray-800">{{'REPORTS.INCOMINGSHIPMENT'| translate}}</span>
+                </h3>
+                <!--end::Title-->
+            </div>
+            <div class="card-body p-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table 
+                            (emitMenuAction)="emitAction($event)" 
+                            [menuItems]="genericMenuItems"
+                            (emitRemarks)="showDialog($event)"
+                            [data]="ShippingTransferList" 
+                            [columnsData]="columns" 
+                            [globalFilterFields]="globalFilterFields"
+                            [rowGroup]="rowGroup" 
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [row]='10' 
+                            [loadingData]="false">
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10 col-xxl-6">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-header pt-7">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start flex-column">
+                    <span class="card-label fw-bold text-gray-800">{{'REPORTS.RECEIVEdSHIPMENT'| translate}}</span>
+                </h3>
+                <!--end::Title-->
+            </div>
+            <div class="card-body p-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table 
+                            [data]="ReceivedShippingTransferList" 
+                            [columnsData]="columns"
+                            (emitRemarks)="showDialog($event)" 
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [menuItems]="genericMenuItems1"  
+                            (emitMenuAction)="emitAction($event)"
+                            [globalFilterFields]="globalFilterFields"
+                            [rowGroup]="rowGroup"  
+                            [row]='10' 
+                            [loadingData]="false">
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-generic-modal class="w-50" #updateShipment [modalConfig]="updateShipmentConfig">
+    <ng-container *ngIf="shippingTransfer">
+        <div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten">
+        
+            <!--begin::Item-->
+            <div class="mb-6">
+                <label class="required" for="code"> Tracking Code <span class="RequiredEror">*</span> </label>
+                <!-- <span class="p-input-icon-left">
+                    <i class="fas fa-shopping-basket"></i>
+                    <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                        placeholder="Enter Quantity" />
+                </span> -->
+                <div class="position-relative my-1">
+                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                    <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                    <input name="code" class="form-control fs-7 ps-12" [(ngModel)]="shippingTransfer.TrackingCode" type="text" placeholder="Enter Code"/>
+                   
+                </div>
+            </div>
+            <!--end::Item-->
+            
+            <!--begin::Item-->
+            <div class="mb-6">
+                <label for="website" class="required"> Tracking Website </label>
+                <!-- <span class="p-input-icon-left">
+                    <i class="fas fa-comments"></i>
+                    <input type="text" name="remarks" id=remarks rows="3" cols="50" [(ngModel)]="Remarks"
+                        aria-multiline="true" pInputText placeholder="Enter Remarks" />
+                </span> -->
+                <div class="position-relative my-1">
+                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                    <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                    <input name="website" type="text" class="form-control fs-7 ps-12" [(ngModel)]="shippingTransfer.TrackingWebsite" type="text" placeholder="Enter Website"/>
+                </div>
+            </div>
+            <!--end::Item-->
+            <a  class="btn btn-sm fw-bold btn-primary ms-2"
+                    (click)="updateShippingData()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+                <span >Update</span>
+                            
+                <ng-container *ngIf="IsSpinner">
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </ng-container>
+            </a> 
+        </div>
+    </ng-container>
+</app-generic-modal>

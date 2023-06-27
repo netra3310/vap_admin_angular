@@ -1,0 +1,32 @@
+<div>
+    <div>
+        <!-- <app-page-title [appPageTitleDirection]="appPageTitleDirection" [appPageTitleBreadcrumb]="appPageTitleBreadcrumb"
+        [appPageTitleDescription]="appPageTitleDescription" class="page-title d-flex flex-wrap me-3"
+        [ngClass]="{'flex-column justify-content-center': appPageTitleDirection === 'column', 'align-items-center': appPageTitleDirection !== 'column', appPageTitleCSSClass}">
+        </app-page-title> -->
+    </div>
+    <div class="mb-5 text-end">
+        <app-sel-date-btn
+            [options]="SearchByDateDropdown"
+            (emitSelDate)="SearchByDate($event)"
+            [placeholderSelector]="'Select Search By Date'"
+            [(twBinding)]="selectedSearchByDateID"
+        >
+        </app-sel-date-btn>
+        <!-- end the select date dropdown -->
+    </div>
+    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+        <app-ss-generic-table class="card col-12 mb-5 mb-xl-8"
+            (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems" 
+            [data]="AllOrderList" [globalFilterFields]="globalFilterFields"  [filterGlobal]=true
+            (emitHref)="Details($event)" [columnsData]="columns" [totalRecords]="totalRecords" 
+            (getLazyData)="GetAllOrderDataWithLazyLoadinFunction($event)" [initialColumns]="globalFilterFields"
+            [rowsPerPageOptions]="rowsPerPageOptions" [rowGroup]="rowGroup" [row]='10' [isLoading] = "isLoading"
+            [initPageNo]="initPageNo"
+        ></app-ss-generic-table>
+    </div>
+</div>
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

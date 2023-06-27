@@ -1,0 +1,334 @@
+
+  
+<div class="form d-flex flex-column flex-lg-row mt-15" >
+    <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-400px mb-7 me-lg-10">
+      <div class="card card-flush py-4">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Profile Image</h2>
+          </div>
+        </div>
+        <app-custom-image-uploader
+          (onSelect)="onUpload($event)"
+          (onClear)="onClear($event)">
+        </app-custom-image-uploader>
+      </div>
+      <div class="card card-flush py-4">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Physic Address</h2>
+          </div>
+          <div class="card-toolbar">
+            <a class="btn btn-sm btn-flex btn-light-primary mb-4 w-100" data-bs-toggle="modal" data-bs-target="#multiAddresModal">
+              <span class="svg-icon svg-icon-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                  <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)"
+                    fill="currentColor" />
+                  <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                </svg>
+              </span>Multiple Addresses
+            </a>
+            <a class="btn btn-sm btn-flex btn-light-primary w-100" data-bs-toggle="modal" data-bs-target="#manualAddressModal">
+              <span class="svg-icon svg-icon-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                  <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)"
+                    fill="currentColor" />
+                  <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                </svg>
+              </span>Manual Input
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card card-flush py-4">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Remarks</h2>
+          </div>
+        </div>
+        <div class="card-body pt-0 pb-0">
+          <div class="form-check form-check-custom form-check-solid mb-2" *ngIf="IsAddForm">
+            <input name="IsCustomer" id="IsCustomer" class="form-check-input" type="checkbox" value="" [(ngModel)]="supplier.IsCustomer">
+            <label class="form-check-label" for="IsCustomer">Customer Also</label>
+          </div>
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">Remarks</label>
+            <textarea type="text" class="form-control form-control-md " name="dbname"
+              placeholder="Enter Remarks" value="" [(ngModel)]="supplier.sRemarks" cols="3"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+      <div class="card card-flush py-4">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Primary Information</h2>
+          </div>
+        </div>
+        <div class="card-body pt-0 pb-0">
+          <div class="mb-10 row">
+            <div class="col-md-6">
+              <div class="fv-row mb-6">
+                <label class="required fs-7 fw-semibold mb-2 text-muted" for="firstname">First Name</label>
+                <input type="text"  class="form-control form-control-md " name="firstname" id="firstname" [(ngModel)]="supplier.FirstName" required
+                placeholder="Enter First Name"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="fv-row mb-6">
+                <label class="required fs-7 fw-semibold mb-2 text-muted" for="lastname">Last Name</label>
+                <input type="text" class="form-control form-control-md " name="lastname" id="lastname" [(ngModel)]="supplier.LastName" 
+                placeholder="Enter Last Name" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="fv-row mb-6">
+                <label class="required fs-7 fw-semibold mb-2 text-muted" for="emailaddress">Email Address</label>
+                <input type="text" class="form-control form-control-md " name="emailaddress" id="address" [(ngModel)]="supplier.EmailAddress" 
+                placeholder="Enter Address" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="fv-row mb-6">
+                <label class="required fs-7 fw-semibold mb-2 text-muted" for="phoneno">Phone No.</label>
+                <input type="text" class="form-control form-control-md " name="phoneno" id="phoneno" [(ngModel)]="supplier.PhoneNo" 
+                placeholder="Enter PhoneNo." />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="fv-row mb-6">
+                <label class="required fs-7 fw-semibold mb-2 text-muted" for="username">Company</label>
+                <input type="text" class="form-control form-control-md " name="username" id="username" [(ngModel)]="supplier.sCompanyName" required
+                placeholder="Enter Company Name" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="fv-row mb-6">
+                <label class="required fs-7 fw-semibold mb-2 text-muted" for="website">Website</label>
+                <input type="text" class="form-control form-control-md " name="website" id="website" [(ngModel)]="supplier.Website" 
+                placeholder="Enter Webiste"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div>
+    </div> -->
+      <div class="d-flex justify-content-end" >
+        <a [routerLink]="['/supplier/supplier-index']" class="btn btn-light me-5">Cancel</a>
+        <button type="submit" class="btn btn-primary" (click)="SaveUpdateSupplierDetails()">
+          <span class="indicator-label">{{ SupplierButtonLabel }}</span>
+          <!-- <span class="indicator-progress">Please wait...
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <jw-modal [modalId]="'multiAddresModal'" [modalTitle]="'Multiple Address'" [modalSize]="'xl'">
+    <div class="card-body pt-0 pb-0">
+      <div class="mb-10 row">
+        <div class="col-md-4">
+          <label class="required fs-7 fw-semibold mb-2 text-muted required " for="Country">Country</label>
+          <app-custom-dropdown id="Country" name="Country" class="p-0"
+            [options]="CountryDropdown" [placeholder]="'Select Country'"
+            [showClear]="true" [(twBinding)]="selectedCountryIDNew" required optionLabel="label">
+          </app-custom-dropdown>
+        </div>
+        <div class="col-md-4">
+          <div class="fv-row mb-4">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">PostCode</label>
+            <!-- <p-autoComplete [(ngModel)]="selectedPostCode" [suggestions]="predicatedPostCodes" (completeMethod)="filterPostCodes($event)" (onSelect)="onPostalCodeSelect($event)"
+            field="name" [minLength]="3"   ></p-autoComplete> -->
+            <app-custom-auto-complete
+              [(selectedValue)]="selectedPostCode"
+              [suggestions]="predicatedPostCodes"
+              [field]="'name'"
+              [minLength]="3"
+              (completeMethod)="filterPostCodes($event)"
+              (onSelect)="onPostalCodeSelect($event)"
+            ></app-custom-auto-complete>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">City</label>
+            <!-- <p-autoComplete [(ngModel)]="selectedCity" [suggestions]="predicatedCities" (completeMethod)="filterCities($event)"
+            field="name" [minLength]="3"   ></p-autoComplete> -->
+            <app-custom-auto-complete
+              [(selectedValue)]="selectedCity"
+              [suggestions]="predicatedCities"
+              [field]="'name'"
+              [minLength]="3"
+              (completeMethod)="filterCities($event)"
+            ></app-custom-auto-complete>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">Street Name</label>
+            <!-- <p-autoComplete [(ngModel)]="selectedStreet" [suggestions]="predicatedStreet" (completeMethod)="filterStreet($event)"
+            field="name" [minLength]="3"   ></p-autoComplete> -->
+            <app-custom-auto-complete
+              [(selectedValue)]="selectedStreet"
+              [suggestions]="predicatedStreet"
+              [field]="'name'"
+              [minLength]="3"
+              (completeMethod)="filterStreet($event)"
+            ></app-custom-auto-complete>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted" for="address">House No</label>
+            <input type="text" class="form-control form-control-md " name="address" id="address" [(ngModel)]="selectedHouse" required
+            placeholder="Enter Address" />
+          </div>
+        </div>
+        
+        <div class="col-md-4 position-relative">
+          <div class="fv-row mb-6 d-flex justify-content-end position-absolute bottom-0">
+            <a (click)="AddAddressClick();" class="btn btn-sm fw-bold btn-primary">
+              <span class="svg-icon svg-icon-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                  <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                  <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                </svg>
+              </span>
+              <span >Add</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <!---begin: Editing Invoice table-->
+        <div class="table-responsive border-bottom mb-9">
+          <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+              <thead>
+                  <tr class="border-bottom fs-6 fw-bold text-muted">
+                      <th class="min-w-175px pb-2">City</th>
+                      <th class="min-w-70px text-end pb-2">Province</th>
+                      <th class="min-w-80px text-end pb-2">ProvinceSC</th>
+                      <th class="min-w-80px text-end pb-2">Street</th>
+                      <th class="min-w-80px text-end pb-2">ZipCode</th>
+                      <th class="min-w-80px text-end pb-2">HouseNr</th>
+                      <th class="min-w-80px text-end pb-2">Action</th>
+                  </tr>
+              </thead>
+              <tbody class="fw-semibold text-gray-600">
+                  <ng-container *ngFor="let SelectedAddress of SelectedAddressListNew; let rowIndex = index">
+                      <!--begin::Addresses-->
+                      <tr>
+                          <!--begin::Address-->
+                          <td>
+                              <!--begin::City-->
+                              <!-- <a href="javascript:void(0)" class="badge badge-light-warning fs-8 fw-bolder"> -->
+                                  <span class="symbol-label">{{ SelectedAddress.City !== null ? SelectedAddress.City : "" }}</span>
+                              <!-- </a> -->
+                              <!--end::City-->
+                          </td>
+                          <!--end::Product-->
+                          <td>
+                              <!--begin::Province-->
+                              <div class="ms-5">
+                                  <div class="fw-bold">{{ SelectedAddress.Province !== null ? SelectedAddress.Province : "" }}</div>
+                                  <!-- <div class="fs-7 text-muted">Delivery Date: 23/11/2022</div> -->
+                              </div>
+                              <!--end::Province-->
+                          </td>
+                          <td> 
+                            {{
+                              SelectedAddress.ProvinceShortCode !== null
+                              ? SelectedAddress.ProvinceShortCode
+                              : ""
+                            }}
+                          </td>
+                          <!--begin::StreetName-->
+                          <td class="text-end">
+                            {{
+                              SelectedAddress.StreetName !== null ? SelectedAddress.StreetName : ""
+                            }}
+                          </td>
+                          <!--end::StreetName-->
+                          <!--begin::ZipCode-->
+                          <td class="text-end">
+                            {{ SelectedAddress.ZipCode !== null ? SelectedAddress.ZipCode : "" }}
+                          </td>
+                          <!--end::ZipCode-->
+                          <!--begin::HouseNumber-->
+                          <td class="text-end">
+                            {{ SelectedAddress.HouseNumber !== null ? SelectedAddress.HouseNumber : "" }}
+                          </td>
+                          <!--end::HouseNumber-->
+                          
+                          <!--begin::Action-->
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-flex btn-light-danger rounded"
+                                (click)="removeFromSecleted(SelectedAddress)">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                <span class="svg-icon svg-icon-3 p-0 m-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg me-2" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                  </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </button>
+                          </td>
+                          <!--end::Action-->
+                      </tr>
+                      <!--end::Products-->
+                  </ng-container>
+              </tbody>
+          </table>
+        </div>
+        <!--end: Editing Invoice table-->
+      </div>
+    </div>
+  </jw-modal>
+  <jw-modal [modalId]="'manualAddressModal'" [modalTitle]="'Manual Address'" [modalSize]="'lg'">
+    <div class="card-body pt-0 pb-0">
+      <div class="mb-10 row">
+        <div class="col-md-12">
+          <label class="required fs-7 fw-semibold mb-2 text-muted required" for="Country">Country</label>
+          <app-custom-dropdown id="Country" name="Country" class="p-0 w-50"
+            [options]="CountryDropdown" [placeholder]="'Select Country'"
+            [showClear]="true" [(twBinding)]="selectedCountryID" required optionLabel="label">
+          </app-custom-dropdown>
+        </div>
+        <div class="col-md-6">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">State</label>
+            <input type="text" class="form-control form-control-md " name="state" id="state" 
+            placeholder="Enter State Name" [(ngModel)]="manualState" required />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">City</label>
+            <input type="text" class="form-control form-control-md " name="city" id="city" 
+            placeholder="Enter City Name" [(ngModel)]="manualCity" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">Postal Code</label>
+            <input type="text" class="form-control form-control-md " name="postalcode" id="postalcode" [(ngModel)]="manualPostalCode" 
+            placeholder="Enter Postal Code" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="fv-row mb-6">
+            <label class="required fs-7 fw-semibold mb-2 text-muted">Street Address</label>
+            <input type="text" class="form-control form-control-md " name="username" id="username" [(ngModel)]="manualStreetAddress" required
+            placeholder="Enter Address" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </jw-modal>

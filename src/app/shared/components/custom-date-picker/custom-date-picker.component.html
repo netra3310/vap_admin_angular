@@ -1,0 +1,6 @@
+<div class="form-group">
+    <input readonly class="form-control cursor-pointer mb-5" 
+        (click)="dp.toggle()" name="datepicker" 
+        [(ngModel)]="selectedDate" ngbDatepicker #dp="ngbDatepicker" placeholder="Select Date..."
+        (ngModelChange)="setDate($event)" />
+</div>

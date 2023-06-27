@@ -1,0 +1,54 @@
+<div class="modal-body pt-10 pb-15 px-lg-17">
+    <!--begin::Input group-->
+    <div class="form-group">
+        <!--begin::Dropzone-->
+        <div class="dropzone dropzone-queue mb-2" id="kt_modal_upload_dropzone">
+            <!--begin::Controls-->
+            <div class="dropzone-panel mb-4">
+                <a class="dropzone-select btn btn-sm btn-primary me-2" (click)="fileInput.click()">Attach files</a>
+                <input 
+                    class="d-none" #fileInput type="file" name="uploader[]" 
+                    id="uploader" (change)="onFileSelected($event)"
+                    [multiple]='mutiple' 
+                />
+                <ng-container *ngIf="uploadFiles.length > 0">
+                    <a class=" btn btn-sm btn-light-primary me-2" (click)="onUploadFiles()">Upload All</a>
+                    <a class=" btn btn-sm btn-light-primary" (click)="onClearFiles()">Remove All</a>
+                </ng-container>
+            </div>
+            <!--end::Controls-->
+            <!--begin::Items-->
+            <div class="dropzone-items wm-200px">
+                
+                <ng-container *ngFor="let uploadFile of uploadFiles">
+                    <div class="dropzone-item p-5" >
+                        <img [src]="getImage(uploadFile.name)" class="w-50px h-50px me-5 rounded" alt="">
+
+                        <div class="dropzone-file">
+                            <div class="dropzone-filename text-dark" title="some_image_file_name.jpg">
+                                <span data-dz-name="">{{uploadFile.name}}</span>
+                                <strong>(
+                                <span data-dz-size="">{{uploadFile.size / 1024 | number:'1.2-2'}}</span>KB)</strong>
+                            </div>
+                            <div class="dropzone-error mt-0" data-dz-errormessage=""></div>
+                        </div>
+                        <!--end::File-->
+                        <!--begin::Toolbar-->
+                        <div class="dropzone-toolbar" (click)="onRemoveFile(uploadFile)">
+                            <span class="dropzone-cancel" data-dz-remove="" >
+                                <i class="bi bi-x fs-3"></i>
+                            </span>
+                        </div>
+                        <!--end::Toolbar-->
+                    </div>
+                </ng-container>
+            </div>
+            <!--end::Items-->
+        </div>
+        <!--end::Dropzone-->
+        <!--begin::Hint-->
+        <span class="form-text fs-6 text-muted">Max file size is 1MB per file.</span>
+        <!--end::Hint-->
+    </div>
+    <!--end::Input group-->
+</div>

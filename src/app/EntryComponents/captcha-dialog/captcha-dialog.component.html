@@ -1,0 +1,32 @@
+<div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten">
+
+    <!--begin::Title-->
+    <h6 class="mb-8 fw-bolder text-gray-600 text-hover-primary">
+        <span class="p-h">Please enter the sum of these numbers:</span>
+        <span class="p-n"> ( {{firstNumber}} + {{secondNumber}} )</span>
+    </h6>
+    <!--end::Title-->
+    
+    <!--begin::Item-->
+    <div class="mb-6">
+        <div class="position-relative my-1">
+            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+            <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+            <input name="Sum" type="text" class="form-control fs-7 ps-12" [(ngModel)]="SumOfTwoNo" type="text" placeholder="Enter Remarks"/>
+        </div>
+    </div>
+    <!--end::Item-->
+    <a  class="btn btn-sm fw-bold btn-primary ms-2"
+            (click)="SubmitSum()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+            <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
+        </svg>
+        <span >Submit</span>
+    </a> 
+</div>

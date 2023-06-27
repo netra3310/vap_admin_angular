@@ -1,0 +1,6 @@
+
+  <ng-container *ngFor="let item of items">
+    <div class="menu-item px-3 dropdown-item" data-kt-menu-target="">
+      <a class="menu-link px-3 cursor-pointer" (click)="onClickDrop(item)"> {{item.label}} </a>
+    </div>
+  </ng-container>

@@ -1,0 +1,449 @@
+<app-custom-spinner [isLoading]="isLoadingData"></app-custom-spinner>
+<div>
+    <div class="mb-5 text-end">
+        <app-sel-date-btn
+            [options]="SearchByDateDropdown" 
+            (emitSelDate)="SearchByDate($event)"
+            [placeholderSelector]="'Select Search By Date'"
+            [(twBinding)]="selectedSearchByDateID"
+        >
+        </app-sel-date-btn>
+        <!-- end the select date dropdown -->
+    </div>
+</div>
+<!--begin::Row-->
+<div class="row gy-5 g-xl-10 mt-5">
+    <!--begin::Col-->
+    <div class="col-xl-3 col-lg-6 mb-xl-10">
+        <!--begin::Lists Widget 19-->
+        <div class="card card-flush h-xl-100">
+            <!--begin::Heading-->
+            <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-200px" style="background-image:url('assets/media/svg/shapes/top-green.png')" data-theme="light">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start text-white pt-15">
+                    <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
+                    <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="8" y="9" width="3" height="10" rx="1.5" fill="currentColor" />
+                            <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="currentColor" />
+                            <rect x="18" y="11" width="3" height="8" rx="1.5" fill="currentColor" />
+                            <rect x="3" y="13" width="3" height="6" rx="1.5" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                    <span class="fw-bold fs-2x m-auto" translate="SALESTATS.SALES"></span>
+                </h3>
+                <!--end::Title-->
+            </div>
+            <!--end::Heading-->
+            <!--begin::Body-->
+            <div class="card-body mt-n20">
+                <!--begin::Stats-->
+                <div class="mt-n20 position-relative">
+                    <!--begin::Row-->
+                    <div class="row g-3 g-lg-6">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/medicine/med005.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.3" d="M17.9061 13H11.2061C11.2061 12.4 10.8061 12 10.2061 12C9.60605 12 9.20605 12.4 9.20605 13H6.50606L9.20605 8.40002V4C8.60605 4 8.20605 3.6 8.20605 3C8.20605 2.4 8.60605 2 9.20605 2H15.2061C15.8061 2 16.2061 2.4 16.2061 3C16.2061 3.6 15.8061 4 15.2061 4V8.40002L17.9061 13ZM13.2061 9C12.6061 9 12.2061 9.4 12.2061 10C12.2061 10.6 12.6061 11 13.2061 11C13.8061 11 14.2061 10.6 14.2061 10C14.2061 9.4 13.8061 9 13.2061 9Z" fill="currentColor" />
+                                                <path d="M18.9061 22H5.40605C3.60605 22 2.40606 20 3.30606 18.4L6.40605 13H9.10605C9.10605 13.6 9.50605 14 10.106 14C10.706 14 11.106 13.6 11.106 13H17.8061L20.9061 18.4C21.9061 20 20.8061 22 18.9061 22ZM14.2061 15C13.1061 15 12.2061 15.9 12.2061 17C12.2061 18.1 13.1061 19 14.2061 19C15.3061 19 16.2061 18.1 16.2061 17C16.2061 15.9 15.3061 15 14.2061 15Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsSalesIncTax}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.SALES_INC_TAX"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z" fill="currentColor" />
+                                                <path opacity="0.3" d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsSalesExTax}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.SALES_EX_TAX"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Stats-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Lists Widget 19-->
+    </div>
+    <!--end::Col-->
+    <!--begin::Col-->
+    <div class="col-xl-3 col-lg-6 mb-xl-10">
+        <!--begin::Lists Widget 19-->
+        <div class="card card-flush h-xl-100">
+            <!--begin::Heading-->
+            <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-200px" style="background-image:url('assets/media/svg/shapes/top-green.png')" data-theme="light">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start text-white pt-15">
+                    <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
+                    <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 8.725C6 8.125 6.4 7.725 7 7.725H14L18 11.725V12.925L22 9.725L12.6 2.225C12.2 1.925 11.7 1.925 11.4 2.225L2 9.725L6 12.925V8.725Z" fill="currentColor" />
+                            <path opacity="0.3" d="M22 9.72498V20.725C22 21.325 21.6 21.725 21 21.725H3C2.4 21.725 2 21.325 2 20.725V9.72498L11.4 17.225C11.8 17.525 12.3 17.525 12.6 17.225L22 9.72498ZM15 11.725H18L14 7.72498V10.725C14 11.325 14.4 11.725 15 11.725Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                    <span class="fw-bold fs-2x m-auto" translate="SALESTATS.REFUND"></span>
+                </h3>
+                <!--end::Title-->
+            </div>
+            <!--end::Heading-->
+            <!--begin::Body-->
+            <div class="card-body mt-n20">
+                <!--begin::Stats-->
+                <div class="mt-n20 position-relative">
+                    <!--begin::Row-->
+                    <div class="row g-3 g-lg-6">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/medicine/med005.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.3" d="M17.9061 13H11.2061C11.2061 12.4 10.8061 12 10.2061 12C9.60605 12 9.20605 12.4 9.20605 13H6.50606L9.20605 8.40002V4C8.60605 4 8.20605 3.6 8.20605 3C8.20605 2.4 8.60605 2 9.20605 2H15.2061C15.8061 2 16.2061 2.4 16.2061 3C16.2061 3.6 15.8061 4 15.2061 4V8.40002L17.9061 13ZM13.2061 9C12.6061 9 12.2061 9.4 12.2061 10C12.2061 10.6 12.6061 11 13.2061 11C13.8061 11 14.2061 10.6 14.2061 10C14.2061 9.4 13.8061 9 13.2061 9Z" fill="currentColor" />
+                                                <path d="M18.9061 22H5.40605C3.60605 22 2.40606 20 3.30606 18.4L6.40605 13H9.10605C9.10605 13.6 9.50605 14 10.106 14C10.706 14 11.106 13.6 11.106 13H17.8061L20.9061 18.4C21.9061 20 20.8061 22 18.9061 22ZM14.2061 15C13.1061 15 12.2061 15.9 12.2061 17C12.2061 18.1 13.1061 19 14.2061 19C15.3061 19 16.2061 18.1 16.2061 17C16.2061 15.9 15.3061 15 14.2061 15Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsRefunds}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.REFUNDS"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z" fill="currentColor" />
+                                                <path opacity="0.3" d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsRefundCogs}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.REFUND_COGS"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Stats-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Lists Widget 19-->
+    </div>
+    <!--end::Col-->
+    <!--begin::Col-->
+    <div class="col-xl-3 col-lg-6 mb-xl-10">
+        <!--begin::Lists Widget 19-->
+        <div class="card card-flush h-xl-100">
+            <!--begin::Heading-->
+            <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-200px" style="background-image:url('assets/media/svg/shapes/top-green.png')" data-theme="light">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start text-white pt-15">
+                    <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
+                    <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z" fill="currentColor" />
+                            <path opacity="0.3" d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                    <span class="fw-bold fs-2x m-auto" translate="SALESTATS.TAXES"></span>
+                </h3>
+                <!--end::Title-->
+            </div>
+            <!--end::Heading-->
+            <!--begin::Body-->
+            <div class="card-body mt-n20">
+                <!--begin::Stats-->
+                <div class="mt-n20 position-relative">
+                    <!--begin::Row-->
+                    <div class="row g-3 g-lg-6">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/medicine/med005.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.3" d="M17.9061 13H11.2061C11.2061 12.4 10.8061 12 10.2061 12C9.60605 12 9.20605 12.4 9.20605 13H6.50606L9.20605 8.40002V4C8.60605 4 8.20605 3.6 8.20605 3C8.20605 2.4 8.60605 2 9.20605 2H15.2061C15.8061 2 16.2061 2.4 16.2061 3C16.2061 3.6 15.8061 4 15.2061 4V8.40002L17.9061 13ZM13.2061 9C12.6061 9 12.2061 9.4 12.2061 10C12.2061 10.6 12.6061 11 13.2061 11C13.8061 11 14.2061 10.6 14.2061 10C14.2061 9.4 13.8061 9 13.2061 9Z" fill="currentColor" />
+                                                <path d="M18.9061 22H5.40605C3.60605 22 2.40606 20 3.30606 18.4L6.40605 13H9.10605C9.10605 13.6 9.50605 14 10.106 14C10.706 14 11.106 13.6 11.106 13H17.8061L20.9061 18.4C21.9061 20 20.8061 22 18.9061 22ZM14.2061 15C13.1061 15 12.2061 15.9 12.2061 17C12.2061 18.1 13.1061 19 14.2061 19C15.3061 19 16.2061 18.1 16.2061 17C16.2061 15.9 15.3061 15 14.2061 15Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsSalesTax}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.SALES_TAX"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z" fill="currentColor" />
+                                                <path opacity="0.3" d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsRefundTax}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.REFUND_TAX"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Stats-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Lists Widget 19-->
+    </div>
+    <!--end::Col-->
+    <!--begin::Col-->
+    <div class="col-xl-3 col-lg-6 mb-xl-10">
+        <!--begin::Lists Widget 19-->
+        <div class="card card-flush h-xl-100">
+            <!--begin::Heading-->
+            <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-200px" style="background-image:url('assets/media/svg/shapes/top-green.png')" data-theme="light">
+                <!--begin::Title-->
+                <h3 class="card-title align-items-start text-white pt-15">
+                     <!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
+                     <span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="currentColor" />
+                            <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="currentColor" />
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                    <span class="fw-bold fs-2x m-auto" translate="SALESTATS.OVERALL"></span>
+                </h3>
+                <!--end::Title-->
+            </div>
+            <!--end::Heading-->
+            <!--begin::Body-->
+            <div class="card-body mt-n20">
+                <!--begin::Stats-->
+                <div class="mt-n20 position-relative">
+                    <!--begin::Row-->
+                    <div class="row g-3 g-lg-6">
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/medicine/med005.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path opacity="0.3" d="M17.9061 13H11.2061C11.2061 12.4 10.8061 12 10.2061 12C9.60605 12 9.20605 12.4 9.20605 13H6.50606L9.20605 8.40002V4C8.60605 4 8.20605 3.6 8.20605 3C8.20605 2.4 8.60605 2 9.20605 2H15.2061C15.8061 2 16.2061 2.4 16.2061 3C16.2061 3.6 15.8061 4 15.2061 4V8.40002L17.9061 13ZM13.2061 9C12.6061 9 12.2061 9.4 12.2061 10C12.2061 10.6 12.6061 11 13.2061 11C13.8061 11 14.2061 10.6 14.2061 10C14.2061 9.4 13.8061 9 13.2061 9Z" fill="currentColor" />
+                                                <path d="M18.9061 22H5.40605C3.60605 22 2.40606 20 3.30606 18.4L6.40605 13H9.10605C9.10605 13.6 9.50605 14 10.106 14C10.706 14 11.106 13.6 11.106 13H17.8061L20.9061 18.4C21.9061 20 20.8061 22 18.9061 22ZM14.2061 15C13.1061 15 12.2061 15.9 12.2061 17C12.2061 18.1 13.1061 19 14.2061 19C15.3061 19 16.2061 18.1 16.2061 17C16.2061 15.9 15.3061 15 14.2061 15Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsCogs}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.COGS"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-6">
+                            <!--begin::Items-->
+                            <div class="bg-gray-100 bg-opacity-70 rounded-2 px-3 py-5 h-100">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-30px me-5 mb-8">
+                                    <span class="symbol-label">
+                                        <!--begin::Svg Icon | path: icons/duotune/finance/fin001.svg-->
+                                        <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M20 19.725V18.725C20 18.125 19.6 17.725 19 17.725H5C4.4 17.725 4 18.125 4 18.725V19.725H3C2.4 19.725 2 20.125 2 20.725V21.725H22V20.725C22 20.125 21.6 19.725 21 19.725H20Z" fill="currentColor" />
+                                                <path opacity="0.3" d="M22 6.725V7.725C22 8.325 21.6 8.725 21 8.725H18C18.6 8.725 19 9.125 19 9.725C19 10.325 18.6 10.725 18 10.725V15.725C18.6 15.725 19 16.125 19 16.725V17.725H15V16.725C15 16.125 15.4 15.725 16 15.725V10.725C15.4 10.725 15 10.325 15 9.725C15 9.125 15.4 8.725 16 8.725H13C13.6 8.725 14 9.125 14 9.725C14 10.325 13.6 10.725 13 10.725V15.725C13.6 15.725 14 16.125 14 16.725V17.725H10V16.725C10 16.125 10.4 15.725 11 15.725V10.725C10.4 10.725 10 10.325 10 9.725C10 9.125 10.4 8.725 11 8.725H8C8.6 8.725 9 9.125 9 9.725C9 10.325 8.6 10.725 8 10.725V15.725C8.6 15.725 9 16.125 9 16.725V17.725H5V16.725C5 16.125 5.4 15.725 6 15.725V10.725C5.4 10.725 5 10.325 5 9.725C5 9.125 5.4 8.725 6 8.725H3C2.4 8.725 2 8.325 2 7.725V6.725L11 2.225C11.6 1.925 12.4 1.925 13.1 2.225L22 6.725ZM12 3.725C11.2 3.725 10.5 4.425 10.5 5.225C10.5 6.025 11.2 6.725 12 6.725C12.8 6.725 13.5 6.025 13.5 5.225C13.5 4.425 12.8 3.725 12 3.725Z" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Stats-->
+                                <div class="m-0">
+                                    <!--begin::Number-->
+                                    <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{statsGrossProfit}}</span>
+                                    <!--end::Number-->
+                                    <!--begin::Desc-->
+                                    <span class="text-gray-500 fw-semibold fs-6" translate="SALESTATS.GROSSPROFIT"></span>
+                                    <!--end::Desc-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Row-->
+                </div>
+                <!--end::Stats-->
+            </div>
+            <!--end::Body-->
+        </div>
+        <!--end::Lists Widget 19-->
+    </div>
+    <!--end::Col-->
+</div>
+<!--end::Row-->
+<div class="row g-5 g-xl-10 mb-5 mb-xl-10 ms-5 mt-5"> 
+    <div class="row gy-5 gx-xl-8 bg-light rounded">
+        <div class="col-xxl-6">
+            <app-annual-chart 
+                    (eventSelYear)="changeyear($event)" class="card card-xxl-stretch mb-xl-3 m" 
+                    [years]="yearList" [data]="tab === 'sale' ? lineSaleChartdata : linePurchaseChartdata"
+                    [isLoading] = "isAnnualLoading" 
+            >
+            </app-annual-chart>
+        </div>
+        <div class="col-xxl-6">
+            <app-product-table class="card card-xxl-stretch mb-5 mb-xl-8" 
+                    (eventSelDate)="onChangeDate($event)" [data]="tab === 'sale' ? pieSaleChartData : piePurchaseChartData" 
+                    [isLoading] = "isTopProductsLoading"
+            >
+            </app-product-table>
+        </div>
+    </div>
+</div>
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>
+<app-generic-modal class="w-50" #dateproductpicker [modalConfig]="dateProductModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValueProduct($event)'></app-datepickerpopup>
+</app-generic-modal>

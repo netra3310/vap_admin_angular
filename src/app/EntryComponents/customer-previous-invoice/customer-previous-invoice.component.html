@@ -1,0 +1,27 @@
+<div>
+    <div class="mb-5 text-end">
+        <!-- start the select date dropdown -->
+        <app-sel-date-btn
+            [options]="SearchByDateDropdown"
+            (emitSelDate)="onChangeDate($event)"
+            [placeholderSelector]="'Select Search By Date'"
+            [(twBinding)]="selectedSearchByDateID"
+        >
+        </app-sel-date-btn>
+        <!-- end the select date dropdown -->
+    </div>
+    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+        <app-ss-generic-table class="card col-12 mb-5 mb-xl-8"
+            [menuItems]="genericMenuItems" 
+            [data]="AllPreviousInvoiceList" 
+            [globalFilterFields]="globalFilterFields"  [filterGlobal]=true
+            [columnsData]="columns" [totalRecords]="totalRecords" 
+            (getLazyData)="GetCustomerPreviousList($event)" [initialColumns]="initialColumns"
+            [rowsPerPageOptions]="rowsPerPageOptions" [rowGroup]="rowGroup" [row]='10' [isLoading] = "isLoading"
+        ></app-ss-generic-table>
+    </div>
+</div>
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

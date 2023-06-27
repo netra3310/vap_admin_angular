@@ -1,0 +1,427 @@
+<app-generic-modal #modalCaptcha [modalConfig]="modalCaptchaConfig">
+    <app-captcha-dialog  [firstNumber]='firstNumber'
+        [secondNumber]='secondNumber' (ReturnCall)='ValidateCaptcha($event)'></app-captcha-dialog>
+</app-generic-modal>
+<div>
+    <div class="mb-5 text-end">
+        <span>
+            <!--begin::Primary button-->
+            <a *ngIf="isbtnFullSaleReturnEnable" 
+                class="btn btn-sm fw-bold btn-primary ms-2"
+                (click)="fullSaleRefund()">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                    Full Purchase Order Refund
+                </span>
+            </a> 
+            <!--end::Primary button-->
+            
+            <!--begin::Primary button-->
+            <a
+                (click)="refund()" class="btn btn-sm fw-bold btn-success ms-2">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                    Refund
+                </span>
+            </a> 
+            <!--end::Primary button-->
+        </span>
+        <!--begin::Primary button-->
+        <a
+            routerLink="/sale/sale-index"
+            class="btn btn-sm fw-bold btn-secondary ms-2">
+            <span title="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+                    <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+                </svg>
+                Close
+            </span>
+        </a> 
+        <!--end::Primary button-->
+        <!-- <app-session-time-counter class="ms-20"> </app-session-time-counter> -->
+    </div>
+</div>
+<div class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div class="app-container container-xxl mw-100">
+        <div class="d-flex flex-column flex-lg-row">
+            <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+                <div class="card card-flush min-h-500px">
+                    <!--begin::Card header-->
+                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative my-1">
+                                Cart
+                            </div>
+                            <!--end::Search-->
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Card toolbar-->
+                        <div class="d-flex justify-content-end">
+                            <div class="card-toolbar flex-row-fluid justify-content-start gap-5">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                <span class="svg-icon svg-icon-1 position-absolute ms-4">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                                <input type="text" class="form-control form-control-solid w-250px ps-14" placeholder="Search Product" (keyup)="searchData()" [(ngModel)]="searchKey"/>
+                            </div>
+                        </div>
+                        <!--end::Card toolbar-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0 overflow-auto" *ngIf="saleData" >
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5">
+                            <!--begin::Table head-->
+                            <thead>
+                                <!--begin::Table row-->
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="w-10px pe-2">
+                                        <!-- <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                            <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
+                                        </div> -->
+                                    </th>
+                                    <th class="min-w-200px">Product</th>
+                                    <!-- <th class="text-end min-w-100px">Purchase Quantity</th> -->
+                                    <th class="text-end min-w-70px">Returned Quantity</th>
+                                    <th class="text-end min-w-100px">Price</th>
+                                    <th class="text-end min-w-100px">Action</th>
+                                </tr>
+                                <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-semibold text-gray-600">
+                                <ng-container *ngFor="let product of showProducts">
+                                    <!--begin::Table row-->
+                                    <tr>
+                                        <!--begin::Checkbox-->
+                                        <td>
+                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="checkbox" (change)="selectUnselectProduct(product,true)" binary="true" inputId="binary"
+                                                [(ngModel)]="product.isNewRefund" />
+                                            </div>
+                                        </td>
+                                        <!--end::Checkbox-->
+                                        <!--begin::Category=-->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <!--begin::Thumbnail-->
+                                                <img
+                                                    (click)="openImageGellary(product.Image)" 
+                                                    style="cursor:pointer;"
+                                                    [src]="product.Image ? product.Image != '' ? imageBasePath + product.Image.split('|')[0]:'../../../../assets/layout/images/no-image.png' : '../../../../assets/layout/images/no-image.png'"
+                                                    alt="Image Not Found" width="45" height="45" class="p-shadow-2 rounded" 
+                                                />
+                                                <!--end::Thumbnail-->
+                                                <div class="ms-5">
+                                                    <!--begin::Title-->
+                                                    <span>
+                                                        {{product.Product}}
+                                                    </span>
+                                                    <!--end::Title-->
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!--end::Category=-->
+                                        <!--begin::Qty=-->
+                                        <!-- <td class="text-end pe-0" data-order="30">
+                                            <span class="fw-bold ms-3">{{product.Quantity}}</span>
+                                        </td> -->
+                                        <!--end::Qty=-->
+                                        <!--begin::Qty=-->
+                                        <td class="text-end pe-0" data-order="30">
+                                            <input class="form-control mw-100px m-auto" id="remarks" type="number" *ngIf="!(product.TrackableProductsPurchaseDetails && product.TrackableProductsPurchaseDetails.length>0)"
+                                                (keyup)="changeQuantityOfReturnProduct(product)" (blur)="blurQuantityOfReturnProduct(product)" (change)="refreshRefundSummary(product)"
+                                                [disabled]="!product.isNewRefund" pInputText [(ngModel)]="product.NewReturnedQuantity">
+                    
+                                            <span *ngIf="product.TrackableProductsPurchaseDetails && product.TrackableProductsPurchaseDetails.length>0"> {{getTrackable(product)}}</span>
+                                        </td>
+                                        <!--end::Qty=-->
+                                        <!--begin::Price=-->
+                                        <td class="text-end pe-0">
+                                            <span>€ </span> {{(product.dTotalValue-product.dTotalDiscount) | number:'1.2-2' }}
+                                        </td>
+                                        <!--end::Price=-->
+                                        <!--begin::Action=-->
+                                        <td class="text-end">
+                                            <a class="btn btn-sm fw-bold btn-primary ms-2" *ngIf="product.displayTrackableBtn" 
+                                                (click)="refreshTrackablesDetailsTable(product)" >
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                            <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="onProductInfo(product)">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <!--end::Action=-->
+                                    </tr>
+                                    <!--end::Table row-->
+                                </ng-container>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 flex-lg-row-auto w-lg-350px mb-7 ms-lg-10">
+                <div>
+                    <div class="card-body p-0">
+                        <!-- begin::Header -->
+                        <div class="px-9 pt-7 card-rounded h-275px w-100" [ngClass]="'bg-danger'">
+                          <!-- begin::Heading -->
+                          <div class="d-flex flex-stack">
+                            <h3 class="m-0 text-white fw-bolder fs-3">Refund Information</h3>
+                          </div>
+                          <!-- end::Heading -->
+                          <!-- begin::Balance -->
+                          <div class="d-flex text-center flex-column text-white pt-8">
+                            <span class="fw-bold fs-7">Grand Total</span>
+                            <span class="fw-bolder fs-2x pt-1"><span>€ </span> {{grandTotal | number:'1.2-2' }}</span>
+                          </div>
+                          <!-- end::Balance -->
+                        </div>
+                        <!-- end::Header -->
+                        <!-- begin::Items -->
+                        <div
+                          class="
+                            shadow-xs
+                            card-rounded
+                            mx-9
+                            mb-9
+                            px-6
+                            py-9
+                            position-relative
+                            z-index-1
+                            bg-body
+                          "
+                          [style.margin-top]="'-100px'"
+                        >
+                          <!-- begin::Item -->
+                          <div class="d-flex align-items-center mb-6">
+                            <!-- begin::Symbol -->
+                            <div class="symbol symbol-45px w-40px me-5">
+                              <span class="symbol-label bg-lighten">
+                                <span
+                                  [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'"
+                                  class="svg-icon svg-icon-1"
+                                ></span>
+                              </span>
+                            </div>
+                            <!-- end::Symbol -->
+                            <!-- begin::Description -->
+                            <div class="d-flex align-items-center flex-wrap w-100">
+                              <!-- begin::Title -->
+                              <div class="mb-1 pe-3 flex-grow-1">
+                                <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">
+                                    Total Products
+                                </a>
+                              </div>
+                              <!-- end::Title -->
+                              <!-- begin::Label -->
+                              <div class="d-flex align-items-center">
+                                <div class="fw-bolder fs-5 text-gray-800 pe-1">{{totalProducts}}</div>
+                              </div>
+                              <!-- end::Label -->
+                            </div>
+                            <!-- end::Description -->
+                          </div>
+                          <!-- end::Item -->
+                          <!-- begin::Item -->
+                          <div class="d-flex align-items-center mb-6">
+                            <!-- begin::Symbol -->
+                            <div class="symbol symbol-45px w-40px me-5">
+                              <span class="symbol-label bg-lighten">
+                                <span
+                                  [inlineSVG]="'./assets/media/icons/duotune/general/gen024.svg'"
+                                  class="svg-icon svg-icon-1"
+                                ></span>
+                              </span>
+                            </div>
+                            <!-- end::Symbol -->
+                            <!-- begin::Description -->
+                            <div class="d-flex align-items-center flex-wrap w-100">
+                              <!-- begin::Title -->
+                              <div class="mb-1 pe-3 flex-grow-1">
+                                <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">
+                                    SubTotal
+                                </a>
+                              </div>
+                              <!-- end::Title -->
+                              <!-- begin::Label -->
+                              <div class="d-flex align-items-center">
+                                <div class="fw-bolder fs-5 text-gray-800 pe-1">{{subTotal | number:'1.2-2' }}</div>
+                              </div>
+                              <!-- end::Label -->
+                            </div>
+                            <!-- end::Description -->
+                          </div>
+                          <!-- end::Item -->
+                          <!-- begin::Item -->
+                          <div class="d-flex align-items-center mb-6">
+                            <!-- begin::Symbol -->
+                            <div class="symbol symbol-45px w-40px me-5">
+                              <span class="symbol-label bg-lighten">
+                                <span
+                                  [inlineSVG]="'./assets/media/icons/duotune/electronics/elc005.svg'"
+                                  class="svg-icon svg-icon-1"
+                                ></span>
+                              </span>
+                            </div>
+                            <!-- end::Symbol -->
+                            <!-- begin::Description -->
+                            <div class="d-flex align-items-center flex-wrap w-100">
+                              <!-- begin::Title -->
+                              <div class="mb-1 pe-3 flex-grow-1">
+                                <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">
+                                    Total Discount
+                                </a>
+                              </div>
+                              <!-- end::Title -->
+                              <!-- begin::Label -->
+                              <div class="d-flex align-items-center">
+                                <div class="fw-bolder fs-5 text-gray-800 pe-1"><span>€ </span> {{totalDiscount | number:'1.2-2' }}</div>
+                              </div>
+                              <!-- end::Label -->
+                            </div>
+                            <!-- end::Description -->
+                          </div>
+                          <!-- end::Item -->
+                          <!-- begin::Item -->
+                          <div class="d-flex align-items-center">
+                            <!-- begin::Symbol -->
+                            <div class="symbol symbol-45px w-40px me-5">
+                              <span class="symbol-label bg-lighten">
+                                <span
+                                  [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'"
+                                  class="svg-icon svg-icon-1"
+                                ></span>
+                              </span>
+                            </div>
+                            <!-- end::Symbol -->
+                            <!-- begin::Description -->
+                            <div class="d-flex align-items-center flex-wrap w-100">
+                              <!-- begin::Title -->
+                              <div class="mb-1 pe-3 flex-grow-1">
+                                <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">
+                                    Total Tax
+                                </a>
+                              </div>
+                              <!-- end::Title -->
+                              <!-- begin::Label -->
+                              <div class="d-flex align-items-center">
+                                <div class="fw-bolder fs-5 text-gray-800 pe-1"><span>€ </span> {{totalTax | number:'1.2-2' }}</div>
+                              </div>
+                              <!-- end::Label -->
+                            </div>
+                            <!-- end::Description -->
+                          </div>
+                          <!-- end::Item -->
+                        </div>
+                        <!-- end::Items -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-generic-modal #productInfoModal [modalConfig]="productInfoModalConfig">
+
+    <!--begin::Card body-->
+    <div class="card-body pt-0">
+        <!--begin::Table wrapper-->
+        <div class="table-responsive">
+            <!--begin::Table-->
+            <table class="table align-middle table-row-dashed fs-6 fw-semibold gy-4" id="kt_subscription_products_table">
+                <!--begin::Table body-->
+                <tbody class="text-gray-600">
+                    <tr>
+                        <td>Product:</td>
+                        <td>{{selectedProduct?.Product}}</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity:</td>
+                        <td>{{selectedProduct?.Quantity}}</td>
+                    </tr>
+                    <tr>
+                        <td>Selected Returned Quantity:</td>
+                        <td>{{selectedProduct?.NewReturnedQuantity}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Discount:</td>
+                        <td><span>€ </span>  {{(selectedProduct?.dTotalDiscount /selectedProduct?.Quantity) | number:'1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Discount:</td>
+                        <td><span>€ </span>  {{(selectedProduct?.dTotalDiscount) | number:'1.2-2' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tax:</td>
+                        <td><span>€ </span> {{selectedProduct?.TaxAmount | number:'1.2-2' }}</td>
+                    </tr>
+                </tbody>
+                <!--end::Table body-->
+            </table>
+            <!--end::Table-->
+        </div>
+        <!--end::Table wrapper-->
+    </div>
+    <!--end::Card body-->
+</app-generic-modal>
+
+<button type="button" hidden class="btn btn-primary" #btn_open_multi_img_modal data-bs-toggle="modal" data-bs-target="#multiImageModal">
+    Launch demo modal
+</button>
+<app-custom-image-gallery [imgSrc]="imgSrc">
+</app-custom-image-gallery>
+
+<app-generic-modal #modalTrackable [modalConfig]="modalTrackableConfig">
+    <!--begin::Table-->
+    <div class="table-responsive border-bottom mb-9">
+        <table class="table align-middle table-row-dashed fs-6 gy-5 mb-0">
+            <thead>
+                <tr class="border-bottom fs-6 fw-bold text-muted">
+                    <th class="min-w-175px pb-2">Select</th>
+                    <th class="min-w-70px text-end pb-2">Trackable Code</th>
+                </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600" *ngIf="trackableProduct">
+                <ng-container *ngFor="let xx of trackableProduct.TrackableProductsSaleDetails">
+                    <!--begin::Products-->
+                    <tr>
+                        <!--begin::Product-->
+                        <td>
+                            <input class="form-check-input" type="checkbox" (change)="selectUnselectTrackableCode(trackableProduct, xx)" binary="true" inputId="binary"
+                                    [(ngModel)]="xx.IsReturnedItem" />
+                        </td>
+                        <!--end::Product-->
+                        <!--begin::TrackableCode-->
+                        <td class="text-end">{{ xx.TrackableCode }}</td>
+                        <!--end::TrackableCode-->
+                    </tr>
+                    <!--end::Products-->
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <!--end::Table-->
+</app-generic-modal>

@@ -1,0 +1,192 @@
+<div class="row justify-content-center">
+    <!--begin::Menu-->
+    <div class="p-7 w-300px w-md-500px">
+        <!--begin::Wrapper-->
+        <div data-kt-search-element="wrapper">
+            <!--begin::Form-->
+            <form class="w-100 position-relative mb-3" >
+                <!--begin::Icon-->
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <!--end::Icon-->
+                <!--begin::Input-->
+                <input type="text" class="search-input form-control form-control-flush ps-10" name="search" value="" placeholder="Search..." [(ngModel)]="keySource" />
+                <!--end::Input-->
+                <!--begin::Spinner-->
+                <span class="search-spinner position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-1" data-kt-search-element="spinner">
+                    <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                </span>
+                <!--end::Spinner-->
+            </form>
+            <!--end::Form-->
+            <!--begin::Separator-->
+            <div class="separator border-gray-200 mb-6"></div>
+            <!--end::Separator-->
+            <!--begin::Recently viewed-->
+            <div class="mb-5" data-kt-search-element="main">
+                <!--begin::Heading-->
+                <div class="d-flex flex-stack fw-semibold mb-4">
+                    <!--begin::Label-->
+                    <span class="text-muted fs-6 me-2">{{sourceHeader}}</span>
+                    <!--end::Label-->
+                </div>
+                <!--end::Heading-->
+                <!--begin::Items-->
+                <div class="scroll-y mh-200px mh-lg-325px" [style]="sourceStyle">
+                    <!-- <ng-container *ngFor="let item of source; let i = index"> -->
+                    <ng-container *ngFor="let item of source | searchPipe:[{field: filterBy}]: keySource">
+                        <!-- <div class="d-flex align-items-center rounded mb-5 cursor-pointer"
+                            [class.bg-light-success]="selectedSourceItem === item"
+                            (click)="selectedSourceItem = item; selectedTargetItem = null"
+                            (dblclick)="addTarget(item)"
+                           >
+                            <div class="symbol symbol-40px me-4">
+                                <span class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 16C2 16.6 2.4 17 3 17H21C21.6 17 22 16.6 22 16V15H2V16Z" fill="currentColor" />
+                                            <path opacity="0.3" d="M21 3H3C2.4 3 2 3.4 2 4V15H22V4C22 3.4 21.6 3 21 3Z" fill="currentColor" />
+                                            <path opacity="0.3" d="M15 17H9V20H15V17Z" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a class="fs-6 text-gray-800 text-hover-primary fw-semibold">{{item[filterBy]}}</a>
+                            </div>
+                        </div> -->
+                        <span class="badge py-3 px-4 fs-7 badge-light-primary me-2 mb-2 user-select-none" (dblclick)="addTarget(item)">
+                            {{item[filterBy]}}
+                            <a (click)="addTarget(item)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus ms-3" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </a>
+                        </span>
+                    </ng-container>
+                </div>
+                <!--end::Items-->
+            </div>
+            <!--end::Recently viewed-->
+        </div>
+        <!--end::Wrapper-->
+    </div>
+    <!--end::Menu-->
+    <div class="d-contents" style="display: contents;">
+        <!-- <div class="d-grid"> -->
+            <ul class="list-unstyled p-0 mt-auto mb-auto">
+                <li>
+                    <a (click)="allToTarget()" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"> <span
+                        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr080.svg'"
+                        class="svg-icon svg-icon-3"
+                    ></span></a>
+                </li>
+                <!-- <li>
+                    <a (click)="selectToTarget()" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"> <span
+                        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr071.svg'"
+                        class="svg-icon svg-icon-3"
+                    ></span></a>
+                </li> -->
+                <li>
+                    <a (click)="allToSource()" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"> <span
+                        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr079.svg'"
+                        class="svg-icon svg-icon-3"
+                    ></span></a>
+                </li>
+                <!-- <li>
+                    <a (click)="selectToSource()" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1"> <span
+                        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr074.svg'"
+                        class="svg-icon svg-icon-3"
+                    ></span></a>
+                </li> -->
+            </ul>
+            
+    </div>
+    <!--begin::Menu-->
+    <div class="p-7 w-300px w-md-500px">
+        <!--begin::Wrapper-->
+        <div data-kt-search-element="wrapper">
+            <!--begin::Form-->
+            <form class="w-100 position-relative mb-3" >
+                <!--begin::Icon-->
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 translate-middle-y ms-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                        <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <!--end::Icon-->
+                <!--begin::Input-->
+                <input type="text" class="search-input form-control form-control-flush ps-10" name="search" value="" placeholder="Search..." [(ngModel)]="keyTarget" />
+                <!--end::Input-->
+                <!--begin::Spinner-->
+                <span class="search-spinner position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-1" data-kt-search-element="spinner">
+                    <span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+                </span>
+                <!--end::Spinner-->
+            </form>
+            <!--end::Form-->
+            <!--begin::Separator-->
+            <div class="separator border-gray-200 mb-6"></div>
+            <!--end::Separator-->
+            <!--begin::Recently viewed-->
+            <div class="mb-5" data-kt-search-element="main">
+                <!--begin::Heading-->
+                <div class="d-flex flex-stack fw-semibold mb-4">
+                    <!--begin::Label-->
+                    <span class="text-muted fs-6 me-2">{{targetHeader}}</span>
+                    <!--end::Label-->
+                </div>
+                <!--end::Heading-->
+                <!--begin::Items-->
+                <div class="scroll-y mh-200px mh-lg-325px" [style]="targetStyle">
+                    <!-- <ng-container *ngFor="let item of source; let i = index"> -->
+                    <ng-container *ngFor="let item of target | searchPipe:[{field: filterBy}]: keyTarget">
+                        <!-- <div class="d-flex align-items-center rounded mb-5 cursor-pointer"
+                            [class.bg-light-success]="selectedTargetItem === item"
+                            (click)="selectedTargetItem = item; selectedSourceItem = null"
+                            (dblclick)="addSource(item)"
+                           >
+                            <div class="symbol symbol-40px me-4">
+                                <span class="symbol-label bg-light">
+                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M2 16C2 16.6 2.4 17 3 17H21C21.6 17 22 16.6 22 16V15H2V16Z" fill="currentColor" />
+                                            <path opacity="0.3" d="M21 3H3C2.4 3 2 3.4 2 4V15H22V4C22 3.4 21.6 3 21 3Z" fill="currentColor" />
+                                            <path opacity="0.3" d="M15 17H9V20H15V17Z" fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a class="fs-6 text-gray-800 text-hover-primary fw-semibold">{{item[filterBy]}}</a>
+                                <span class="fs-7 text-muted fw-semibold">#45789</span>
+                            </div>
+                        </div> -->
+
+                        <span class="badge py-3 px-4 fs-7 badge-light-warning me-2 mb-2 user-select-none" (dblclick)="addSource(item)">
+                            {{item[filterBy]}}
+                            <a (click)="addSource(item)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-x-lg ms-4" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                </svg>
+                            </a>
+                        </span>
+                    </ng-container>
+                </div>
+                <!--end::Items-->
+            </div>
+            <!--end::Recently viewed-->
+        </div>
+        <!--end::Wrapper-->
+    </div>
+    <!--end::Menu-->
+</div>

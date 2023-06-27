@@ -1,0 +1,286 @@
+<!--begin::Content container-->
+
+    <!--begin::Layout-->
+    <div class="d-flex flex-column flex-xl-row mt-10">
+        <!--begin::Sidebar-->
+        <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
+            <!--begin::Card-->
+            <div class="card mb-5 mb-xl-8">
+                <!--begin::Card body-->
+                <div class="card-body pt-15">
+                    <!--begin::Summary-->
+                    <div class="d-flex flex-column mb-5">
+                        <!--begin::Name-->
+                        <div class="fw-semibold fs-6 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.PRODUCT">
+                                    
+                                <ng-container *ngIf="isLoadingProduct">
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </ng-container>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select class="fs-6"
+                                [items]="filteredProduct" [virtualScroll]="true" 
+                                [bindLabel]="'label'"
+                                [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                                [placeholder]="'Select Product...'"
+                                (twBindingChange)="selectValue(($event))">
+                                
+                                <span (click)="OpenProductDialog()"
+                                    [inlineSVG]="
+                                        './assets/media/icons/duotune/general/gen004.svg'
+                                    "
+                                    class="ms-5 m-auto svg-icon svg-icon-1 me-1 svg-icon-primary"
+                                ></span>
+                            </app-custom-select>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <!--end::Name-->
+                        <!--begin::Position-->
+                        <div class="fs-5 fw-semibold text-muted mb-6"><span >This product is </span> {{productHistory.Status }}</div>
+                        <!--end::Position-->
+                    </div>
+                    <!--end::Summary-->
+                    <div class="separator separator-dashed my-3"></div>
+                    <!--begin::Details content-->
+                    <div id="" class="collapse show">
+                        <div class="py-5 fs-6">
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.LASTPURCHASEPRICE'| translate}}</div>
+                            <div class="text-gray-600"><span >€ </span> {{(productHistory.LastPurchasePrice || 0) | number:'1.2-2' }} </div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.VAPLONGPRICE'| translate}}</div>
+                            <div class="text-gray-600">
+                                <span >€ </span> {{(productHistory.VaplongPrice || 0) | number:'1.2-2' }}
+                            </div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.WEBSITEPRICE'| translate}}</div>
+                            <div class="text-gray-600">{{(productHistory.WebsitePrice || 0) | number:'1.2-2' }} </div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.PURCHASE'| translate}}</div>
+                            <div class="text-gray-600">{{productHistory.PurchaseQuantity || 0}}</div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.RETURN'| translate}}</div>
+                            <div class="text-gray-600">{{productHistory.PurchaseReturnQuantity || 0}}</div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.SALE'| translate}}</div>
+                            <div class="text-gray-600">{{productHistory.SaleQuantity || 0}}</div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.RETURN'| translate}}</div>
+                            <div class="text-gray-600">{{productHistory.SaleReturnQuantity || 0}}</div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.AVAILABLESTOCK'| translate}}</div>
+                            <div class="text-gray-600"> {{productHistory.AvailableQuantity || 0}} </div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.HoldStock'| translate}}</div>
+                            <div class="text-gray-600">{{productHistory.HoldQuantity || 0}} </div>
+                            <!--begin::Details item-->
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.SALE'| translate}}</div>
+                            <div class="text-gray-600">{{productHistory.SaleQuantity || 0}}</div>
+                            <!--begin::Details item-->
+                            
+                            <!--begin::Details item-->
+                            <div class="fw-bold mt-5">{{'REPORTS.STOCKLOCATION'| translate}}</div>
+                            <div class="text-gray-600"  *ngFor="let loc of productHistory.Locations"> {{loc || 'N/A'}}</div>
+                            <!--begin::Details item-->
+                        </div>
+                    </div>
+                    <!--end::Details content-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Sidebar-->
+        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
+                <!--begin:::Tab item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#purchase_table">{{ "ORDERS.ALLORDERS" | translate }}</a>
+                </li>
+                <!--end:::Tab item-->
+                <!--begin:::Tab item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#dirty_table">{{ "ORDERS.ONLINEORDERS" | translate }}</a>
+                </li>
+                <!--end:::Tab item-->
+                <!--begin:::Tab item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#logs_table">{{ "ORDERS.VPORDERS" | translate }}</a>
+                </li>
+                <!--end:::Tab item-->
+            </ul>
+            
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="purchase_table" role="tab-panel">
+                    <div class="card card-flush py-4">
+                        <div class="card-body pt-0">
+                            <div class="d-flex flex-column gap-10">
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <app-ss-generic-table  
+                                        [menuItems]="genericMenuItems" [data]="Purchases" (emitHref)="getPurchasesByInvoiceNo($event)"
+                                        [globalFilterFields]="purchaseGlobalFilterFields" [columnsData]="purchaseColumns" [rowGroup]="rowGroup"
+                                        [totalRecords]="purchaseTotalRecords" (getLazyData)="GetAllPurchaseDataWithLazyLoadinFunction($event)"
+                                        [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [initialColumns]="initialCoulumsPurchases" 
+                                        [isLoading]="isLoadingPurchases">
+                                    </app-ss-generic-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show active" id="dirty_table" role="tab-panel">
+                    <div class="card card-flush py-4">
+                        <div class="card-body pt-0">
+                            <div class="d-flex flex-column gap-10">
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <app-ss-generic-table  
+                                        [menuItems]="genericMenuItems" [data]="Sales" (emitHref)="getSalesByInvoiceNo($event)"
+                                        [globalFilterFields]="saleGlobalFilterFields" [columnsData]="saleColumn" [rowGroup]="rowGroup1"
+                                        [totalRecords]="saleTotalRecords" (getLazyData)="GetAllSaleDataWithLazyLoadinFunction($event)"
+                                        [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [initialColumns]="initialCoulumsSales"  
+                                        [isLoading]="isLoadingSales">
+                                    </app-ss-generic-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show active" id="logs_table" role="tab-panel">
+                    <div class="card card-flush py-4">
+                        <div class="card-body pt-0">
+                            <div class="d-flex flex-column gap-10">
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <app-ss-generic-table  
+                                        [menuItems]="genericMenuItems" [data]="allActivity" [globalFilterFields]="activityGlobalFilterFields" 
+                                        [columnsData]="activityColumns" [rowGroup]="rowGroup2" [totalRecords]="activityTotalRecords" 
+                                        (getLazyData)="GetAllActivityDataWithLazyLoadinFunction($event)" [rowsPerPageOptions]="rowsPerPageOptions" 
+                                        [row]='10' [initialColumns]="initialCoulumsAllActivity" [isLoading]="isLoadingAllActivities">
+                                    </app-ss-generic-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--begin::Content-->
+        <div class="flex-lg-row-fluid ms-lg-15">
+            <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+                <!-- begin::Header -->
+                <div class="card-header card-header-stretch overflow-auto">
+                    <ul class="
+                        nav nav-stretch nav-line-tabs
+                        fw-bold
+                        border-transparent
+                        flex-nowrap
+                    " role="tablist">
+
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'purchases' }"
+                        (click)="setActiveTab('purchases')" role="purchases">
+                        {{ "ORDERS.ALLORDERS" | translate }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'dirty' }"
+                        (click)="setActiveTab('dirty')" role="dirty">
+                        {{ "ORDERS.ONLINEORDERS" | translate }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'logs' }"
+                        (click)="setActiveTab('logs')" role="logs">
+                        {{ "ORDERS.VPORDERS" | translate }}
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+                <!-- end::Header -->
+                
+                <div class="tab-content pt-3">
+                    <ng-container *ngIf="activeTab === 'purchases'">
+                        <div class="card card-flush py-4">
+                            <div class="card-body pt-0">
+                                <div class="d-flex flex-column gap-10">
+                                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                        <!-- <app-ss-generic-table  
+                                            [menuItems]="genericMenuItems" [data]="Purchases" (emitHref)="getPurchasesByInvoiceNo($event)"
+                                            [globalFilterFields]="purchaseGlobalFilterFields" [columnsData]="purchaseColumns" [rowGroup]="rowGroup"
+                                            [totalRecords]="purchaseTotalRecords" (getLazyData)="GetAllPurchaseDataWithLazyLoadinFunction($event)"
+                                            [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [initialColumns]="initialCoulumsPurchases" 
+                                            [isLoading]="isLoadingPurchases">
+                                        </app-ss-generic-table> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="activeTab === 'dirty'">
+                        <div class="card card-flush py-4">
+                            <div class="card-body pt-0">
+                                <div class="d-flex flex-column gap-10">
+                                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                        <app-ss-generic-table  
+                                            [menuItems]="genericMenuItems" [data]="Sales" (emitHref)="getSalesByInvoiceNo($event)"
+                                            [globalFilterFields]="saleGlobalFilterFields" [columnsData]="saleColumn" [rowGroup]="rowGroup1"
+                                            [totalRecords]="saleTotalRecords" (getLazyData)="GetAllSaleDataWithLazyLoadinFunction($event)"
+                                            [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [initialColumns]="initialCoulumsSales"  
+                                            [isLoading]="isLoadingSales">
+                                        </app-ss-generic-table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="activeTab === 'logs'">
+                        <div class="card card-flush py-4">
+                            <div class="card-body pt-0">
+                                <div class="d-flex flex-column gap-10">
+                                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                        <!-- <app-ss-generic-table  
+                                            [menuItems]="genericMenuItems" [data]="allActivity" [globalFilterFields]="activityGlobalFilterFields" 
+                                            [columnsData]="activityColumns" [rowGroup]="rowGroup2" [totalRecords]="activityTotalRecords" 
+                                            (getLazyData)="GetAllActivityDataWithLazyLoadinFunction($event)" [rowsPerPageOptions]="rowsPerPageOptions" 
+                                            [row]='10' [initialColumns]="initialCoulumsAllActivity" [isLoading]="isLoadingAllActivities">
+                                        </app-ss-generic-table> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <!--end::Content-->
+    </div>
+    <!--end::Layout-->
+    
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_products data-bs-toggle="modal" data-bs-target="#modalProducts">
+    Open products modal
+</button>
+<jw-modal [modalId]="'modalProducts'" [modalTitle]="'Products'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-genric-table (emitRowClick)="selectValue($event, true)" [menuItems]="[]" [data]="ProductData"
+                        [columnsData]="productsColumn" [loadingData]="isLoadingProduct">
+                    </app-genric-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>

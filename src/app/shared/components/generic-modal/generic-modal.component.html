@@ -1,0 +1,30 @@
+<ng-template #modal style="--bs-modal-width: 800px">
+
+  <div class="modal-header" *ngIf="!transparent">
+    <!--begin::Modal title-->
+    <h2>{{ modalConfig.modalTitle }}</h2>
+    <!--end::Modal title-->
+    <!--begin::Close-->
+    <div class="btn btn-sm btn-icon btn-active-color-primary" (click)="close()"
+      *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()">
+      <span class="svg-icon svg-icon-1" [inlineSVG]="'./assets/media/icons/duotune/arrows/arr061.svg'"></span>
+      <!--end::Svg Icon-->
+    </div>
+    <!--end::Close-->
+  </div>
+  <div class="modal-body" [ngClass]="{'p-2': transparent === true}">
+    <ng-content></ng-content>
+  </div>
+  <div class="modal-footer" *ngIf="!transparent">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismiss()"
+      *ngIf="modalConfig.hideDismissButton === undefined || !modalConfig.hideDismissButton()"
+      [disabled]="modalConfig.disableDismissButton !== undefined && modalConfig.disableDismissButton()">
+      {{ modalConfig.dismissButtonLabel }}
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="close()"
+      *ngIf="modalConfig.hideCloseButton === undefined || !modalConfig.hideCloseButton()"
+      [disabled]="modalConfig.disableCloseButton !== undefined && modalConfig.disableCloseButton()">
+      {{ modalConfig.closeButtonLabel }}
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,139 @@
+<div id="kt_sliders_widget_1_slider" 
+    class="card card-flush carousel carousel-custom carousel-stretch slide h-xl-100" 
+    data-bs-ride="carousel" data-bs-interval="5000" [ngClass]="cssClass">
+    <!--begin::Header-->
+    <div class="card-header pt-5">
+      <!--begin::Title-->
+      <h4 class="card-title d-flex align-items-start flex-column">
+        <span class="card-label fw-bold text-gray-800">Financial Overview</span>
+        <!-- <span class="text-gray-400 mt-1 fw-bold fs-7">4 lessons, 3 hours 45 minutes</span> -->
+      </h4>
+      <!--end::Title-->
+      <!--begin::Toolbar-->
+      <div class="card-toolbar">
+        <!--begin::Carousel Indicators-->
+        <ol class="p-0 m-0 carousel-indicators carousel-indicators-bullet carousel-indicators-active-primary">
+          <li data-bs-target="#kt_sliders_widget_1_slider" data-bs-slide-to="0" class="ms-1" [ngClass]="{'active': tab === 'customer'}" (click)="setSlider('customer')"></li>
+          <li data-bs-target="#kt_sliders_widget_1_slider" data-bs-slide-to="1" class="active ms-1" [ngClass]="{'active': tab === 'supplier'}" (click)="setSlider('supplier')"></li>
+        </ol>
+        <!--end::Carousel Indicators-->
+      </div>
+      <!--end::Toolbar-->
+    </div>
+    <!--end::Header-->
+    <!--begin::Body-->
+    <div class="card-body pt-6">
+      <!--begin::Carousel-->
+      <div class="carousel-inner mt-n5">
+        <!--begin::Item-->
+        <div class="carousel-item " [ngClass]="{'active show': tab === 'customer'}" >
+          <!--begin::Wrapper-->
+          <div class="d-flex align-items-center mb-5">
+            <!--begin::Chart-->
+            <div class="d-flex flex-center me-5 pt-2">
+              <div id="kt_card_widget_17_chart"
+                [ngStyle]="{'min-width': chartSize + 'px', 'min-height': chartSize + 'px'}"
+                [attr.data-kt-size]="chartSize"
+                [attr.data-kt-line]="chartLine">
+              </div>
+            </div>
+            <!--end::Chart-->
+            <!--begin::Info-->
+            <div class="m-0">
+              <!--begin::Subtitle-->
+              <h4 class="fw-bold text-gray-800 mb-3">Customer</h4>
+              <!--end::Subtitle-->
+              <!--begin::Items-->
+              <!-- <div class="d-flex d-grid gap-5" 
+                  *ngxPermissionsOnly="[CustomerPermission?.SubMenuViewCustomers, 
+                  CustomerPermission?.SubMenuCustomersAccounts, CustomerPermission?.SubMenuAddressReport]"
+              > -->
+              <div class="d-flex d-grid gap-5" 
+              >
+                <!--begin::Item-->
+                <div class="d-flex flex-column flex-shrink-0 me-4">
+                  <!--begin::Section-->
+                  <span class="d-flex align-items-center fs-7 fw-bold text-gray-400 mb-2" (click)="Customerbalance()">
+                  Total Customer Balance</span>
+                  <!--end::Section-->
+                  <!--begin::Section-->
+                  <span class="d-flex align-items-center text-gray-400 fw-bold" *ngIf="isCustomerbalance">
+                    € {{TotalCustomerBalance | number:'1.2-2' }}
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+                  <!--end::Section-->
+                </div>
+                <!--end::Item-->
+              </div>
+              <!--end::Items-->
+            </div>
+            <!--end::Info-->
+          </div>
+          <!--end::Wrapper-->
+          <!--begin::Action-->
+          <!-- <div class="mb-1">
+            <a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" (click)="Customerbalance()">{{ isCustomerbalance ? 'show' : 'hide' }}</a>
+          </div> -->
+          <!--end::Action-->
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="carousel-item" [ngClass]="{'active show': tab === 'supplier'}" >
+          <!--begin::Wrapper-->
+          <div class="d-flex align-items-center mb-5">
+            <!--begin::Chart-->
+            <div class="d-flex flex-center me-5 pt-2">
+              <div id="kt_card_widget_18_chart"
+                [ngStyle]="{'min-width': chartSize + 'px', 'min-height': chartSize + 'px'}"
+                [attr.data-kt-size]="chartSize"
+                [attr.data-kt-line]="chartLine">
+              </div>
+            </div>
+            <!--end::Chart-->
+            <!--begin::Info-->
+            <div class="m-0">
+              <!--begin::Subtitle-->
+              <h4 class="fw-bold text-gray-800 mb-3">Supplier</h4>
+              <!--end::Subtitle-->
+              <!--begin::Items-->
+              <!-- <div class="d-flex d-grid gap-5" *ngxPermissionsOnly="[SupplierPermission?.SubMenuViewSuppliers, 
+                            SupplierPermission?.SubMenuSupplierAccounts, ReportPermission?.SubMenuInvoicePayments, 
+                            ReportPermission?.SubMenuSupplierInvoices]"
+              > -->
+              <div class="d-flex d-grid gap-5" 
+              >
+                <!--begin::Item-->
+                <div class="d-flex flex-column flex-shrink-0 me-4">
+                  <!--begin::Section-->
+                  <span class="d-flex align-items-center fs-7 fw-bold text-gray-400 mb-2">
+                    Total Supplier Balance
+                  </span>
+                  <!--end::Section-->
+                  <!--begin::Section-->
+                  <span class="d-flex align-items-center text-gray-400 fw-bold" *ngIf="isSupplierbalance">
+                    € {{TotalSupplierBalance | number:'1.2-2' }}
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                  </span>
+                  <!--end::Section-->
+                </div>
+                <!--end::Item-->
+              </div>
+              <!--end::Items-->
+            </div>
+            <!--end::Info-->
+          </div>
+          <!--end::Wrapper-->
+          <!--begin::Action-->
+          <!-- <div class="mb-1">
+            <a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" (click)="Supplierbalance()">
+              {{ isCustomerbalance ? 'show' : 'hide' }}
+            </a>
+          </div> -->
+          <!--end::Action-->
+        </div>
+        <!--end::Item-->
+      </div>
+      <!--end::Carousel-->
+    </div>
+    <!--end::Body-->
+  </div>

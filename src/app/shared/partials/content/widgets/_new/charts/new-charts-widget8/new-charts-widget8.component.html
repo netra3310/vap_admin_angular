@@ -1,0 +1,155 @@
+<!--begin::Chart widget 8-->
+<div class="card card-flush" [ngClass]="cssClass">
+  <!--begin::Header-->
+  <div class="card-header pt-5">
+    <!--begin::Title-->
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label fw-bold text-dark">Invoices</span>
+      <!-- <span class="text-gray-400 mt-1 fw-semibold fs-6">Users from all channels</span> -->
+    </h3>
+    <!--end::Title-->
+
+    <!--begin::Toolbar-->
+    <div class="card-toolbar">
+      <ul class="nav" id="kt_chart_widget_8_tabs">
+
+        <li class="nav-item">
+          <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-light fw-bold px-4 me-1"
+            [ngClass]="{'active': tab === 'sale'}" data-bs-toggle="tab" (click)="setTab('sale')"
+            id="kt_chart_widget_8_month_toggle"><span translate="VAPV2.Sale"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-sm btn-color-muted btn-active btn-active-light fw-bold px-4 me-1"
+            [ngClass]="{'active': tab === 'purchase'}" data-bs-toggle="tab" (click)="setTab('purchase')"
+            id="kt_chart_widget_8_week_toggle">Purchase</a>
+        </li>
+
+      </ul>
+    </div>
+    <!--end::Toolbar-->
+  </div>
+  <!--end::Header-->
+
+  <!--begin::Body-->
+  <div class="card-body pt-6">
+    <!--begin::Tab content-->
+    <div class="tab-content">
+      <!--begin::Tab pane-->
+      <div class="tab-pane fade" [ngClass]="{'active show': tab === 'sale'}" id="kt_chart_widget_8_sale_tab"
+        role="tabpanel">
+        <!--begin::Statistics-->
+        <div class="mb-5">
+          <!--begin::Statistics-->
+          <!-- <div class="d-flex align-items-center mb-2">
+            <span class="fs-1 fw-semibold text-gray-400 me-1 mt-n1">$</span>
+
+            <span class="fs-3x fw-bold text-gray-800 me-2 lh-1 ls-n2">18,89</span>
+
+            <span class="badge badge-light-success fs-base">
+              <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr066.svg'"
+                class="svg-icon svg-icon-5 svg-icon-success ms-n1"></span>
+              4,8%
+            </span>
+          </div> -->
+          <!--end::Statistics-->
+
+          <!--begin::Description-->
+          <span class="fs-6 fw-semibold text-gray-400">Sale Inovices</span>
+          <!--end::Description-->
+        </div>
+        <!--end::Statistics-->
+
+        <!--begin::Chart-->
+        <div style="display: flex;">
+          <div id="kt_chart_widget_8_week_chart" class="ms-n5 min-h-auto" [ngStyle]="{'height': chartHeight, 'width': '50%', 'margin-bottom': '30px'}">
+            <ng-container *ngIf="hadDelay">
+              <apx-chart [series]="chart1Options.series" [chart]="chart1Options.chart"
+                [xaxis]="chart1Options.xaxis" [yaxis]="chart1Options.yaxis" [dataLabels]="chart1Options.dataLabels"
+                [stroke]="chart1Options.stroke" [legend]="chart1Options.legend" [fill]="chart1Options.fill"
+                [states]="chart1Options.states" [tooltip]="chart1Options.tooltip" [colors]="chart1Options.colors"
+                [markers]="chart1Options.markers" [plotOptions]="chart1Options.plotOptions"></apx-chart>
+            </ng-container>
+
+
+          </div>
+          <div id="kt_chart_widget_8_week_chart" class="ms-n5 min-h-auto" [ngStyle]="{'height': chartHeight, 'width': '50%', 'margin-bottom': '30px', 'justify-content': 'center', 'display': 'flex'}">
+            <ng-container *ngIf="hadDelay">
+              <apx-chart [series]="chart3Options.series" [chart]="chart3Options.chart"
+                [xaxis]="chart3Options.xaxis" [yaxis]="chart3Options.yaxis" [dataLabels]="chart3Options.dataLabels"
+                [stroke]="chart3Options.stroke" [legend]="chart3Options.legend" [fill]="chart3Options.fill"
+                [states]="chart3Options.states" [tooltip]="chart3Options.tooltip" [colors]="chart3Options.colors"
+                [markers]="chart3Options.markers" [plotOptions]="chart3Options.plotOptions"></apx-chart>
+            </ng-container>
+          </div>
+        </div>
+        <!--end::Chart-->
+
+        <!--begin::Items-->
+      
+        <!--ed::Items-->
+      </div>
+      <!--end::Tab pane-->
+
+      <!--begin::Tab pane-->
+      <div class="tab-pane fade" [ngClass]="{'active show': tab === 'purchase'}" id="kt_chart_widget_8_purchase_tab"
+        role="tabpanel">
+        <!--begin::Statistics-->
+        <div class="mb-5">
+          <!--begin::Statistics-->
+          <!-- <div class="d-flex align-items-center mb-2">
+            <span class="fs-1 fw-semibold text-gray-400 me-1 mt-n1">$</span>
+
+            <span class="fs-3x fw-bold text-gray-800 me-2 lh-1 ls-n2">8,55</span>
+
+            <span class="badge badge-light-success fs-base">
+              <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr066.svg'"
+                class="svg-icon svg-icon-5 svg-icon-success ms-n1"></span>
+              2.2%
+            </span>
+
+          </div> -->
+          <!--end::Statistics-->
+
+          <!--begin::Description-->
+          <span class="fs-6 fw-semibold text-gray-400">Purchase invoices</span>
+          <!--end::Description-->
+        </div>
+        <!--end::Statistics-->
+
+        <!--begin::Chart-->
+        <div style="display: flex;">
+          <div id="kt_chart_widget_8_month_chart" class="ms-n5 min-h-auto" [ngStyle]="{'height': chartHeight, 'width': '50%', 'margin-bottom': '30px'}">
+            <ng-container *ngIf="hadDelay">
+
+              <apx-chart #monthChart [series]="chart2Options.series" [chart]="chart2Options.chart"
+                [xaxis]="chart2Options.xaxis" [yaxis]="chart2Options.yaxis" [dataLabels]="chart2Options.dataLabels"
+                [stroke]="chart2Options.stroke" [legend]="chart2Options.legend" [fill]="chart2Options.fill"
+                [states]="chart2Options.states" [tooltip]="chart2Options.tooltip" [colors]="chart2Options.colors"
+                [markers]="chart2Options.markers" [plotOptions]="chart2Options.plotOptions"></apx-chart>
+
+            </ng-container>
+
+          </div>
+          <div id="kt_chart_widget_8_week_chart" class="ms-n5 min-h-auto" [ngStyle]="{'height': chartHeight, 'width': '50%', 'margin-bottom': '30px', 'justify-content': 'center', 'display': 'flex'}">
+            <ng-container *ngIf="hadDelay">
+              <apx-chart [series]="chart4Options.series" [chart]="chart4Options.chart"
+                [xaxis]="chart4Options.xaxis" [yaxis]="chart4Options.yaxis" [dataLabels]="chart4Options.dataLabels"
+                [stroke]="chart4Options.stroke" [legend]="chart4Options.legend" [fill]="chart4Options.fill"
+                [states]="chart4Options.states" [tooltip]="chart4Options.tooltip" [colors]="chart4Options.colors"
+                [markers]="chart4Options.markers" [plotOptions]="chart4Options.plotOptions"></apx-chart>
+            </ng-container>
+          </div>
+        </div>
+        <!--end::Chart-->
+
+        <!--begin::Items-->
+       
+        <!--ed::Items-->
+      </div>
+      <!--end::Tab pane-->
+    </div>
+    <!--end::Tab content-->
+  </div>
+  <!--end::Body-->
+</div>
+<!--end::Chart widget 8-->

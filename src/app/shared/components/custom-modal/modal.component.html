@@ -1,0 +1,22 @@
+﻿<div class="modal fade" id="{{modalId}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" [ngClass]="{'modal-xxl': (modalSize === 'xxl'),'modal-xl': (modalSize === 'xl'),'modal-lg': (modalSize === 'lg'),'modal-sm': (modalSize === 'sm')}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">{{modalTitle}}</h5>
+        <ng-container *ngIf="actionClose">
+          <button type="button" class="btn-close" (click)="onClose()"></button>
+        </ng-container>
+        <ng-container *ngIf="!actionClose">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </ng-container>
+      </div>
+      <div class="modal-body">
+        <ng-content></ng-content>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div> -->
+    </div>
+  </div>
+</div>

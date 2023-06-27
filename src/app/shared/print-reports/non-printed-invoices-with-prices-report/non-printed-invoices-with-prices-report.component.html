@@ -1,0 +1,235 @@
+<div id="printA4-sale-allNotPrinted-invoices" [hidden]="true" style="width: 95%;margin:0 auto;" *ngIf="invoicesData">
+    <ng-container *ngFor="let invoice of invoicesData">
+      <div style="width: 93%; margin: auto;">
+        <div style="width: 100%;display: table;">
+        <div style="width: 100%;display: table;">
+            <div style="width: 63%;float: left;">
+    
+              <div style="padding:10px 5px;display: table;">
+                <h4 style="font-family: sans-serif !important;color: #8d9092; margin: 5px 30px 0px 0px; font-size: 30px;">
+                  PACKING LIST</h4>
+              
+              </div>
+    
+            </div>
+    
+            <div style="width: 35%;float: left;">
+              <div style="padding:10px 5px;display: table; width: 100%;">
+                <div style="width: 100%;">
+                  <p style="font-family: Georgia, 'Times New Roman', Times, serif;font-size: 12px;margin:0;">
+                    <span style="float: left;">
+                      <b>INVOICE DATE:</b>
+                    </span>
+                    <!-- <p style="margin-left: 10px; float: right;">  -->
+                    <span style="float: right;">
+                      {{invoice.SaleDate | date: 'dd.MM.YYYY HH:MM'}}
+                    </span>
+                  </p>
+                </div>
+                <br>
+            
+    
+                <div style="width: 100%;">
+                  <p style="font-family: Georgia, 'Times New Roman', Times, serif;font-size: 12px;margin:0;">
+                    <span style="float: left;">
+                      <b>CUSTOMER :</b>
+                    </span>
+                    <span style="margin-left: 18px; float: right;">
+                      {{invoice.OrderByName}}
+                    </span>
+                  </p>
+                </div>
+                <br>
+    
+              
+    
+                <div style="width: 100%;">
+                  <p style="font-family: Georgia, 'Times New Roman', Times, serif;font-size: 12px;margin:0;">
+                    <span style="float: left;">
+                      <b>SHIPPING METHOD:</b>
+                    </span>
+                    <span style="margin-left: 18px; float: right;">
+                      {{invoice.ShippingMethod}}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <table style="width: 100%;margin-top: 10px; " cellspacing="0">
+          <tr style="border-top:none;page-break-inside:avoid;">
+            <th
+              style="background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; padding: 15px !important; border: 1px solid #d3d4d5; text-align: left;">
+              Billing Address</th>
+            <th
+              style="background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; padding: 15px !important; border: 1px solid #d3d4d5; text-align: left">
+              Shipping Address</th>
+          </tr>
+          <tr>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: left; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; font-size: 12px;">
+              {{invoice.OrderByName}} <br>
+              {{invoice.OrderByCompany}}<br>
+              {{invoice.InvoiceAddress}}<br>
+             
+    
+            </td>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: left; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none;font-size: 12px; ">
+              {{invoice.DeliveredToName}}<br>
+              {{invoice.DeliveredToCompanyName}} <br>
+              {{invoice.DeliveryAddress}}<br>
+              
+    
+            </td>
+          </tr>
+        </table>
+    
+        <table style="width: 100%;margin-top: 10px; " cellspacing="0">
+          <thead>
+            <tr style="border-top:none;page-break-inside:avoid;">
+              <th
+              style="width: 10%; background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; font-size: 13px; padding: 15px !important; border: 1px solid #d3d4d5;">
+              Check</th>
+              <th
+                style="width: 10%; background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; font-size: 13px; padding: 15px !important; border: 1px solid #d3d4d5;">
+                Model No
+              </th>
+              <th
+                style="width: 48%; text-align:left;background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; font-size: 13px; padding: 15px !important; border: 1px solid #d3d4d5; border-left: none;">
+                Product Name
+              </th>
+              <th
+                style="width: 10%; background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; padding: 15px !important; font-size: 13px; border: 1px solid #d3d4d5; border-left: none;">
+                Quantity
+              </th>
+              <th
+                style="width: 10%; background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; padding: 15px !important; border: 1px solid #d3d4d5; border-left: none;">
+                Location
+              </th>
+            
+              <th
+                style="width: 10%; background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; padding: 15px !important; font-size: 13px; border: 1px solid #d3d4d5; border-left: none;">
+                Price ex. VAT
+              </th>
+              <th
+                style="width: 10%; background-color: #d3d4d5;font-family: Georgia, 'Times New Roman', Times, serif; padding: 15px !important; font-size: 13px; border: 1px solid #d3d4d5; border-left:none;">
+                Total ex. VAT
+              </th>
+             
+            </tr>
+    
+          </thead>
+          <tr *ngFor="let product of invoice.newSaleDetails">
+            <td
+            style="font-size:12px;font-family: sans-serif !important; text-align: center; padding: 5px !important; border: 1px solid #cddddd;border-top: none; ">
+            <input type="checkbox">
+          </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: left; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none;">
+              {{product.BLabel}}
+            </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: left; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; border-left: none; ">
+              {{product.Product}}
+            </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; border-left: none;">
+              {{product.Quantity}}
+            </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; border-left: none;">
+              {{product.Location}}
+            </td>
+            
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; border-left: none;">
+              <span>€ </span> {{product.dTotalUnitValue | number:'1.2-2' }}
+            </td>
+            <td
+              style="width:15%; font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center; padding: 5px !important; border-left:none;border: 1px solid #d3d4d5;border-top: none; border-left: none; ">
+              <span>€ </span> {{product.dTotalValue | number:'1.2-2' }}
+            </td>
+          
+          <tr>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: right; padding-right: 10px;border: 1px solid #d3d4d5; padding: 5px;  border-top: none;"
+              colspan="6">
+              <b>Subtotal</b>
+            </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;border-left:none;border: 1px solid #d3d4d5; padding: 5px;   border-left: none; border-top: none;"
+              colspan="1">
+              <span>€ </span> {{invoice.subTotal | number:'1.2-2' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: right;padding-right: 10px;border: 1px solid #d3d4d5; padding: 5px; border-top: none;"
+              colspan="6">
+              <b>Discount</b>
+            </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;border-left:none;border: 1px solid #d3d4d5; padding: 5px; border-top: none;border-left:none;"
+              colspan="1">
+              <span>€ </span> {{invoice.dDiscountValue | number:'1.2-2' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: right;padding-right: 10px;border: 1px solid #d3d4d5; padding: 5px;  border-top: none;"
+              colspan="6">
+              <b>Shipping Cost</b>
+            </td>
+            <td
+              style="font-size:13px;font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;border-left:none;border: 1px solid #d3d4d5; padding: 5px;   border-left: none;border-top: none;"
+              colspan="1">
+              <span>€ </span> {{invoice.ShippingCost | number:'1.2-2' }}
+            </td>
+          </tr>
+         
+          <tr>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: right; padding-right: 10px;border: 1px solid #d3d4d5; padding: 5px; border-top: none;"
+              colspan="6">
+              <b>Total</b>
+            </td>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;border-left:none;border: 1px solid #d3d4d5; padding: 5px; border-top: none;border-left:none;"
+              colspan="1">
+              <span>€ </span> {{invoice.dTotalSaleValue | number:'1.2-2' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: right; padding-right: 10px;border: 1px solid #d3d4d5; padding: 5px; border-top: none;"
+              colspan="6">
+              <b>Total Paid</b>
+            </td>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;border-left:none;border: 1px solid #d3d4d5; padding: 5px; border-top: none;border-left:none;"
+              colspan="1">
+              <span>€ </span> {{invoice.dTotalPaidValue | number:'1.2-2' }}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: right; padding-right: 10px;border: 1px solid #d3d4d5; padding: 5px; border-top: none;"
+              colspan="6">
+              <b>Rest Amount</b>
+            </td>
+            <td
+              style="font-family: Georgia, 'Times New Roman', Times, serif; text-align: center;border-left:none;border: 1px solid #d3d4d5; padding: 5px; border-top: none;border-left:none;"
+              colspan="1">
+              <span>€ </span> {{(+invoice.dTotalSaleValue - +invoice.dTotalPaidValue) | number:'1.2-2' }}
+            </td>
+          </tr>
+        </table>
+           <div style="page-break-after: always;"></div>
+
+      </div>
+        <!-- <div style="page-break-after: always;"></div> -->
+    </ng-container>
+</div>

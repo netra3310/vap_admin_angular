@@ -1,0 +1,89 @@
+<div>
+    <div class="mb-5 text-end">
+        <app-sel-date-btn
+            [options]="SearchByDateDropdown" 
+            (emitSelDate)="SearchByDate($event)"
+            [placeholderSelector]="'Select Search By Date'"
+            [(twBinding)]="selectedSearchByDateID"
+        >
+        </app-sel-date-btn>
+        <!-- end the select date dropdown -->
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table (emitMenuAction)="emitAction($event)"
+                            (emitHref)="getPurchasesBySupplierInvoiceNo($event)" [rowGroup]="rowGroup"
+                            [menuItems]="genericMenuItems" 
+                            [data]="AllPurchaseReturnlist" [columnsData]="columns" [initialColumns]="initialColumns" 
+                            [enablePrint]="true" [loadingData]="isLoadingData" [row]='25' [initPageNo]="initPageNo">
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-generic-modal #modal [modalConfig]="modalConfig">
+    <!--begin::Content-->
+    <app-custom-spinner [isLoading]="isDetailLoading"></app-custom-spinner>
+    
+    <!--begin::Details-->
+    <div class="d-flex flex-wrap py-5">
+        <!--begin::Row-->
+        <div class="flex-equal me-5">
+            <!--begin::Details-->
+            <table class="table fs-6 fw-semibold gs-0 gy-2 gx-2 m-0">
+                <!--begin::Row-->
+                <tr>
+                    <td class="fs-3 fw-bold text-muted mb-3">Purchase Price:</td>
+                    <td class="text-gray-800 min-w-200px">
+                        <a class="fs-xl-2x fs-2 fw-bolder">€{{this.PurchaseTableModel[0]?.dTotalPurchaseValue}}</a>
+                    </td>
+                </tr>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <tr>
+                    <td class="text-gray-400">Paid Amount:</td>
+                    <td class="text-gray-800">€{{this.PurchaseTableModel[0]?.dTotalPaidValue}}</td>
+                </tr>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <tr>
+                    <td class="text-gray-400">Address:</td>
+                    <td class="text-gray-800">Floor 10, 101 Avenue of the Light Square, New York, NY, 10050.</td>
+                </tr>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <tr>
+                    <td class="text-gray-400">Supplier:</td>
+                    <td class="text-gray-800">{{this.PurchaseTableModel[0]?.Supplier}}</td>
+                </tr>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <tr>
+                    <td class="text-gray-400">Invoice No:</td>
+                    <td class="text-gray-800">{{this.PurchaseTableModel[0]?.ID}}</td>
+                </tr>
+                <!--end::Row-->
+                <!--begin::Row-->
+                <tr>
+                    <td class="text-gray-400">Date:</td>
+                    <td class="text-gray-800">{{this.PurchaseTableModel[0]?.PurchaseDate | date : 'medium'}}</td>
+                </tr>
+                <!--end::Row-->
+            </table>
+            <!--end::Details-->
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Row-->
+</app-generic-modal>
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

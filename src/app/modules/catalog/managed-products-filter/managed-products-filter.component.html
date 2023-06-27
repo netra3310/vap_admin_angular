@@ -1,0 +1,313 @@
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-lg-row mt-15">
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-lg-350px w-xl-350px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush mb-0">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Search Options</h2>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label">Product Name</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select
+                                [items]="filteredProduct"  [virtualScroll]="true" bindLabel="label"
+                                [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                                [placeholder]="'Select Product...'">
+                            </app-custom-select>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" >Article number</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select
+                                [items]="filteredProductModel"  [virtualScroll]="true" bindLabel="label"
+                                [(twBinding)]="selectedProductModel" [searchFn]="dataFunc"
+                                [placeholder]="'Select Article number...'">
+                            </app-custom-select>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" for="MinPrice">Min Price</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-input
+                                name="MinPrice"
+                                [type]="'number'" 
+                                [(twBinding)]="MinPrice"
+                                placeholder="Min Price"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3'"
+                            ></app-custom-input>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" for="MaxPrice">Max Price</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-input
+                                name="MaxPrice"
+                                [type]="'number'" 
+                                [(twBinding)]="MaxPrice"
+                                placeholder="Max Price"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3'"
+                            ></app-custom-input>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" for="MinQuantity" >Min Quantity</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            
+                            <app-custom-input
+                                name="MinQuantity"
+                                [type]="'number'" 
+                                [(twBinding)]="MinQuantity"
+                                placeholder="Min Quantity"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3'"
+                            ></app-custom-input>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" for="MaxQuantity" >Max Quantity</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            
+                            <app-custom-input
+                                name="MaxQuantity"
+                                [type]="'number'" 
+                                [(twBinding)]="MaxQuantity"
+                                placeholder="Max Quantity"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3'"
+                            ></app-custom-input>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label"  for="Status">Status</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Status" name="Status"
+                                [options]="SearchByStatusDropdown" placeholder="Status" 
+                                [showClear]="true" [(twBinding)]="selectedSearchByStatusID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" for="Image">Image</label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-dropdown class="fs-6 " id="Image" name="Image"
+                                [options]="SearchByImageDropdown" placeholder="Image" 
+                                [showClear]="true" [(twBinding)]="selectedSearchByImageID" 
+                                required optionLabel="label">
+                            </app-custom-dropdown>
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold text-muted mt-7">
+                            
+                            <a class="btn btn-sm fw-bold btn-primary ms-2"
+                                (click)="Filter()">
+                                <span>Filter</span>
+                                <ng-container *ngIf="isLoadingProducts">
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </ng-container>
+                            </a> 
+                            <a class="btn btn-sm fw-bold btn-primary ms-2"
+                                (click)="Reset()">
+                                <span>Clear</span>
+                            </a> 
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-lg-15 order-2 order-lg-1 mb-10 mb-lg-0">
+        <!--begin::Card-->
+        <div class="card card-flush pt-3 mb-5 mb-xl-10">
+            <!--begin::Card body-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table
+                                (emitMenuAction)="emitAction($event)" 
+                                (emitSwitch)="UpdateProductQualityStatusFunction($event)"
+                                [menuItems]="genericMenuItems" 
+                                [data]="AllProductList"  
+                                [filterGlobal]=false
+                                [columnsData]="columns" 
+                                [totalRecords]="totalRecords" 
+                                (getLazyData)="GetAllProductWithLazyLoadinFunction($event)" 
+                                [initialColumns]="initialColumns"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]='10' 
+                                [isLoading] = "isLoadingProducts">
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Layout-->
+<button #open_product_variants_btn hidden   data-bs-toggle="modal" data-bs-target="#productvariants"></button>
+<button #close_product_variants_btn hidden data-bs-dismiss="modal" data-bs-target="#productvariants"></button>
+<jw-modal [modalId]="'productvariants'" [modalTitle]="'Product Variants'" [modalSize]="'xl'">
+    <!-- <app-customer-previous-invoice [OrderByID]="selectedOrderBy"></app-customer-previous-invoice> -->
+    <!--begin::Shipping address-->
+    <div class="d-flex flex-column gap-5 gap-md-7" id="kt_ecommerce_edit_order_shipping_form">
+        <!--begin::Input group-->
+        <div class="d-flex flex-column flex-md-row gap-5">
+            <div class="fv-row flex-row-fluid">
+                <!--begin::Label-->
+                <label class="form-label">Color</label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <app-custom-dropdown
+                    [placeholder]="'Select Color'" [options]="ColorDropdown"
+                    [(twBinding)]="selectedColorDropdownID" autoWidth="false" required [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+                <!--end::Input-->
+            </div>
+            <div class="flex-row-fluid">
+                <!--begin::Label-->
+                <label class="form-label form-check form-check-solid form-switch fv-row">Change Barcode
+                    <!-- <div class="form-check form-check-solid form-switch fv-row"> -->
+                        <input
+                          class="form-check-input w-30px h-20px"
+                          type="checkbox"
+                          id="allowmarketing"
+                          [(ngModel)]="bChangeBarcode"
+                          (change)="checkboxChange($event)"
+                        />
+                      <!-- </div> -->
+                </label>
+                <!--end::Label-->
+                <!--begin::Input-->
+                <input class="form-control" type="number" [disabled]="barcodechange" [(ngModel)]="barcode" name="barcode" id="barcode"
+                required pInputText placeholder="Enter barcode" />
+                <!--end::Input-->
+            </div>
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="mb-5 text-end">
+            <a class="btn btn-sm fw-bold btn-secondary ms-2" 
+                (click)="ProductVariantClosedPopUp()">
+                <span>Cancel</span>
+            </a> 
+
+            <a class="btn btn-sm fw-bold btn-primary ms-2" 
+                (click)="AddProductVarient();">
+                <span>Add Product Variant</span>
+            </a> 
+        </div>
+        <!--end::Input group-->
+        <div class="separator"></div>
+        <!--begin::Input group-->
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table [data]="PorductVarientList" [columnsData]="productvariantcolumns"
+                            (emitMenuAction)="emitVarientAction($event)" [menuItems]="genericMenuVarientItems"
+                            [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' (emitSwitch)="UpdateProductVariantStatusFunction($event)"
+                            [loadingData]="false" [min_height]="'low'">
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Input group-->
+    </div>
+    <!--end::Shipping address-->
+</jw-modal>
+
+<button #btn_open_modal_location  hidden data-bs-toggle="modal" data-bs-target="#modal_location"></button>
+<button #btn_close_modal_location hidden data-bs-dismiss="modal" data-bs-target="#modal_location"></button>
+<jw-modal [modalId]="'modal_location'" [modalTitle]="'Product Location'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-genric-table [data]="allNonTrackableProductsLocationModelList" [columnsData]="locationColumn"
+                    [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [loadingData]="false" [min_height]="'low'">
+                    </app-genric-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<button #btn_open_modal_prices  hidden data-bs-toggle="modal" data-bs-target="#modal_prices"></button>
+<button #btn_close_modal_prices hidden data-bs-dismiss="modal" data-bs-target="#modal_prices"></button>
+<jw-modal [modalId]="'modal_prices'" [modalTitle]="'Prices'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-ss-generic-table [data]="ProdutPriceTableModel" [columnsData]="pricecolumns" 
+                        [totalRecords]="ProdutPriceTableModel.length"
+                        [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [filterGlobal]= "false"
+                        [multiSelect]="false" [isLoading]="isLoadingPrices" [initialColumns]="initialPriceColumns"
+                        [min_height]="'low'" [filterColumn]="false" [print]="false">
+                    </app-ss-generic-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<app-generic-modal #modalWishlist [modalConfig]="modalWishlistConfig">
+    <app-addwishlist-dialog #wishList [ProductVariantID]='selectedVariantIDforWishlist'
+        [ProductName]='selectedProductNameforWishlist' (ReturnCall)='CloseDialog($event)'></app-addwishlist-dialog>
+</app-generic-modal>
+
+<button #btn_open_modal_orders  hidden data-bs-toggle="modal" data-bs-target="#modal_orders"></button>
+<button #btn_close_modal_orders hidden data-bs-dismiss="modal" data-bs-target="#modal_orders"></button>
+<jw-modal [modalId]="'modal_orders'" [modalTitle]="'Add to Incoming Order'" [modalSize]="'xl'">
+    <app-addincomingquantity-dialog  
+        #incomingList [ProductID]='selectedProductIDforincomingQuantitylist'
+        [ProductName]='selectedProductNameforincomingQuantitylist' 
+        (ReturnCall)='CloseDialog1($event)'>
+    </app-addincomingquantity-dialog>
+</jw-modal>

@@ -1,0 +1,13 @@
+<!-- <input class="form-control" type={{type}} value={{twBinding}}
+    (change)="onChange($event)" [disabled]="isDisabled" /> -->
+<div class="d-flex">
+    <input #input_custom
+        type="{{ type ? type : '' }}"
+        value="{{ twBinding }}"
+        (change)="onChange($event)"
+        [disabled]="isDisabled ? isDisabled : false"
+        class="{{ classGroup }}"
+        placeholder="{{placeholder}}"
+    />
+    <ng-content></ng-content>
+</div>

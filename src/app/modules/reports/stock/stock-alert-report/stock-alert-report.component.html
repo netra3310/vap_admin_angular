@@ -1,0 +1,66 @@
+<div class="mt-20">
+  <!-- begin::Header-->
+  <div class="card card-flush justify-content-start">
+      <!-- begin::Header -->
+      <div class="border-0 pt-5 d-flex ms-10 pb-5">
+          <!--begin::Label-->
+          <label class="form-label d-flex align-items-center me-3" for="modelNumber">{{'REPORTS.PRODUCTMODELS'| translate}}</label>
+          <!--end::Label-->
+          <!--begin::Select2-->
+          <div class="w-50vw" style="width: 20vw;">
+            <app-sel-date-btn class="m-auto"
+              [options]="SearchByDateDropdown"
+              (emitSelDate)="SearchByDate($event)"
+              [placeholderSelector]="'Select date'"
+              [(twBinding)]="dateId"
+            >
+            </app-sel-date-btn>
+          </div>
+      </div>
+      <!-- end::Header -->
+  </div>
+  <!--end::Header-->
+  <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+      
+      
+      <div class="tab-content pt-3">
+          <!--begin::Order details-->
+          <div class="card card-flush py-4">
+              <div class="card-body pt-0">
+                  <div class="d-flex flex-column gap-10">
+                      <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                          <app-ss-generic-table
+                              (emitMenuAction)="emitAction($event)"
+                              [menuItems]="genericMenuItems" 
+                              [data]="StockAlertData" 
+                              [filterGlobal]=true
+                              [columnsData]="columns" 
+                              [totalRecords]="totalRecords" 
+                              (getLazyData)="GetAllDataWithLazyLoadinFunction($event)" 
+                              [initialColumns]="initialCoulumns"
+                              [rowsPerPageOptions]="rowsPerPageOptions" 
+                              [row]='10' 
+                              [isLoading] = "isLoadingData"
+                          >
+                          </app-ss-generic-table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--end::Order details-->
+      </div>
+  </div>
+</div>
+
+
+<app-generic-modal #modalWishlist [modalConfig]="modalWishlistConfig">
+  <app-addwishlist-dialog #wishList [ProductVariantID]='selectedVariantIDforWishlist'
+      [ProductName]='selectedProductNameforWishlist' (ReturnCall)='CloseDialog($event)'></app-addwishlist-dialog>
+</app-generic-modal>
+
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+  <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>
+
+<app-loading [status]="IsSpinner"></app-loading>

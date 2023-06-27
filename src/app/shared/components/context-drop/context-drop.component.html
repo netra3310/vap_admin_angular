@@ -1,0 +1,42 @@
+<div>
+    <div class="ellipsis-background" (click)="onContextDrop($event)"></div>
+    <div class="context-menu bg-light fade-in fade-out" [ngStyle]="{ 'display': showBlock ? 'block' : 'none'}">
+        <ng-container *ngFor="let item of items">
+            <div class="menu-item m-3 checked hover-overlay" (click)="item.command()">
+                <i [class]="item.icon" class="text-success"></i>
+                <span class="text-muted fw-bold fs-7">
+                    {{item.label}}
+                </span>
+                <div
+                    class="mask"
+                    style="
+                    background: linear-gradient(
+                        45deg,
+                        hsla(168, 85%, 52%, 0.5),
+                        hsla(263, 88%, 45%, 0.5) 100%
+                    );
+                    "
+                ></div>
+            </div>
+        </ng-container>
+        <div class="menu-item m-3 checked hover-overlay" *ngIf="switchItem != ''" (click)="onSwitch()" 
+            [ngClass]="{'text-muted': selectedStock[switchItem], 'text-success': !selectedStock[switchItem]}">
+            <div class="separator mb-2"></div>
+            <i class="bi bi-nintendo-switch "
+                [ngClass]="{'text-muted': selectedStock[switchItem], 'text-success': !selectedStock[switchItem]}" ></i>
+            <span class="fw-bold fs-7">
+                {{selectedStock[switchItem] ? 'Disable' : 'Enable'}}
+            </span>
+            <div
+                class="mask"
+                style="
+                background: linear-gradient(
+                    45deg,
+                    hsla(168, 85%, 52%, 0.5),
+                    hsla(263, 88%, 45%, 0.5) 100%
+                );
+                "
+            ></div>
+        </div>
+    </div>
+</div>

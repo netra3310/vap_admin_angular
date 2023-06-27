@@ -1,0 +1,32 @@
+<div class="card-body text-center pt-0">
+  <div class="image-input image-input-outline" data-kt-image-input="true"
+    style="background-image: url('assets/media/svg/avatars/blank.svg')">
+    <div class="image-input-wrapper w-125px h-125px" *ngIf="placeholderUrl">
+      <img [src]="imageBasePath + placeholderUrl" alt="" class="w-100 h-100" />
+    </div>
+    <div class="image-input-wrapper w-125px h-125px" *ngIf="!placeholderUrl"
+      [style.background-image]="'url(' + getImage(uploadFiles.length>0?uploadFiles[0].name:'') + ')'">
+    </div>
+    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip"  title="Change avatar">
+      <i class="bi bi-pencil-fill fs-7"></i>
+      <input type="file" id="uploader" (change)="onFileSelected($event)" name="avatar" accept=".png, .jpg, .jpeg" />
+      <input type="hidden" name="avatar_remove" />
+    </label>
+    <ng-container *ngIf="uploadFiles.length > 0">
+      <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+        data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+        <i class="bi bi-x fs-2"></i>
+      </span>
+      <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+      (click)="onClearFiles()" title="Remove avatar">
+        <i class="bi bi-x fs-2"></i>
+      </span>
+    </ng-container>
+
+  </div>
+  <ng-container *ngIf="uploadFiles.length > 0">
+    <a class=" btn btn-sm btn-light-primary mb-2 mt-5 w-75" (click)="onUploadFiles()">Upload</a>
+    <a class=" btn btn-sm btn-light-primary mb-2 w-75" (click)="onClearFiles()">Remove</a>
+  </ng-container>
+  <div class="text-muted fs-7">Only *.png, *.jpg and *.jpeg image files are accepted</div>
+</div>

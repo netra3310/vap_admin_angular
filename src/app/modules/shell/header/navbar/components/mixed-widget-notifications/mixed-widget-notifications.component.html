@@ -1,0 +1,64 @@
+<div *ngIf="isLoading" class="d-flex position-absolute justify-content-center align-items-center w-100 h-100">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div
+  class="d-flex flex-column bgi-no-repeat rounded-top"
+  [style.background-image]="'url(./assets/media/misc/menu-header-bg.jpg)'"
+>
+  <h3 class="text-white fw-bold px-9 mt-10 mb-6">
+    Notifications <span class="fs-8 opacity-75 ps-3">{{totalRecords}} reports</span>
+  </h3>
+  <ul class="nav nav-line-tabs nav-line-tabs-2x nav-stretch fw-bold px-9">
+    <li class ="nav-item">
+      <a
+        class="
+          nav-link
+          text-white
+          opacity-75 opacity-state-100
+          pb-4
+          cursor-pointer
+        "
+        data-bs-toggle="tab"
+        [ngClass]="activeTabId === 'success' ? 'active' : ''"
+        (click)="setActiveTabId('success')"
+      >
+        Success
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        class="
+          nav-link
+          text-white
+          opacity-75 opacity-state-100
+          pb-4
+          cursor-pointer
+        "
+        data-bs-toggle="tab"
+        [ngClass]="activeTabId === 'failed' ? 'active' : ''"
+        (click)="setActiveTabId('failed')"
+      >
+        Failed
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content" style="height: 400px; width: 400px;">
+  <div
+    class="tab-pane fade"
+    id="kt_topbar_notifications_2"
+    role="tabpanel"
+    [ngClass]="'show active'"
+  >
+    <app-lists-widget-notifications class="d-flex flex-column px-9"
+    [menuItems]="genericMenuItems" [data]="allLogs" (emitMenuAction)="emitAction($event)"
+    [globalFilterFields]="globalFilterFields" [columnsData]="columns" [rowGroup]="rowGroup" (emitHref)="getDetailsPage($event)"
+    (getLazyData)="GetAllDataWithLazyLoadinFunction($event)" (setTotalCounts)="setTotalCounts($event)"
+    [rowsPerPageOptions]="rowsPerPageOptions" [section]="activeTabId"
+    ></app-lists-widget-notifications>
+  </div>
+</div>

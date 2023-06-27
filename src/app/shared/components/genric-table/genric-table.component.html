@@ -1,0 +1,398 @@
+<div style=" cursor: pointer;">
+    <div class="card-header border-0 pt-5" *ngIf="!hideToolbar">
+        <!-- <h3 class="card-title align-items-start flex-column">
+          <span class="card-label fw-bolder fs-3 mb-1">Members Statistics</span>
+          <span class="text-muted mt-1 fw-bold fs-7">Over 500 members</span>
+        </h3> -->
+        <div class="card-title">
+          <!--begin::Search-->
+          <div class="d-flex align-items-center position-relative my-1">
+            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+            <ng-container *ngIf="enableGFilter">
+              <span class="svg-icon svg-icon-1 position-absolute ms-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
+                  <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
+                </svg>
+              </span>
+              <!--end::Svg Icon-->
+              <input type="text" class="form-control form-control-solid w-250px ps-14" name="g_search" id="g_search" 
+                  [(ngModel)]="mySearch" (keyup)="searchData()" placeholder="Global Search"/>
+                  <!-- <app-custom-input
+                      [type]="'text'" [(twBinding)]="mySearch" (keyup)="searchData()"
+                      [classGroup]="'form-control form-control-solid w-250px ps-14'"
+                  >
+                </app-custom-input> -->
+            </ng-container>
+            <ng-container *ngIf="enablePrint">
+              <button
+                type="button"
+                class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+                (click)="exportPdf()"
+              >
+                <span
+                  [inlineSVG]="'./assets/media/svg/files/pdf.svg'"
+                  class="svg-icon svg-icon-2"
+                ></span>
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+                (click)="exportExcel()"
+                >
+                <span
+                    [inlineSVG]="'./assets/media/svg/files/xml.svg'"
+                    class="svg-icon svg-icon-2"
+                ></span>
+              </button>
+            </ng-container>
+          </div>
+          <!--end::Search-->
+        </div>
+        <div
+          class="card-toolbar"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          data-bs-trigger="hover"
+          title="Click to add a user"
+        >
+          <ng-container>
+            <div class="card-toolbar">
+              <!-- begin::Menu -->
+              <button
+                type="button"
+                class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-end"
+                data-kt-menu-flip="top-end"
+              >
+                <span
+                  [inlineSVG]="'./assets/media/icons/duotune/general/gen024.svg'"
+                  class="svg-icon svg-icon-2"
+                ></span>
+              </button>
+              <app-sel-col-drop [options]="columns" [selectedColumns]="selectedColumns" [initialColumns]="initialColumns"
+                [selectedItemsLabel]="'{0} columns selected'"  [placeholder]="'Choose Columns'"></app-sel-col-drop>
+              <!-- end::Menu -->
+            </div>
+          </ng-container>
+        </div>
+    </div>
+    
+    <!-- begin::Table container -->
+    <div class="card-body py-3 position-relative" [ngClass]="{'min-h-500px': min_height === 'medium', 'pe-none': loadingData == true}">
+        <!-- begin::Table -->
+        <app-custom-spinner [isLoading]="loadingData" class="position-absolute start-50 top-50"></app-custom-spinner>
+        
+        <div class="table-responsive">
+          <!-- <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"> -->
+          <table class="table align-middle gs-0 gy-3">
+              <thead>
+                  <tr class="fw-bolder text-muted">
+                    <th *ngFor="let col of selectedColumns" [ngClass]="{'d-none': col.type === columnsType.TOGGLE_BUTTON}">
+                      <ng-container *ngIf="col.sorting">
+                        <a (click)="sortBy($event,col.field)">
+                          {{ col.translateCol ? (col.translateCol | translate): col.header }}
+                          <span
+                          [inlineSVG]="sortIcon(col.field)"
+                          class="svg-icon svg-icon-3"
+                          ></span></a>
+                        </ng-container>
+                    </th>
+                    <th class="min-w-120px" *ngIf="items.length > 0">
+                      Action
+                    </th>
+                  </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="realData.length > 0">
+                  <ng-container *ngFor="let cols of viewData; index as i;">
+                    <tr *ngIf="rowGroup.enableRowGroup && checkMyData(cols, i )" class="bg-light">
+                      <td [attr.colspan]="selectedColumns.length + 1" >
+                        <div [ngSwitch]="rowGroup.propertyType">
+                          <div *ngSwitchCase="rowGroupType.STRING">
+                            <a class=" ms-5">
+                              {{cols[rowGroup.property] }}
+                            </a>
+                          </div>
+                          <div *ngSwitchCase="rowGroupType.DATE">
+                            <a class=" ms-5">
+                              {{cols[rowGroup.property] | date}}
+                            </a>
+                            </div>
+                          <div *ngSwitchDefault>
+                            <a class=" ms-5">
+                              {{cols[rowGroup.property]}}
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <!-- <tr (contextmenu)="onRightClick($event)" > -->
+                    <tr (click)="emitOnRowClick(cols)">
+                      <td *ngFor="let col of selectedColumns" [ngClass]="{'d-none': col.type === columnsType.TOGGLE_BUTTON}">
+                        <div [ngSwitch]="col.type">
+                          <div *ngSwitchCase="columnsType.TOGGLE_BUTTON">
+                            <div class="form-check form-check-solid form-switch fv-row">
+                              <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                [(ngModel)]="cols[col.field]"
+                                (click)="emitInputSwitch(cols)"
+                              />
+                            </div>
+                          </div>
+                          <div *ngSwitchCase="columnsType.DELETE_BUTTON">
+                              <!-- <button pButton pRipple type="button" icon="pi pi-times"
+                                  class="p-button-rounded p-button-danger p-mr-2 p-mb-2"
+                                  (click)="emitDeleteButtonClick(cols[col.field]);">
+                              </button> -->
+                              <button pButton pRipple type="button" (click)="emitDeleteButtonClick(cols[col.field])"
+                                  icon="pi pi-times" class="btn btn-sm btn-flex btn-light-danger d-flex m-auto">
+                                  <!--begin::Svg Icon | path: icons/duotune/general/gen035.svg-->
+                                  <span class="svg-icon svg-icon-3 m-0">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                                          <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                      </svg>
+                                  </span>
+                                  <!--end::Svg Icon-->
+                              </button>
+                          </div>
+                          <div *ngSwitchCase="columnsType.CHECKBOX_COLUMN">
+                            <label class="form-check form-check-inline form-check-solid">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                (onChange)="emitCheckBoxChange(cols)"
+                                [(ngModel)]="cols[col.field]"
+                                [binary]="true"
+                              />
+                              <span class="fw-bold ps-2 fs-6"></span>
+                            </label>
+                          </div>
+                          <div *ngSwitchCase="columnsType.CHECKBOX_SINGLE_SELECTION_COLUMN">
+                            <input 
+                              type="checkbox" [(ngModel)]="cols[col.field]" 
+                              (onChange)="emitCheckBoxChange(cols)" [binary]="true" />
+                          </div>
+                          <div *ngSwitchCase="columnsType.REDIRECTION_COLUMN">
+                            <a href="javascript:void(0)" (click)="emitRedirection(cols)">
+                              <span class="badge badge-light-warning">{{cols[col.field]}}</span>
+                            </a>
+                          </div>
+                          <div *ngSwitchCase="columnsType.REDIRECTION_COLUMN_2">
+                            <a href="javascript:void(0)" (click)="emitRedirection2(cols)">{{cols[col.field]}}</a>
+                          </div>
+                          <div *ngSwitchCase="columnsType.IMAGE">
+                            <img
+                              (click)="popUpImageFuction(cols[col.field] ? imageBasePath + cols[col.field] : '../../../../assets/layout/images/no-image.png')"
+                              [src]="cols[col.field] ? imageBasePath + cols[col.field] : '../../../../assets/layout/images/no-image.png'" style="cursor:pointer;"
+                              alt="Image Not Found" width="45" height="45" class="p-shadow-2" />
+                          </div>
+                          <div *ngSwitchCase="columnsType.MULTIPLEIMAGES">
+                            <img
+                              (click)="popUpImageFuctionMultiple(cols[col.field])" style="cursor:pointer;"
+                              [src]="cols[col.field] ? cols[col.field] != '' ? imageBasePath + cols[col.field].split('|')[0]:'../../../../assets/layout/images/no-image.png' : '../../../../assets/layout/images/no-image.png'"
+                              alt="Image Not Found" width="45" height="45" class="p-shadow-2" />
+                          </div>
+                          <div *ngSwitchCase="columnsType.CASH_REGISTER">
+                            <i class="pi pi-lock" style="padding-right: 5px" [ngStyle]="{
+                                color: cols[col.field] ? 'lightgreen' : 'lightcoral'}"></i>
+                            {{ cols[col.field] === true ? "Opened" : "Closed" }}
+                          </div>
+                          <div *ngSwitchCase="columnsType.LOCATION_CHECK">
+                            <i class="pi pi-lock" style="padding-right: 5px"
+                              [ngStyle]="{'color': cols[col.field] ? 'lightgreen' : 'lightcoral' }"></i>
+                            {{cols[col.field] === null || cols[col.field] === "" ? "Unassigned" : cols[col.field]}}
+                          </div>
+                          <div *ngSwitchCase="columnsType.PRINT_STATUS">
+                            <span class="p-tag p-component" [ngClass]="cols[col.field]==true ? 'p-tag-success p-tag-rounded' : 'p-tag-warning p-tag-rounded'" >
+                              <span class="p-tag-value">
+                              {{ cols[col.field] === true ? " Printed " : " Not Printed " }}
+                            </span>
+                            </span>
+                          </div>
+                          <div *ngSwitchCase="columnsType.CONVERTED_TO_SALE">
+                            <span class="p-tag p-component" [ngClass]="cols[col.field]==true ? 'badge badge-light-success' : 'badge badge-light-warning'" >
+                              <span class="p-tag-value">
+                              {{ cols[col.field] === true ? " Processed " : " Not Processed " }}
+                            </span>
+                            </span>
+                          </div>
+                          <div *ngSwitchCase="columnsType.PAYMENT_STATUS">
+                            <span class="p-tag p-component" [ngClass]="cols[col.field]==true ? 'badge badge-light-danger' : 'badge badge-light-warning'" >
+                              <span class="p-tag-value">
+                              {{ cols[col.field] === true ? " Reversed " : " Not Reversed " }}
+                            </span>
+                            </span>
+                          </div>
+                          <div *ngSwitchCase="columnsType.COMBINED_COLUMN">
+                            <a class="">
+                              {{ cols[col.field] }} 
+                              <ng-container *ngIf="col.secondfield">
+                                {{cols[col.secondfield]}}
+                              </ng-container>
+                            </a>
+                          </div>
+                          <div *ngSwitchCase="columnsType.CURRENCY_SYMBOL">
+                            <a class=" min-w-100px">
+                              <span>€</span> {{ +cols[col.field] | number:'1.2-2' }}
+                            </a>
+                          </div>
+                          <div class="min-w-100px" *ngSwitchCase="columnsType.BALANCE_COLUMN"
+                            [ngStyle]="{'color': cols[col.field] >= 0 ? '#158e15' : 'red' }">
+                            <span class="fw-bolder text-hover-primary d-block mb-1 fs-6" [ngStyle]="{'color': cols[col.field] >= 0 ? '#158e15' : 'red'}" style="padding-right: 5px;">€
+                            {{+cols[col.field] | number:'1.2-2' }}</span>
+                          </div>                        
+                          <div *ngSwitchCase="columnsType.NORMAL">{{ cols[col.field] }}</div>
+                          <div *ngSwitchCase="columnsType.REMARKS">
+                              <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" 
+                                (click)="emitRemarkDialog(cols)" *ngIf="cols[col.field]" 
+                                pButton icon="pi pi-comments"
+                              >
+                                <span
+                                  [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'"
+                                  class="svg-icon svg-icon-3"
+                                ></span>
+                              </a>
+                          </div>
+                          <div *ngSwitchCase="columnsType.Narration">
+                              <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" 
+                                (click)="emitNarrationDialog(cols)" *ngIf="cols[col.field]" 
+                                pButton icon="pi pi-comments"
+                              >
+                                <span
+                                  [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'"
+                                  class="svg-icon svg-icon-3"
+                                ></span>
+                              </a>
+                          </div>
+                          <div *ngSwitchCase="columnsType.DATE_FORMAT">
+                            <a class="">
+                              {{ cols[col.field] | date:'medium' }}
+                            </a>
+                          </div>
+                          <div *ngSwitchCase="columnsType.DATE_ONLY">
+                            {{ cols[col.field] |date:'longDate' }}
+                          </div>
+                          <div *ngSwitchCase="columnsType.ORDER_TYPE">
+                            {{cols[col.field] === false ? 'System order' : 'Shop order'}}
+                          </div>
+                          <div *ngSwitchCase="columnsType.ATTACHMENT">
+                            <div *ngIf="cols[col.field];else other_content">
+                              <a href="javascript:void(0)"  (click)="emitDisplayAttachment(cols)">{{cols[col.field]}}</a>
+                            </div>
+                          </div>
+                          <div *ngSwitchCase="columnsType.MULTIPLEATTACHMENT">
+                            <div *ngIf="cols[col.field];else other_content">
+                              <div *ngFor="let attachment of cols[col.field].split('|')">
+                              <a href="javascript:void(0)"  (click)="emitDisplayAttachment(attachment)">{{attachment}}</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngSwitchCase="columnsType.LOCATION_ROWS">
+                            <div *ngFor="let loc of cols[col.field].split(';')">
+                              {{loc || 'un assigned (0)'}}
+                          </div>
+                          </div>
+                          <div *ngSwitchDefault>
+                            <a class="" [ngClass]="{'text-dark fw-bolder text-hover-primary mb-1 fs-6': col.field == 'Customer' || col.field == 'Supplier' || col.field == 'sCompanyName' || col.field == 'CustomerName'}">
+                              {{ cols[col.field] }}
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="justify-content-end d-flex" *ngIf="menuItems.length > 0">
+                        <app-context-drop 
+                            [items]="items"
+                            [selectedStock]="cols"
+                            [menuItems]="menuItems"
+                            [switchItem]="switchItem"
+                            (emitMenuAction)="emitMenuActionTrigger($event)"
+                            (emitSwitchAction)="emitInputSwitch($event)"
+                        >
+                        </app-context-drop>
+                      </td> 
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+          </table>
+      </div>
+      <div class="card-footer pb-0 pt-3">
+          <pagination 
+              [items]="realData" 
+              [size]="realData.length" 
+              [pageSize]="row" 
+              [isLazy] = 'false'
+              (changePage)="onChangePage($event)"
+              [rowsPerPageOptions]="rowsPerPageOptions"
+              [(pager)]="pager"
+              [initialPage]="initPageNo">
+          </pagination>
+      </div>
+        <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+      
+    <ng-template #other_content>
+        <div>No Attachment Found</div>
+    </ng-template>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" hidden class="btn btn-primary" #btn_open_img_modal data-bs-toggle="modal" data-bs-target="#imageModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content" style="background-color: transparent;">
+      <div class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          
+          <div class="carousel-item active">
+            <ng-container *ngIf="imgSrc">
+              {{imgSrc[0]}}
+              <img [src]="imgSrc[0]" class="d-block w-100" alt="...">
+            </ng-container>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-generic-modal #modalMultiImageGallery [modalConfig]="modalMultiImageGalleryConfig" [transparent]="true">
+  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <ng-container *ngFor="let item of imgSrc; let i=index">
+        <div class="carousel-item" [ngClass]="{'active': i===0}">
+          <img [src]="item" class="d-block w-100" alt="...">
+        </div>
+      </ng-container>
+    </div>
+    <ng-container *ngIf="imgSrc && imgSrc.length > 1">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </ng-container>
+  </div>
+</app-generic-modal>
+
+
+<!--////////////////////////////////////////////////-->
+<button type="button" hidden class="btn btn-primary" #btn_open_multi_img_modal data-bs-toggle="modal" data-bs-target="#multiImageModal">
+  Launch demo modal
+</button>
+<app-custom-image-gallery [imgSrc]="imgSrc">
+</app-custom-image-gallery>
+<!--////////////////////////////////////////////////-->

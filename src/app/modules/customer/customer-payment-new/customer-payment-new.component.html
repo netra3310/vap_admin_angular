@@ -1,0 +1,445 @@
+<div class="mb-5 text-end">
+    <!--begin::Primary button-->
+    <a class="btn btn-sm fw-bold btn-secondary ms-2" (click)="CloseThis()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply-fill me-2" viewBox="0 0 16 16">
+            <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+        </svg>
+        <span title="Close">Cancel</span>
+    </a> 
+    <!--end::Primary button-->
+</div>
+
+<form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
+    <!--begin::Aside column-->
+    <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-350px mb-7 me-lg-10">
+        <!--begin::Thumbnail settings-->
+        <div class="card card-flush py-4">
+            <div class="d-flex flex-column p-5">
+                <label class="required form-label d-block">Customer</label>
+
+                <div class="d-flex align-items-center mb-2">
+                    <app-custom-select
+                        class="w-100"
+                        [items]="filteredCustomer"
+                        [virtualScroll]="true" 
+                        bindLabel="label"
+                        [(twBinding)]="selectedCustomer" 
+                        [searchFn]="dataFunc"
+                        (onChange)="onSelectCustomerDataBinding($event)"
+                        placeholder="Select Customer..."
+                    >
+
+                    </app-custom-select>
+                </div>
+
+                <div class="d-flex flex-wrap fw-bold fs-6 mb-4 pe-2">
+                
+                    <a
+                        class="
+                        d-flex
+                        align-items-center
+                        me-5
+                        mb-2
+                        fs-5
+                        cursor-pointer
+                        "
+                    >
+                        <span
+                        [inlineSVG]="
+                            './assets/media/icons/duotune/communication/com006.svg'
+                        "
+                        class="svg-icon svg-icon-4 me-1"
+                        ></span>
+                        <div class="fw-bold fs-7 text-gray-400 text-end">Company: </div>
+                        <span class="ms-5">{{ txtCustomer }}</span>
+                    </a>
+                </div>
+
+                <div class="d-flex flex-column flex-grow-1">
+                    <div class="d-flex flex-wrap">
+                        <div
+                            class="
+                            border border-gray-300 border-dashed
+                            rounded
+                            py-3
+                            px-4
+                            mb-3
+                            w-100
+                            "
+                        >
+                            <div class="d-flex align-items-center">
+                                <span
+                                [inlineSVG]="
+                                    './assets/media/icons/duotune/general/gen018.svg'
+                                "
+                                class="svg-icon svg-icon-4 me-1"
+                                ></span>
+                                <div class="fs-5 fw-bolder">{{ txtCustomerAddress }}</div>
+                                </div>
+
+                                <div class="fw-bold fs-7 text-gray-400 text-end">Address</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="align-items-center mb-2 ">
+                    <a
+                        class="
+                        text-gray-800 text-hover-primary
+                        fs-7
+                        fw-bolder
+                        me-1
+                        cursor-pointer
+                        "
+                    >
+                        Open Balance
+                    </a>
+                    <a
+                        class="
+                        btn btn-sm 
+                        fw-bolder
+                        ms-2
+                        fs-6
+                        py-1
+                        px-3
+                        cursor-pointer
+                        "
+                        [ngClass]="{'btn-light-success' : (txtCurrentBalance > 0) , 'btn-light-danger' : (txtCurrentBalance < 1)}"
+                    >
+                        <span>€ </span> {{ txtCurrentBalance | number:'1.2-2' }}
+                    </a>
+                    </div>
+
+                    <div class="separator mb-5"></div>
+
+                    
+                        <!--begin::Row-->
+                        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-2 g-9 mt-1" data-kt-buttons="true" data-kt-buttons-target="[data-kt-button='true']">
+                            <!--begin::Col-->
+                            <div class="col">
+                                <!--begin::Option-->
+                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-3" data-kt-button="true" [ngClass]="{'active': selectedType == 1}">
+                                    <!--begin::Radio-->
+                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                        <!-- <input class="form-check-input" type="radio" name="groupname" value="Cash" checked="checked" /> -->
+                                        <app-custom-radio
+                                            [name]="'groupname'"
+                                            [value]="1"
+                                            [(twBinding)]="selectedType"
+                                            [inputId]="'checkb2'"
+                                        >
+                                        </app-custom-radio>
+                                    </span>
+                                    <!--end::Radio-->
+                                    <!--begin::Info-->
+                                    <span class="ms-5">
+                                        <span class="fs-7 fw-bold text-gray-800 ">{{'Payment'| translate}}</span>
+                                    </span>
+                                    <!--end::Info-->
+                                </label>
+                                <!--end::Option-->
+                            </div>
+                            <!--end::Col-->
+                            <!--begin::Col-->
+                            <div class="col">
+                                <!--begin::Option-->
+                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-3" data-kt-button="true" [ngClass]="{'active': selectedType == 2}">
+                                    <!--begin::Radio-->
+                                    <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                        <app-custom-radio
+                                            [name]="'groupname'"
+                                            [value]="2"
+                                            [(twBinding)]="selectedType"
+                                            [inputId]="'checkb3'">
+                                        </app-custom-radio>
+                                        <!-- <input class="form-check-input" type="radio" name="discount_option" value="2" /> -->
+                                    </span>
+                                    <!--end::Radio-->
+                                    <!--begin::Info-->
+                                    <span class="ms-5">
+                                        <span class="fs-7 fw-bold text-gray-800 ">Balance</span>
+                                    </span>
+                                    <!--end::Info-->
+                                </label>
+                                <!--end::Option-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Row-->
+            </div>
+        </div>
+        <!--end::Thumbnail settings-->
+        <!--begin::Category & tags-->
+        <div class="card card-flush py-4">
+            <div class="d-flex flex-column p-5">
+                <div class="d-flex flex-column flex-grow-1">
+                    <label class="form-label required" for="balance">Payment</label>
+                    <input type="number" name="balance" id="balance" [(ngModel)]="EnteredBalance" style="width: 100%" class="form-control"
+                        (blur)="calculatePayment()" pInputText placeholder="Enter Payment" />
+
+                    <label class="form-label mt-2" for="remarks">Remarks</label>
+                    <textarea type="text" name="remarks" id="remarks" [(ngModel)]="Remarks" pInputText style="width: 100%;" class="form-control"
+                            placeholder="Enter Remarks" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+        <!--end::Category & tags-->
+        <!--begin::Weekly sales-->
+        <div class="card card-flush py-4">
+            <div class="my-4 p-5 m-auto">
+                <a
+                class="btn btn-sm btn-light-success me-2 cursor-pointer"
+                (click)="AttachfileFunction()"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                    </svg>
+                    <span class="indicator-label">Attach</span>
+                </a>
+                
+                <a
+                class="btn btn-sm btn-primary me-3 cursor-pointer"
+                (click)="UpdatePaymentMain()" 
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                    </svg>
+                    Update
+                </a>
+
+                <div
+                    class="
+                    d-flex
+                    align-items-center
+                    flex-column
+                    mt-5
+                    "
+                    *ngIf="displayPasswordPopup"
+                >
+                <div class="d-flex flex-column flex-grow-1">
+                    <div class="d-flex flex-wrap">
+                        <div
+                            class="
+                            border border-gray-300 border-dashed
+                            rounded
+                            py-3
+                            px-4
+                            "
+                        >
+                            
+                            <div class="">
+                                <div class="card">
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col">
+                                    <label for="firstname1">Password</label>
+                                    <input class="form-control" type="password" [(ngModel)]="password" />
+                                    </div>
+                                    <br />
+                                </div>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col" style="margin-left: 15px">
+                                    <a
+                                        class="btn btn-sm btn-primary me-3 cursor-pointer"
+                                        (click)="PasswordSubmit()" 
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank2" viewBox="0 0 16 16">
+                                            <path d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 1 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916l-7.5-5zM12.375 6v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zM8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM.5 15a.5.5 0 0 0 0 1h15a.5.5 0 1 0 0-1H.5z"/>
+                                        </svg>
+                                        Submit
+                                    </a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Weekly sales-->
+    </div>
+    <!--end::Aside column-->
+    <!--begin::Main column-->
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+        <div class="tab-content">
+            <!--begin::Tab pane-->
+            <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                <div class="d-flex flex-column gap-7 gap-lg-10">
+                    <!--begin::General options-->
+                    <div class="card card-flush py-4">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>Invoice</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <div class="">
+                            <app-genric-table class="card col-12 mb-5 mb-xl-8"
+                                (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems" 
+                                [rowGroup]="rowGroup1" [data]="CustomerOpenInvoicesList" 
+                                [columnsData]="openCustomer" (emitHref)="RedirectToSaleDetail($event)"
+                                [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [row]="10"  [initialColumns]="globalFilterFields1" [loadingData]="loadingInvoice" 
+                                [min_height]="'low'" 
+                            ></app-genric-table>
+                        </div>
+                        <div class="p-5">
+                            <div class="separator mt-3 mb-3"></div>
+                            <h3 class="card-title">
+                                <span class="text-white fs-5 fw-bold ms-10 me-2 text-muted">Total Invoice Amount: </span>
+                                <span class="fs-4 badge badge-success"> 
+                                    <span>€ </span> {{ txtTotalInvoiceAmount | number:'1.2-2' }}
+                                </span>
+                            </h3>
+                        </div>
+                    </div>
+                    <!--end::General options-->
+                    <!--begin::Media-->
+                    <div class="card card-flush py-4">
+                        <!--begin::Card header-->
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h2>Paid</h2>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+                        <div class="">
+                            <app-genric-table class="card col-12 mb-5 mb-xl-8"
+                                (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems" 
+                                [rowGroup]="rowGroup" (emitAttachment)="DisplayAttachment($event)" 
+                                (emitRemarks)="showDialog($event)"  (emitNarration)="showNarrationDialog($event)"
+                                [data]="AllCustomerLedgerlist" [columnsData]="columns" [globalFilterFields]="globalFilterFields" 
+                                [rowsPerPageOptions]="rowsPerPageOptions" [row]="10" [initialColumns]="initialColumns"
+                                [loadingData]="loadingLedger" [min_height]="'low'"
+                            ></app-genric-table>
+                        </div>
+                        <div class="p-5">
+                            <div class="separator mt-3 mb-3"></div>
+                            <h3 class="card-title">
+                                <span class="text-white fs-5 fw-bold ms-10 me-2 text-muted">Total Paid Amount: </span>
+                                <span class="fs-4 badge badge-success"> <span>€ </span> {{ txtTotalPaidAmount | number:'1.2-2' }}</span>
+                            </h3>
+                        </div>
+                    </div>
+                    <!--end::Media-->
+                </div>
+            </div>
+            <!--end::Tab pane-->
+        </div>
+    </div>
+</form>
+
+
+<app-generic-modal #modal [modalConfig]="modalConfig">
+    {{DialogRemarks}}
+</app-generic-modal>
+
+
+<app-generic-modal #modalNarration [modalConfig]="modalNarrationConfig">
+    {{DialogNarration}}
+</app-generic-modal>
+
+
+<!--begin::Modal - Upload File-->
+<div class="modal fade" id="kt_modal_upload" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Form-->
+            <form class="form" action="none" id="kt_modal_upload_form">
+                <!--begin::Modal header-->
+                <div class="modal-header">
+                    <!--begin::Modal title-->
+                    <h2 class="fw-bold">Upload files</h2>
+                    <!--end::Modal title-->
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Modal header-->
+                <!--begin::Modal body-->
+                <div class="modal-body pt-10 pb-15 px-lg-17">
+                    <!--begin::Input group-->
+                    <div class="form-group">
+                        <!--begin::Dropzone-->
+                        <div class="dropzone dropzone-queue mb-2" id="kt_modal_upload_dropzone">
+                            <!--begin::Controls-->
+                            <div class="dropzone-panel mb-4">
+                                <a class="dropzone-select btn btn-sm btn-primary me-2">Attach files</a>
+                                <a class="dropzone-upload btn btn-sm btn-light-primary me-2">Upload All</a>
+                                <a class="dropzone-remove-all btn btn-sm btn-light-primary">Remove All</a>
+                            </div>
+                            <!--end::Controls-->
+                            <!--begin::Items-->
+                            <div class="dropzone-items wm-200px">
+                                <div class="dropzone-item p-5" style="display:none">
+                                    <!--begin::File-->
+                                    <div class="dropzone-file">
+                                        <div class="dropzone-filename text-dark" title="some_image_file_name.jpg">
+                                            <span data-dz-name="">some_image_file_name.jpg</span>
+                                            <strong>(
+                                            <span data-dz-size="">340kb</span>)</strong>
+                                        </div>
+                                        <div class="dropzone-error mt-0" data-dz-errormessage=""></div>
+                                    </div>
+                                    <!--end::File-->
+                                    <!--begin::Progress-->
+                                    <div class="dropzone-progress">
+                                        <div class="progress bg-light-primary">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress=""></div>
+                                        </div>
+                                    </div>
+                                    <!--end::Progress-->
+                                    <!--begin::Toolbar-->
+                                    <div class="dropzone-toolbar">
+                                        <span class="dropzone-start">
+                                            <i class="bi bi-play-fill fs-3"></i>
+                                        </span>
+                                        <span class="dropzone-cancel" data-dz-remove="" style="display: none;">
+                                            <i class="bi bi-x fs-3"></i>
+                                        </span>
+                                        <span class="dropzone-delete" data-dz-remove="">
+                                            <i class="bi bi-x fs-1"></i>
+                                        </span>
+                                    </div>
+                                    <!--end::Toolbar-->
+                                </div>
+                            </div>
+                            <!--end::Items-->
+                        </div>
+                        <!--end::Dropzone-->
+                        <!--begin::Hint-->
+                        <span class="form-text fs-6 text-muted">Max file size is 1MB per file.</span>
+                        <!--end::Hint-->
+                    </div>
+                    <!--end::Input group-->
+                </div>
+                <!--end::Modal body-->
+            </form>
+            <!--end::Form-->
+        </div>
+    </div>
+</div>
+<!--end::Modal - Upload File-->
+
+<app-generic-modal #modalFileUploader [modalConfig]="modalFileUploaderConfig">
+    <app-custom-file-uploader
+        [mutiple]="true"
+        (onSelect)="onUpload($event)" 
+        (onClear)="onClear($event)"
+    >
+
+    </app-custom-file-uploader>
+</app-generic-modal>

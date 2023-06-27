@@ -1,0 +1,96 @@
+<!-- <button style="margin-left: 2px" pButton pRipple type="button" (click)="Print1()" 
+    class="p-button p-button-success" icon="pi pi-print" title="Packing Slip" label="Packing Slip"></button> -->
+<a class="btn btn-sm fw-bold btn-primary ms-2" (click)="Print1()" title="Packing Slip">
+  <span title="Close">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer me-2" viewBox="0 0 16 16">
+      <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+      <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+    </svg>
+    Packing Slip
+  </span>
+</a> 
+<div id="printA4-purchase-packing" [hidden]="true" style="width: 95%;margin:0 auto;"  *ngIf="purchaseDetail">
+  <div style="width: 93%; margin: auto;">
+    <div style="width: 100%;display: table;">
+      <div style="width: 100%;display: table;">
+        <div style="width: 63%;float: left;">
+
+          <div style="padding:10px 5px;display: table;">
+            <h4 style="font-family: sans-serif !important;color: #8d9092; margin: 5px 30px 0px 0px; font-size: 20px;">
+             PURCHASE PACKING SLIP</h4>
+          </div>
+
+        </div>
+
+        <div style="width: 35%;float: left;">
+          <div style="padding:10px 5px;display: table; width: 100%;">
+            <div style="width: 100%;">
+              <p style="font-family: sans-serif !important;font-size: 11px;margin:0;">
+                <span style="float: left;">
+                  <b>DATE::</b>
+                </span>
+                <span style="float: right;">
+                  {{purchaseDetail.DueDate | date}}
+                </span>
+              </p>
+            </div>
+            <br>
+            <div style="width: 100%;">
+              <p style="font-family: sans-serif !important;font-size: 11px;margin:0;">
+                <span style="float: left;">
+                  <b>INVOICE NO:</b>
+                </span>
+                <span style="margin-left: 18px; float: right;">
+                  {{purchaseDetail.SuppierInvoiceNo}}
+                </span>
+              </p>
+            </div>
+            <br>           
+          </div>
+        </div>
+      </div>
+    </div>
+    <table style="width: 100%;margin-top: 10px; " cellspacing="0">
+      <thead>
+        <tr style="border-top:none;page-break-inside:avoid;">
+          <th
+            style="background-color: #E7EFEF;font-family: sans-serif !important; padding: 15px !important; border: 1px solid #d3d4d5; text-align: left; border-left: none;  padding-left: 5px !important;">
+            Model No
+          </th>
+          <th
+            style="background-color: #E7EFEF;font-family: sans-serif !important; padding: 15px !important; border: 1px solid #d3d4d5; text-align: left; padding-left: 5px !important;">
+            Product</th>
+          <th
+            style="background-color: #E7EFEF;font-family: sans-serif !important; padding: 15px !important; border: 1px solid #d3d4d5; text-align: left; border-left: none;  padding-left: 5px !important;">
+            Qty
+          </th>
+        </tr>
+      </thead>
+      <tr *ngFor="let product of purchaseDetail.PurchasesDetails">
+        <td
+          style="font-size: 13px;font-family: sans-serif !important; text-align: left; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; border-left: none;">
+          {{product.BLabel}}
+        </td>
+        <td
+          style="font-size: 13px;font-family: sans-serif !important; text-align: left; padding: 5px !important; border: 1px solid #d3d4d5;border-top: none; ">
+          {{product.Product}}
+        </td>
+        <td
+          style="font-size: 14px;font-family: sans-serif !important; text-align: left; padding: 2px !important; border: 1px solid #d3d4d5;border-top: none; border-left: none;">
+          {{product.Quantity}}
+        </td>
+      </tr>
+    </table>
+    <br>
+    <div style="width: 100%;">
+      <p style="font-family: sans-serif !important;font-size: 14px;margin:0;">
+        <span style="float: left;">
+          <b>Remarks:</b>
+        </span>
+        <span style="margin-left: 18px;">
+          {{purchaseDetail.sRemarks}}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

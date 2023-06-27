@@ -1,0 +1,6 @@
+<input type="text" [(ngModel)]="selectedValue" (input)="filterValues($event)" class="form-control">
+<div *ngIf="suggestions" class="border-none" style="border: none;">
+  <ul>
+    <li *ngFor="let suggestion of suggestions" (click)="onValueSelect($event)">{{ suggestion[field] }}</li>
+  </ul>
+</div>

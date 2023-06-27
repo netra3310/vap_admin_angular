@@ -1,0 +1,79 @@
+<div class="mt-10">
+    
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10 ">
+        <!-- begin::Header -->
+        <div class="card-header card-header-stretch overflow-auto">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <ul class="
+                    nav nav-stretch nav-line-tabs
+                    fw-bold
+                    border-transparent
+                    flex-nowrap
+                " role="tablist">
+
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: searchTab === 'WITHIMAGES' }"
+                        (click)="setSearchTab('WITHIMAGES')" role="WITHIMAGES">
+                        {{'ORDERS.WITHIMAGES'| translate}}
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: searchTab === 'WITHOUTIMAGES' }"
+                        (click)="setSearchTab('WITHOUTIMAGES')" role="WITHOUTIMAGES">
+                        {{'ORDERS.WITHOUTIMAGES'| translate}}
+                        </a>
+                    </li>
+
+                </ul>
+                <ul class="
+                    nav nav-stretch nav-line-tabs
+                    fw-bold
+                    border-transparent
+                    flex-nowrap
+                " role="tablist">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'ACTIVE' }"
+                        (click)="setActiveTab('ACTIVE')" role="all">
+                        {{'ORDERS.ACTIVE'| translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link cursor-pointer" [ngClass]="{ active: activeTab === 'INACTIVE' }"
+                        (click)="setActiveTab('INACTIVE')" role="online">
+                        {{'ORDERS.INACTIVE'| translate}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- end::Header -->
+        
+        <div class="tab-content pt-3">
+            <!--begin::Order details-->
+            <div class="card card-flush py-4">
+                <div class="card-body pt-0">
+                    <div class="d-flex flex-column gap-10">
+                        <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                            <app-ss-generic-table 
+                                (emitMenuAction)="emitAction($event)" 
+                                [menuItems]="genericMenuItems"
+                                [data]="AllProductList" 
+                                [columnsData]="columns"
+                                [totalRecords]="totalRecords" 
+                                (getLazyData)="GetAllProductWithLazyLoadinFunction($event)"
+                                [rowsPerPageOptions]="rowsPerPageOptions" 
+                                [initialColumns]="initialCoulumns"
+                                [row]='10'
+                                [isLoading]="isLoadingData"
+                            >
+                            </app-ss-generic-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Order details-->
+        </div>
+    </div>
+</div>

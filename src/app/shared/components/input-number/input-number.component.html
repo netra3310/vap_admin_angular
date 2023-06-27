@@ -1,0 +1,11 @@
+<input
+    class="form-control mb-2"
+    type="number"
+    [placeholder]="placeholder"
+    [name]="name"
+    [step]="mode === 'decimal' ? 0.01 : 1"
+    [min]="mode === 'decimal' ? 0 : null"
+    [max]="mode === 'decimal' ? 100 : null"
+    [(ngModel)]="value"
+    (input)="onInput($event)">
+<span>{{ prefix }}</span>

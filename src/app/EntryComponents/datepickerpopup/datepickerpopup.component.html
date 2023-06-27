@@ -1,0 +1,65 @@
+<div >
+    <div class="row">
+        <div class="col-6">
+            <div class="p-field">
+                <label for="fromDate" class="p-sr-only">From Date</label>
+                <!-- <p-calendar [(ngModel)]="fromDate" showTime="true" hourFormat="24" showButtonBar="true"     [showIcon]="true" inputId="icon"></p-calendar> -->
+                <app-custom-date-picker [(twBinding)]="fromDate" [showIcon]="true" inputId="icon"></app-custom-date-picker>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="p-field">
+                <label for="toDate" class="p-sr-only">To Date</label>
+                <!-- <p-calendar [(ngModel)]="toDate" showTime="true" hourFormat="24"  showButtonBar="true"  [showIcon]="true" inputId="icon"></p-calendar> -->
+                <app-custom-date-picker [(twBinding)]="toDate" [showIcon]="true" inputId="icon"></app-custom-date-picker>
+            </div>
+        </div>
+        <div class="p-col-4">
+            <!-- <button pButton pRipple label="Close" icon="fas fa-times" class="p-button-raised p-mr-2"
+                (click)="SelectDate();" style="float: right;">
+                Close
+            </button> -->
+            <!-- <a (click)="SelectDate();" class="btn btn-sm fw-bold btn-success me-5">
+                <span class="svg-icon svg-icon-3">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                    </svg>
+                </span>
+                <span>Close</span>
+            </a>  -->
+            <a (click)="SelectDate();" class="btn btn-sm fw-bold btn-primary">
+                <span class="svg-icon svg-icon-3">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor" />
+                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor" />
+                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor" />
+                    </svg>
+                </span>
+                <span>Apply</span>
+            </a> 
+            <!-- <button pButton pRipple type="button" icon="fas pi-check" label="Apply" (click)="SelectDate();"
+                icon="fas fa-plus" class="p-button-raised p-mr-2" style="float: right;">
+                Apply
+            </button> -->
+        </div>
+    </div>
+    <!-- <div class="p-formgroup-inline">
+        <div class="p-field">
+            <label for="fromDate" class="p-sr-only">From Date</label>
+            <p-calendar [(ngModel)]="fromDate" [showIcon]="true" inputId="icon"></p-calendar>
+        </div>
+        <div class="p-field" style="margin-left: 70px">
+            <label for="toDate" class="p-sr-only">To Date</label>
+            <p-calendar [(ngModel)]="toDate" [showIcon]="true" inputId="icon"></p-calendar>
+        </div>
+
+    </div>
+    <div style="margin-left: 160px;margin-top: 30px">
+        <button pButton pRipple type="button" icon="fas pi-check" label="Apply" (click)="SelectDate();"
+            icon="fas fa-plus" class="p-button-raised p-mr-2"></button>
+        <button pButton pRipple label="Close" icon="fas fa-times" class="p-button-raised p-mr-2"
+            (click)="SelectDate();"></button>
+    </div> -->
+</div>

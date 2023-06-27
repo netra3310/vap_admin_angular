@@ -1,0 +1,300 @@
+<!--begin::Content container-->
+<div>
+    <div class="mb-5 text-end">
+        <!--begin::Primary button-->
+        <a  class="btn btn-sm fw-bold btn-secondary ms-2"
+            (click)="Close()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat me-2" viewBox="0 0 16 16">
+                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+            </svg>
+            Close
+        </a> 
+    </div>
+</div>
+
+    <!--begin::Layout-->
+    <div class="d-flex flex-column flex-xl-row">
+        <!--begin::Sidebar-->
+        <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
+            <!--begin::Card-->
+            <div class="card mb-5 mb-xl-8">
+                <!--begin::Card body-->
+                <div class="card-body pt-15">
+                    <!--begin::Summary-->
+                    <div class="d-flex flex-column mb-5">
+                        <!--begin::Name-->
+                        <div class="fw-semibold fs-6 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.PRODUCT">
+                                    
+                                <ng-container *ngIf="isLoadingProduct">
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </ng-container>
+                            </label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select class="fs-6"
+                                [items]="filteredProduct" [virtualScroll]="true" 
+                                [bindLabel]="'label'"
+                                [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                                [placeholder]="'Select Product...'"
+                                (twBindingChange)="selectValue(($event))">
+                                
+                                <span (click)="OpenProductDialog()"
+                                    [inlineSVG]="
+                                        './assets/media/icons/duotune/general/gen004.svg'
+                                    "
+                                    class="ms-5 m-auto svg-icon svg-icon-1 me-1 svg-icon-primary"
+                                ></span>
+                            </app-custom-select>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <!--end::Name-->
+                        <!--begin::Position-->
+                        <div class="fs-5 fw-semibold text-muted mb-6"><span >This product is </span> {{productHistory.Status }}</div>
+                        <!--end::Position-->
+                    </div>
+                    <!--end::Summary-->
+                    <div class="separator separator-dashed my-3"></div>
+                    <!--begin::Details content-->
+                    <div>
+                        <div>
+                            <div class="fw-bold mt-5 mb-5">Prices</div>
+                            <!--begin::Info-->
+                            <div class="d-flex flex-wrap flex-center">
+                                <!--begin::Stats-->
+                                <div class="border border-gray-300 border-dashed rounded py-1 px-3 mb-3">
+                                    <div class="fs-6 fw-bold text-gray-700">
+                                        <span class="w-75px">
+                                            <span >€ </span> {{(productHistory.LastPurchasePrice || 0) | number:'1.2-2' }}
+                                        </span>
+                                    </div>
+                                    <div class="fw-semibold text-muted">Last Purchase</div>
+                                </div>
+                                <!--end::Stats-->
+                                <!--begin::Stats-->
+                                <div class="border border-gray-300 border-dashed rounded py-1 px-3 mx-4 mb-3">
+                                    <div class="fs-6 fw-bold text-gray-700">
+                                        <span class="w-50px">
+                                            <span >€ </span> {{(productHistory.VaplongPrice || 0) | number:'1.2-2' }}
+                                        </span>
+                                    </div>
+                                    <div class="fw-semibold text-muted">System</div>
+                                </div>
+                                <!--end::Stats-->
+                                <!--begin::Stats-->
+                                <div class="border border-gray-300 border-dashed rounded py-1 px-3 mb-3">
+                                    <div class="fs-6 fw-bold text-gray-700">
+                                        <span class="w-50px">
+                                            <span >€ </span>{{(productHistory.WebsitePrice || 0) | number:'1.2-2' }} 
+                                        </span>
+                                    </div>
+                                    <div class="fw-semibold text-muted">Website</div>
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <div>
+                            <div class="fw-bold mt-5 mb-5">Purchase</div>
+                            <!--begin::Info-->
+                            <div class="row">
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-stack col-6">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-400 fw-bold me-10">
+                                        {{'REPORTS.PURCHASE'| translate}}
+                                    </span>
+                                    <!--end::Name-->
+                                    <!--begin::Label-->
+                                    <span class="badge badge-light-success">{{productHistory.PurchaseQuantity || 0}}</span>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Stats-->
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-stack col-6">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-400 fw-bold me-10">
+                                        {{'REPORTS.RETURN'| translate}}
+                                    </span>
+                                    <!--end::Name-->
+                                    <!--begin::Label-->
+                                    <span class="badge badge-light-success">{{productHistory.PurchaseReturnQuantity || 0}}</span>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <div>
+                            <div class="fw-bold mt-5 mb-5">Sale</div>
+                            <!--begin::Info-->
+                            <div class="row">
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-stack col-6">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-400 fw-bold me-10">
+                                        {{'REPORTS.SALE'| translate}}
+                                    </span>
+                                    <!--end::Name-->
+                                    <!--begin::Label-->
+                                    <span class="badge badge-light-success">
+                                        {{productHistory.SaleQuantity || 0}}
+                                    </span>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Stats-->
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-stack col-6">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-400 fw-bold me-10">
+                                        {{'REPORTS.RETURN'| translate}}
+                                    </span>
+                                    <!--end::Name-->
+                                    <!--begin::Label-->
+                                    <span class="badge badge-light-success">
+                                        {{productHistory.SaleReturnQuantity || 0}}
+                                    </span>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <div>
+                            <div class="fw-bold mt-5 mb-5">Stock</div>
+                            <!--begin::Info-->
+                            <div class="row">
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-stack col-6">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-400 fw-bold me-10">
+                                        {{'REPORTS.AVAILABLESTOCK'| translate}}
+                                    </span>
+                                    <!--end::Name-->
+                                    <!--begin::Label-->
+                                    <span class="badge badge-light-success">{{productHistory.AvailableQuantity || 0}}</span>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Stats-->
+                                <!--begin::Stats-->
+                                <div class="d-flex flex-stack col-6">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-400 fw-bold me-10">
+                                        {{'REPORTS.HoldStock'| translate}}
+                                    </span>
+                                    <!--end::Name-->
+                                    <!--begin::Label-->
+                                    <span class="badge badge-light-success">{{productHistory.HoldQuantity || 0}} </span>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Stats-->
+                            </div>
+                            <!--end::Info-->
+                        </div>
+                        <div>
+                            <div class="fw-bold mt-5 mb-5">{{'REPORTS.STOCKLOCATION'| translate}}</div>
+                            <!--begin::Info-->
+                            <div class="text-gray-600"  *ngFor="let loc of productHistory.Locations"> {{loc || 'N/A'}}</div>
+                            <!--end::Info-->
+                        </div>
+                    </div>
+                    <!--end::Details content-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Sidebar-->
+        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10 ms-10">
+            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-6 fw-semibold mb-n2">
+                <!--begin:::Tab item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#purchase_table">{{ "ORDERS.ALLORDERS" | translate }}</a>
+                </li>
+                <!--end:::Tab item-->
+                <!--begin:::Tab item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#dirty_table">{{ "ORDERS.ONLINEORDERS" | translate }}</a>
+                </li>
+                <!--end:::Tab item-->
+                <!--begin:::Tab item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#logs_table">{{ "ORDERS.VPORDERS" | translate }}</a>
+                </li>
+                <!--end:::Tab item-->
+            </ul>
+            
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="purchase_table" role="tab-panel">
+                    <div class="card card-flush py-4">
+                        <div class="card-body pt-0">
+                            <div class="d-flex flex-column gap-10">
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <app-ss-generic-table  
+                                        [menuItems]="genericMenuItems" [data]="Purchases" (emitHref)="getPurchasesByInvoiceNo($event)"
+                                        [globalFilterFields]="purchaseGlobalFilterFields" [columnsData]="purchaseColumns" [rowGroup]="rowGroup"
+                                        [totalRecords]="purchaseTotalRecords" (getLazyData)="GetAllPurchaseDataWithLazyLoadinFunction($event)"
+                                        [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [initialColumns]="initialCoulumsPurchases" 
+                                        [isLoading]="isLoadingPurchases">
+                                    </app-ss-generic-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show " id="dirty_table" role="tab-panel">
+                    <div class="card card-flush py-4">
+                        <div class="card-body pt-0">
+                            <div class="d-flex flex-column gap-10">
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <app-ss-generic-table  
+                                        [menuItems]="genericMenuItems" [data]="Sales" (emitHref)="getSalesByInvoiceNo($event)"
+                                        [globalFilterFields]="saleGlobalFilterFields" [columnsData]="saleColumn" [rowGroup]="rowGroup1"
+                                        [totalRecords]="saleTotalRecords" (getLazyData)="GetAllSaleDataWithLazyLoadinFunction($event)"
+                                        [rowsPerPageOptions]="rowsPerPageOptions" [row]='10' [initialColumns]="initialCoulumsSales"  
+                                        [isLoading]="isLoadingSales">
+                                    </app-ss-generic-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show " id="logs_table" role="tab-panel">
+                    <div class="card card-flush py-4">
+                        <div class="card-body pt-0">
+                            <div class="d-flex flex-column gap-10">
+                                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                                    <app-ss-generic-table  
+                                        [menuItems]="genericMenuItems" [data]="allActivity" [globalFilterFields]="activityGlobalFilterFields" 
+                                        [columnsData]="activityColumns" [rowGroup]="rowGroup2" [totalRecords]="activityTotalRecords" 
+                                        (getLazyData)="GetAllActivityDataWithLazyLoadinFunction($event)" [rowsPerPageOptions]="rowsPerPageOptions" 
+                                        [row]='10' [initialColumns]="initialCoulumsAllActivity" [isLoading]="isLoadingAllActivities">
+                                    </app-ss-generic-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Layout-->
+    
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_products data-bs-toggle="modal" data-bs-target="#modalProducts">
+    Open products modal
+</button>
+<jw-modal [modalId]="'modalProducts'" [modalTitle]="'Products'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-genric-table (emitRowClick)="selectValue($event, true)" [menuItems]="[]" [data]="ProductData"
+                        [columnsData]="productsColumn" [loadingData]="isLoadingProduct">
+                    </app-genric-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>

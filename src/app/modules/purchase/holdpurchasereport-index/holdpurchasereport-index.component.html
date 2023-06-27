@@ -1,0 +1,40 @@
+<div>
+    <div class="mb-5 text-end">
+        <app-sel-date-btn
+            [options]="SearchByDateDropdown" 
+            (emitSelDate)="SearchByDate($event)"
+            [placeholderSelector]="'Select Search By Date'"
+            [(twBinding)]="selectedSearchByDateID"
+        >
+        </app-sel-date-btn>
+        <!-- end the select date dropdown -->
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table 
+                            (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems" 
+                            (emitRemarks)="showDialog($event)" [data]="AllPurchaselist" 
+                            [columnsData]="columns" [globalFilterFields]="globalFilterFields"
+                            [rowGroup]="rowGroup"    [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [initialColumns]="initialColumns" [totalRecords]="totalRecords" [row]='10' 
+                            [loadingData]="isLoadingData" [initPageNo]="initPageNo">
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-generic-modal #modal [modalConfig]="modalConfig">
+    {{DialogRemarks}}
+</app-generic-modal>
+
+
+<app-generic-modal class="w-50" #datepicker [modalConfig]="dateModalConfig">
+    <app-datepickerpopup (onSelectValue)='selectValue($event)'></app-datepickerpopup>
+</app-generic-modal>

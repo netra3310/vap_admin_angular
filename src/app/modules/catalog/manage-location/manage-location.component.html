@@ -1,0 +1,254 @@
+<app-loading [status]="isLoadingProducts"></app-loading>
+<!--begin::Layout-->
+<div class="d-flex flex-column flex-xl-row mt-15">
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-lg-350px w-xl-400px mb-10 order-1 order-lg-2">
+        <!--begin::Card-->
+        <div class="card card-flush mb-0" data-kt-sticky="true" 
+            data-kt-sticky-name="subscription-summary" 
+            data-kt-sticky-offset="{default: false, lg: '200px'}" 
+            data-kt-sticky-width="{lg: '350px', xl: '400px'}" 
+            data-kt-sticky-left="auto" data-kt-sticky-top="100px" 
+            data-kt-sticky-animation="false" 
+            data-kt-sticky-zindex="95">
+            <!--begin::Card header-->
+            <div class="card-header">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <h2>Search Options</h2>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0 fs-6">
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-5"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Warehouse" translate="MANAGEDPRODUCT.WAREHOUSE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Warehouse" name="Warehouse"
+                                [placeholder]="'Select Warehouse'" 
+                                [options]="WarehouseDropdown"
+                                [(twBinding)]="selectedWarehouseID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeWareHouse($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Zone" translate="MANAGEDPRODUCT.ZONE"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Zone" name="Zone"
+                                [placeholder]="'Select Zone'" 
+                                [options]="ZoneDropdown"
+                                [(twBinding)]="selectedZoneID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeZone($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Section" translate="MANAGEDPRODUCT.SECTION"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Section" name="Section"
+                                [placeholder]="'Select Section'" 
+                                [options]="SectionDropdown"
+                                [(twBinding)]="selectedSectionID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                (onChange)="onChangeSection($event)"
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label for="Level" translate="MANAGEDPRODUCT.LEVEL"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                                        
+                            <app-custom-dropdown
+                                id="Level" name="Level"
+                                [placeholder]="'Select Level'" 
+                                [options]="LevelDropdown"
+                                [(twBinding)]="selectedLevelID" 
+                                autoWidth="false" 
+                                required 
+                                [enableSearch]="true" 
+                                [optionLabel]="'label'">
+                            </app-custom-dropdown>
+                            
+                            <!--end::Select2-->
+                        </div>
+                        <div class="fw-semibold fs-6 text-muted mt-2">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.QUANTITY"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-input
+                                [type]="'number'" 
+                                [(twBinding)]="txtQuantity"
+                                [isDisabled]="IsTrackable? true : false"
+                                [classGroup]="'form-control form-control-white form-control-sm ps-3'"
+                            ></app-custom-input>
+                            <!--end::Select2-->
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                <div *ngIf="!btnDisabled">
+                    <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="Save()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+                        </svg>
+                        <span title="Close" translate="MANAGEDPRODUCT.SAVE"></span>
+                    </a> 
+                </div>
+                <!--begin::Seperator-->
+                <div class="separator separator-dashed mb-5 mt-7"></div>
+                <!--end::Seperator-->
+                <!--begin::Section-->
+                <div class="mb-10">
+                    <!--begin::Title-->
+                    <h5 class="mb-4"></h5>
+                    <!--end::Title-->
+                    <!--begin::Details-->
+                    <div class="mb-0">
+                        <div class="fw-semibold fs-6 text-muted mt-7">
+                            <!--begin::Label-->
+                            <label class="required form-label" translate="MANAGEDPRODUCT.PRODUCT"></label>
+                            <!--end::Label-->
+                            <!--begin::Select2-->
+                            <app-custom-select class="fs-6"
+                                [items]="filteredProduct" [virtualScroll]="true" 
+                                [bindLabel]="'label'"
+                                [(twBinding)]="selectedProduct" [searchFn]="dataFunc"
+                                [placeholder]="'Select Product...'"
+                                (twBindingChange)="BindProductLocationDetail(($event))">
+                                
+                                <span (click)="OpenProductDialog()"
+                                    [inlineSVG]="
+                                        './assets/media/icons/duotune/general/gen004.svg'
+                                    "
+                                    class="ms-5 m-auto svg-icon svg-icon-1 me-1 svg-icon-primary"
+                                ></span>
+                            </app-custom-select>
+                            
+                            <!--end::Select2-->
+                        </div>
+                    </div>
+                    <!--end::Details-->
+                </div>
+                <!--end::Section-->
+                
+                <div *ngxPermissionsOnly="reportPermission.SingleProductLifeLine" >
+                    <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="GoToLifelineReport()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task me-2" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z"/>
+                            <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z"/>
+                            <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z"/>
+                        </svg>
+                        <span >goto life line report</span>
+                    </a> 
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+    <!--end::Sidebar-->
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid me-5">
+        <!--begin:::Tab content-->
+        <div class="tab-content" id="myTabContent">
+            <!--begin:::Tab pane-->
+            <div class="tab-pane fade show active" id="kt_customer_view_overview_tab" role="tabpanel">
+                <!--begin::Card-->
+                <div class="card pt-4 mb-6 mb-xl-9">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <h2>Products</h2>
+                        </div>
+                        <!--end::Card title-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0 pb-5">
+                        <app-genric-table *ngIf="IsTrackable" [data]="AllTrackableProductsLocationList"
+                            (emitMenuAction)="emitAction($event)" [menuItems]="genericMenuItems"
+                            (emitCheckbox)="TrackableCheckboxChange($event)" [columnsData]="trackableColumns"
+                            [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="rowsPerPageOptions" [row]='50'
+                            [loadingData]="isLoadingData">
+                        </app-genric-table>
+            
+                        <app-genric-table *ngIf="!IsTrackable" [data]="AllNonTrackableProductsLocationList"
+                            (emitRowClick)="NonTrackableCheckboxChange($event)" (emitMenuAction)="emitAction($event)"
+                            [menuItems]="genericMenuItems" [columnsData]="nonTrackableColumns"
+                            [globalFilterFields]="globalFilterFields1" [rowsPerPageOptions]="rowsPerPageOptions" [row]='50'
+                            [loadingData]="isLoadingData">
+            
+                        </app-genric-table>
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end:::Tab pane-->
+        </div>
+        <!--end:::Tab content-->
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Layout-->
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_products data-bs-toggle="modal" data-bs-target="#modalProducts">
+    Open products modal
+</button>
+<jw-modal [modalId]="'modalProducts'" [modalTitle]="'Products'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-genric-table (emitRowClick)="selectValue($event)" [menuItems]="[]" [data]="ProductData"
+                        [columnsData]="productsColumn" (emitCheckbox)="TrackableCheckboxChange($event)"
+                        [loadingData]="isLoadingProducts">
+                    </app-genric-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>

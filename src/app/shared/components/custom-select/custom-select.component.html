@@ -1,0 +1,12 @@
+
+<div class="position-relative d-flex">
+    <div class="form-select fw-bold text-start d-inline-block w-100 mb-2" 
+        data-kt-menu-trigger="click"
+        data-kt-menu-placement="bottom-end"
+        data-kt-menu-flip="top-end" [ngClass]="{'disable-pointer-events bg-light': disabled}">{{placeholder}}
+    </div>
+
+    <ng-content></ng-content>
+    <app-custom-select-option [virtualScroll]="virtualScroll" [items]="items" (emitSelOption)="onSelOption($event)" 
+    [enableSearch]="enableSearch" [bindLabel]="bindLabel" [disabled]="disabled" [bindKey]="bindKey"></app-custom-select-option>
+</div>

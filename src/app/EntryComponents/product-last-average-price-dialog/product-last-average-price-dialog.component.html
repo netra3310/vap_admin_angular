@@ -1,0 +1,117 @@
+
+<div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten" *ngIf="lastAvgPriceDetails">
+
+    <!--begin::Wrapper-->
+    <div class="d-flex flex-column h-100">
+        <!--begin::Header-->
+        <div class="mb-7">
+            <!--begin::Headin-->
+            <div class="d-flex flex-stack mb-6">
+                <!--begin::Title-->
+                <div class="flex-shrink-0 me-5">
+                    <span class="text-gray-800 fs-3 fw-bold">{{ProductName}}</span>
+                    <span class="badge badge-light-primary flex-shrink-0 align-self-center py-3 px-4 fs-7 ms-4">
+                        Available Stock: {{ lastAvgPriceDetails.AvailableStock ? lastAvgPriceDetails.AvailableStock : "" }}
+                    </span>
+                    <!-- <div class="fw-bold text-gray-800 fs-6 badge badge-light-warning fw-bold">
+                        Available Stock: {{ lastAvgPriceDetails.AvailableStock ? lastAvgPriceDetails.AvailableStock : "" }}
+                    </div> -->
+                </div>
+                <!--end::Title-->
+            </div>
+            <!--end::Heading-->
+            <!--begin::Items-->
+            <div class="d-flex align-items-center flex-wrap d-grid gap-2">
+                <!--begin::Item-->
+                <div class="d-flex align-items-center me-5 me-xl-13">
+                    <!--begin::Info-->
+                    <div class="m-0">
+                        <span class="fw-semibold text-gray-400 d-block fs-7">Average Purchase Price (last 3 purchases):</span>
+                        <span class="fw-bold text-gray-800 text-hover-primary fs-6">
+                            €{{ lastAvgPriceDetails.AveragePurchasePrice ? lastAvgPriceDetails.AveragePurchasePrice : "" }}
+                        </span>
+                    </div>
+                    <!--end::Info-->
+                </div>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <div class="d-flex align-items-center me-5 me-xl-13">
+                    <!--begin::Info-->
+                    <div class="m-0">
+                        <span class="fw-semibold text-gray-400 d-block fs-7">Last Purchase Price:</span>
+                        <span class="fw-bold text-gray-800 fs-6">
+                            €{{ lastAvgPriceDetails.LastPurchasePrice ? lastAvgPriceDetails.LastPurchasePrice : "" }}
+                        </span>
+                    </div>
+                    <!--end::Info-->
+                </div>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <div class="d-flex align-items-center">
+                    <!--begin::Info-->
+                    <div class="m-0">
+                        <span class="fw-semibold text-gray-400 d-block fs-7">Profit:</span>
+                        <span class="fw-bold text-gray-800 fs-6">
+                            €{{ lastAvgPriceDetails.Profit ? lastAvgPriceDetails.Profit : "" }}
+                        </span>
+                    </div>
+                    <!--end::Info-->
+                </div>
+                <!--end::Item-->
+            </div>
+            <!--end::Items-->
+        </div>
+        <!--end::Header-->
+        <!--begin::Body-->
+        <div class="mb-1">
+            <!--begin::Text-->
+            <span class="fw-semibold text-gray-600 fs-6 mb-4 d-block">
+                Quantity
+            </span>
+            <!--end::Text-->
+            <!--begin::Stats-->
+            <div class="d-flex">
+                <!--begin::Stat-->
+                <div class="border border-gray-300 border-dashed rounded min-w-100px w-100 py-2 px-4 me-6 mb-3">
+                    <!--begin::Date-->
+                    <span class="fs-6 text-gray-700 fw-bold">
+                        {{ lastAvgPriceDetails.IncomingQuantity ? lastAvgPriceDetails.IncomingQuantity : "" }}
+                    </span>
+                    <!--end::Date-->
+                    <!--begin::Label-->
+                    <div class="fw-semibold text-gray-400">Incoming Quantity</div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Stat-->
+                <!--begin::Stat-->
+                <div class="border border-gray-300 border-dashed rounded min-w-100px w-100 py-2 px-4 me-6 mb-3">
+                    <!--begin::Date-->
+                    <span class="fs-6 text-gray-700 fw-bold">
+                        {{ lastAvgPriceDetails.ReceivedQuantity ? lastAvgPriceDetails.ReceivedQuantity : "" }}
+                    </span>
+                    <!--end::Date-->
+                    <!--begin::Label-->
+                    <div class="fw-semibold text-gray-400">Received Quantity</div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Stat-->
+                <!--begin::Stat-->
+                <div class="border border-gray-300 border-dashed rounded min-w-100px w-100 py-2 px-4 mb-3">
+                    <!--begin::Number-->
+                    <span class="fs-6 text-gray-700 fw-bold">
+                        {{ lastAvgPriceDetails.RemainingQuantity ? lastAvgPriceDetails.RemainingQuantity : "" }}
+                    </span>
+                    <!--end::Number-->
+                    <!--begin::Label-->
+                    <div class="fw-semibold text-gray-400">Remaining Quantity</div>
+                    <!--end::Label-->
+                </div>
+                <!--end::Stat-->
+            </div>
+            <!--end::Stats-->
+        </div>
+        <!--end::Body-->
+    </div>
+    <!--end::Wrapper-->
+
+</div>

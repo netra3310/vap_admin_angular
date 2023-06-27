@@ -1,0 +1,208 @@
+<app-loading [status]="IsSpinner"></app-loading>
+<div>
+    <div class="mb-5 text-end">
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-primary ms-2" (click)="AddSubCategory()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+            </svg>
+            <span title="Close" translate="MANAGEDPRODUCT.ADDSUBCATEGORY"></span>
+        </a> 
+        <!--end::Primary button-->
+        <!--begin::Primary button-->
+        <a class="btn btn-sm fw-bold btn-primary ms-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+            </svg>
+            <span title="Close" translate="MANAGEDPRODUCT.ADDMULTIPLE"></span>
+        </a> 
+        <!--end::Primary button-->
+    </div>
+    <div class="d-flex flex-column flex-lg-row-fluid gap-7 gap-lg-10">
+        <!--begin::Order details-->
+        <div class="card card-flush py-4">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-10">
+                    <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                        <app-genric-table 
+                            (emitMenuAction)="emitAction($event)" 
+                            [menuItems]="genericMenuItems" 
+                            (emitSwitch)="UpdateSubCategoryStatus($event)"
+                            [data]="AllSubCategoryList" 
+                            [columnsData]="columns" 
+                            [globalFilterFields]="globalFilterFields"
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [row]='10'
+                            [loadingData]="false"
+                            >
+                        </app-genric-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_add_sub_category data-bs-toggle="modal" data-bs-target="#modalAddSubCategory">
+    Open Modal Add Sub Category
+</button>
+<jw-modal [modalId]="'modalAddSubCategory'" [modalTitle]="'Add to Sub Category'" [modalSize]="'md'">
+    <div class="d-print-none border border-dashed border-gray-300 card-rounded h-lg-100 min-w-md-350px p-9 bg-lighten" *ngxPermissionsOnly="CatalogPermission.AddSubcategory">
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="sub_category_classification"> {{'MANAGEDPRODUCT.CLASSIFICATION'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                
+                <app-custom-dropdown
+                    id="sub_category_classification" name="sub_category_classification" 
+                    [placeholder]="'Select Classification'" 
+                    [options]="ClassificationDropdown"
+                    [(twBinding)]="selectedClassificationID" 
+                    (onChange)="BindDepartment($event)"
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+            </div>
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="sub_category_department"> {{'MANAGEDPRODUCT.DEPARTMENT'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                
+                <app-custom-dropdown
+                    id="sub_category_department" name="sub_category_department" 
+                    [placeholder]="'Select Department'" 
+                    [options]="DepartmentDropdown"
+                    [(twBinding)]="selectedDepartmentID" 
+                    autoWidth="false" 
+                    required 
+                    (onChange)="BindCategory($event)" 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+            </div>
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="sub_category_category"> {{'MANAGEDPRODUCT.CATEGORY'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                
+                <app-custom-dropdown
+                    id="sub_category_category" name="sub_category_category" 
+                    [placeholder]="'Select Category'" 
+                    [options]="CategoryDropdown"
+                    [(twBinding)]="selectedCategoryID" 
+                    autoWidth="false" 
+                    required 
+                    [enableSearch]="true" 
+                    [optionLabel]="'label'">
+                </app-custom-dropdown>
+            </div>
+        </div>
+        <!--end::Item-->
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="sub_category_name"> {{'MANAGEDPRODUCT.NAME'| translate}} <span class="RequiredEror">*</span> </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-shopping-basket"></i>
+                <input type="text" name="quantity" id=quantity [(ngModel)]="Quantity" required pInputText
+                    placeholder="Enter Quantity" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <input name="sub_category_name" type="text" class="form-control fs-7 ps-12" [(ngModel)]="subCategory.Name" type="text" placeholder="Enter Name"/>
+            </div>
+        </div>
+        <!--end::Item-->        
+        <!--begin::Item-->
+        <div class="mb-6">
+            <label for="sub_category_description"> {{'MANAGEDPRODUCT.DESCRIPTION'| translate}} </label>
+            <!-- <span class="p-input-icon-left">
+                <i class="fas fa-comments"></i>
+                <input type="text" name="remarks" id=remarks rows="3" cols="50" [(ngModel)]="Remarks"
+                    aria-multiline="true" pInputText placeholder="Enter Remarks" />
+            </span> -->
+            <div class="position-relative my-1">
+                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                <span class="svg-icon svg-icon-2 position-absolute top-50 translate-middle-y ms-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <input name="sub_category_description" type="text" class="form-control fs-7 ps-12" [(ngModel)]="subCategory.Description" type="text" placeholder="Enter Description"/>
+            </div>
+        </div>
+        <!--end::Item-->
+        <a  class="btn btn-sm fw-bold btn-primary ms-2"
+                (click)="SaveUpdateSubCategoryDetails()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+            </svg>
+            <span >{{'MANAGEDPRODUCT.SAVE'| translate}}</span>
+            
+            <ng-container *ngIf="IsSpinner">
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </ng-container>
+        </a> 
+        
+        <a  class="btn btn-sm fw-bold btn-primary ms-2"
+                (click)="CloseAddSection()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace me-2" viewBox="0 0 16 16">
+                <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/>
+                <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
+            </svg>
+            <span >{{'MANAGEDPRODUCT.CLOSE' | translate}}</span>
+        </a> 
+    </div>
+</jw-modal>

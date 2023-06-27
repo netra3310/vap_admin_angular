@@ -1,0 +1,261 @@
+<app-loading [status]="IsSpinner"></app-loading>
+<div class="d-flex flex-column flex-xl-row mt-15">
+    <!--begin::Sidebar-->
+    <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mt-20">
+        <div class="card mb-5 mb-xl-8">
+            <!--begin::Card header-->
+            <div class="card-header border-0">
+                <div class="card-title">
+                    <h3 class="fw-bold m-0">Details</h3>
+                </div>
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body pt-0">
+                <!--begin::Summary-->
+                <div class="d-flex flex-column mb-5">
+                    <!--begin::Name-->
+                    <div class="fw-semibold fs-6 text-muted mt-7">
+                        <!--begin::Label-->
+                        <label class="required form-label" >
+                            {{'REPORTS.SUPPLIER'| translate}}
+                            <ng-container *ngIf="IsSpinner">
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </ng-container>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Select2-->
+                        <app-custom-select class="fs-6"
+                            [items]="filteredSupplier" [virtualScroll]="false" 
+                            [bindLabel]="'label'"
+                            [(twBinding)]="selectedSupplier" [searchFn]="dataFunc"
+                            [placeholder]="'Select Product...'"
+                            (twBindingChange)="selectValue(($event))">
+                            
+                            <span (click)="OpenOrderByDialog()"
+                                [inlineSVG]="
+                                    './assets/media/icons/duotune/general/gen004.svg'
+                                "
+                                class="ms-5 m-auto svg-icon svg-icon-1 me-1 svg-icon-primary"
+                            ></span>
+                        </app-custom-select>
+                        
+                        <div class="mb-2 color-light btn btn-outline btn-outline-dashed w-100 text-start" [ngClass]="{'d-none': lifeLineSupplier.FirstName == {} || lifeLineSupplier.FirstName == null || lifeLineSupplier.FirstName == undefined }">
+                            <label for="name">
+                                <span [inlineSVG]="'./assets/media/icons/duotune/communication/com006.svg'"
+                                    class="svg-icon svg-icon-1 me-1"
+                                ></span>
+                                <span class="badge-light-primary">
+                                    {{lifeLineSupplier.FirstName}} {{lifeLineSupplier.LastName}}
+                                </span>
+                            </label> 
+                            <br>
+                            <label for="phon">
+                                <span [inlineSVG]="'./assets/media/icons/duotune/maps/map008.svg'"
+                                        class="svg-icon svg-icon-1 me-1"
+                                ></span>
+                                <span class="badge-light-success">
+                                    {{lifeLineSupplier.Address}}
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="border border-gray-300 border-dashed rounded min-w-100px w-100 py-2 px-4 mb-3" *ngIf="lifeLineSupplier.CurrentBalance">
+                            <!--begin::Number-->
+                            <span class="fs-6 text-gray-700 fw-bold">€
+                            <span class="ms-n1" data-kt-countup="true">{{lifeLineSupplier.CurrentBalance | number:'1.2-2' }} </span></span>
+                            <!--end::Number-->
+                            <!--begin::Label-->
+                            <div class="fw-semibold text-gray-400">{{'REPORTS.CUSTOMERBALANCE'| translate}}</div>
+                            <!--end::Label-->
+                        </div>
+                    </div>
+                    <!--end::Name-->
+                </div>
+                <!--end::Summary-->
+                <div class="separator separator-dashed my-3"></div>
+                <!--begin::Details content-->
+                <div id="" class="collapse show">
+                    <div class=" fs-6">
+                        <!--begin::Details item-->
+                        <div class="fw-bold mt-5">{{'REPORTS.BESTORDER'| translate}}</div>
+                        <div class="text-gray-600">
+                            <span >€ </span>
+                            {{(bestOrder || '0') | number:'1.2-2' }}
+                        </div>
+                        <!--begin::Details item-->
+                        <!--begin::Details item-->
+                        <div class="fw-bold mt-5">{{'REPORTS.LASTORDERON'| translate}}</div>
+                        <div class="text-gray-600">
+                            {{lastOrderOn || 'N/A'}}
+                        </div>
+                        <!--begin::Details item-->
+                        <!--begin::Details item-->
+                        <div class="fw-bold mt-5">{{'REPORTS.ORDERCOUNT'| translate}}</div>
+                        <div class="text-gray-600">
+                            {{orderCount || 0}}
+                        </div>
+                        <!--begin::Details item-->
+                    </div>
+                </div>
+                <!--end::Details content-->
+            </div>
+            <!--end::Card body-->
+        </div>
+    </div>
+    <!--end::Sidebar-->
+    <!--begin::Content-->
+    <div class="flex-lg-row-fluid ms-lg-15">
+        <!--begin:::Tabs-->
+        <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#tab_purchase_invoices">Purchase Invoices</a>
+            </li>
+            <!--end:::Tab item-->
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#tab_top_products">Top Products</a>
+            </li>
+            <!--end:::Tab item-->
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#tab_open_payment">Open Payment</a>
+            </li>
+            <!--end:::Tab item-->
+            <!--begin:::Tab item-->
+            <li class="nav-item">
+                <a class="nav-link text-active-primary pb-4" data-kt-countup-tabs="true" data-bs-toggle="tab" href="#tab_activity_logs">Activity Logs</a>
+            </li>
+            <!--end:::Tab item-->
+        </ul>
+        <!--end:::Tabs-->
+        <!--begin:::Tab content-->
+        <div class="tab-content" id="myTabContent">
+            <!--begin:::Tab pane-->
+            <div class="tab-pane fade show active" id="tab_purchase_invoices" role="tabpanel">
+                <!--begin::Card-->
+                <div class="card pt-4 mb-6 mb-xl-9">
+                    
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0 pb-5">
+                        <app-ss-generic-table  
+                            [menuItems]="genericMenuItems" 
+                            [data]="Purchases" 
+                            (emitHref)="getPurchasesByInvoiceNo($event)"
+                            [globalFilterFields]="PurchaseGlobalFilterFields" 
+                            [columnsData]="purchaseColumn" 
+                            [rowGroup]="rowGroup"
+                            [totalRecords]="purchaseTotalRecords" 
+                            (getLazyData)="GetAllPurchaseDataWithLazyLoadinFunction($event)"
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [initialColumns]="purchaseInitialColumn"
+                            [row]='10'
+                            [isLoading]="loadingPurchase">
+                        </app-ss-generic-table>
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end:::Tab pane-->
+            <!--begin:::Tab pane-->
+            <div class="tab-pane fade" id="tab_top_products" role="tabpanel">
+                <!--begin::Card-->
+                <div class="card pt-4 mb-6 mb-xl-9">
+                    
+                    <!--begin::Card body-->
+                    <div class="card-body py-0">
+                        <!--begin::Table wrapper-->
+                        <div class="table-responsive">
+                            <app-genric-table [data]="TopProducts" [columnsData]="topProductColumn"
+                                [globalFilterFields]="topProductGlobalFilterFields" [rowsPerPageOptions]="rowsPerPageOptions"
+                                [row]='10' [loadingData]="loadingTopProducts">
+                            </app-genric-table>
+                        </div>
+                        <!--end::Table wrapper-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end:::Tab pane-->
+            <!--begin:::Tab pane-->
+            <div class="tab-pane fade" id="tab_open_payment" role="tabpanel">
+                <!--begin::Earnings-->
+                <div class="card mb-6 mb-xl-9">
+                    
+                    <!--begin::Body-->
+                    <div class="card-body py-0">
+                        <app-ss-generic-table  
+                            [menuItems]="genericMenuItems" 
+                            [data]="openPayments" 
+                            [globalFilterFields]="openPaymentGlobalFilterFields" 
+                            [columnsData]="openPaymentColumn" 
+                            [rowGroup]="rowGroup1"
+                            [totalRecords]="openInvoicesTotalRecords" 
+                            (getLazyData)="GetAllOpenInvoicesDataWithLazyLoadinFunction($event)"
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [initialColumns]="openPaymnetInitialColumn"
+                            [isLoading]="loadingOpenPayments"
+                            [row]='10'>
+                        </app-ss-generic-table>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Earnings-->
+            </div>
+            <!--end:::Tab pane-->
+            <!--begin:::Tab pane-->
+            <div class="tab-pane fade" id="tab_activity_logs" role="tabpanel">
+                <!--begin::Earnings-->
+                <div class="card mb-6 mb-xl-9">
+                    <!--begin::Body-->
+                    <div class="card-body py-0">
+                        <app-ss-generic-table  
+                            [menuItems]="genericMenuItems" 
+                            [data]="allActivity"
+                            [globalFilterFields]="activityGlobalFilterFields" 
+                            [columnsData]="activityColumns" 
+                            [rowGroup]="rowGroup2"
+                            [totalRecords]="activityTotalRecords" 
+                            (getLazyData)="GetAllActivityDataWithLazyLoadinFunction($event)"
+                            [rowsPerPageOptions]="rowsPerPageOptions" 
+                            [row]='10'
+                            [initialColumns]="activityInitialColumn"
+                            [isLoading]="loadingActivity">
+                        </app-ss-generic-table>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Earnings-->
+            </div>
+            <!--end:::Tab pane-->
+        </div>
+        <!--end:::Tab content-->
+    </div>
+    <!--end::Content-->
+</div>
+
+<button type="button" hidden class="btn btn-primary" #btn_open_modal_suppliers data-bs-toggle="modal" data-bs-target="#modalSuppliers">
+    Open Suppliers modal
+</button>
+<jw-modal [modalId]="'modalSuppliers'" [modalTitle]="'Suppliers'" [modalSize]="'xl'">
+    <div class="card card-flush py-4">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-10">
+                <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                    <app-genric-table 
+                        (emitRowClick)="selectValue($event)" 
+                        [menuItems]="[]" 
+                        [data]="AllSuppliersList"
+                        [rowsPerPageOptions]="rowsPerPageOptions"
+                        [columnsData]="supplierColumns" 
+                        [globalFilterFields]="globalFilterFields"
+                        [loadingData]="IsSpinner">
+                    </app-genric-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>
