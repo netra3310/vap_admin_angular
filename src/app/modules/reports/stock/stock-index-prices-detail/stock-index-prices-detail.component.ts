@@ -157,6 +157,17 @@ export class StockIndexPricesDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    var selectedOutletID: any;
+    if (!isNullOrUndefined(this.storageService.getItem("selectedOutletID")) && this.storageService.getItem("selectedOutletID") !== '') {
+      selectedOutletID = !isNaN(parseInt(this.storageService.getItem("selectedOutletID"))) ? Number(this.storageService.getItem("selectedOutletID")) : 1;
+      this.storageService.removeItem("selectedOutletID");
+    }
+
+    if (!isNullOrUndefined(this.storageService.getItem("selectedProduct")) && this.storageService.getItem("selectedProduct") !== '') {
+      this.selectedProduct = this.storageService.getItem("selectedProduct");
+      this.storageService.removeItem("selectedProduct");
+    }
+
     //this.GetSearchByDropDownList();
     this.GetProductDropDownList();
     this.GetSearchByDateDropDownList();
@@ -165,17 +176,18 @@ export class StockIndexPricesDetailComponent implements OnInit, OnDestroy {
     //this.GetCategoryDropDownList();
     //this.GetClassificationDropDownList();
     //this.GetSubCategoryDropDownList();
+
     this.GetAllStock();
 
     this.stockRequestModel = new GetProductStockHistoryRequest();
-    this.stockRequestModel.ProductID = 0;
+    this.stockRequestModel.ProductID = !isNullOrUndefined(this.selectedProduct) ? this.selectedProduct.value : 0;
     this.stockRequestModel.ProductVariantID = 0;
-    this.stockRequestModel.OutletID = 1;
+    this.stockRequestModel.OutletID = !isNaN(parseInt(selectedOutletID)) ? Number(selectedOutletID) : 1;
     this.stockRequestModel.DepartmentID = -1;
     this.stockRequestModel.CategoryID = -1;
     this.stockRequestModel.SubCategoryID = -1;
     this.stockRequestModel.ClassificationID = -1;
-    this.stockRequestModel.IsAllProduct = true;
+    this.stockRequestModel.IsAllProduct = false; //true;
     this.stockRequestModel.FromDate = this.datepipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss') ?? "" + "Z";
     this.stockRequestModel.ToDate = this.datepipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss') ?? "" + "Z";
     this.stockRequestModel.PageNo = 0;
@@ -190,6 +202,8 @@ export class StockIndexPricesDetailComponent implements OnInit, OnDestroy {
   Details(event: any) {
     this.router.navigate([`/purchase/details/${event.ProductVariantID}`]);
     this.storageService.setItem("PurchaseDetailRoute", "/reports/stock-index-prices-detail");
+    this.storageService.setItem("selectedOutletID", this.selectedOutletID);
+    this.storageService.setItem("selectedProduct", this.selectedProduct);
   }
   GetSearchByDropDownList() {
     this.SearchByDropdown = [];
@@ -233,7 +247,7 @@ export class StockIndexPricesDetailComponent implements OnInit, OnDestroy {
         let outlet = response.DropDownData.find((x: any)=>x.ID==1);
         if(!isNullOrUndefined(outlet))
         {
-          this.selectedOutletID = outlet.ID;
+          this.selectedOutletID = !isNaN(parseInt(this.selectedOutletID)) ? Number(this.selectedOutletID) : outlet.ID;
         }
 
       }
@@ -351,7 +365,7 @@ export class StockIndexPricesDetailComponent implements OnInit, OnDestroy {
   GetProductDropDownList() {
 
     this.ProductDropdown = [];
-    this.IsSpinner = true;
+    // this.IsSpinner = true;
     this.apiService.GetProductDropDownDatawithVariantInfo().pipe(untilDestroyed(this)).subscribe((response: any) => {
       this.IsSpinner = false;
       if (response.ResponseText === 'success') {
@@ -546,11 +560,11 @@ export class StockIndexPricesDetailComponent implements OnInit, OnDestroy {
   }
 
   GetAllStockDataWithLazyLoadinFunction(filterRM: any) {
-    if (this.counter==1)
-    {
-      this.counter++;
-      return;
-    }
+    // if (this.counter==1)
+    // {
+    //   this.counter++;
+    //   return;
+    // }
     this.stockRequestModel.PageNo = filterRM.PageNo;
     this.stockRequestModel.PageSize = filterRM.PageSize;
     this.stockRequestModel.Search = filterRM.Product;
