@@ -71,7 +71,7 @@ export class StockAlertReportComponent implements OnInit, OnDestroy {
 
   ];
   columns: Columns[] = [
-    { field: 'Product', header: 'Product', sorting: 'Product', placeholder: '' , translateCol: 'SSGENERIC.NAME'},
+    { field: 'Product', header: 'Product', sorting: 'Product', searching: true, placeholder: '' , translateCol: 'SSGENERIC.NAME'},
     { field: 'BLabel', header: 'ModelNo', sorting: 'BLabel', placeholder: '' , translateCol: 'SSGENERIC.MODELNO'},
     { field: 'Quantity', header: 'Quantity', sorting: 'Quantity', placeholder: '', translateCol: 'SSGENERIC.QUANTITY' },
     { field: 'Date', header: 'Date', sorting: 'Date', searching: true, placeholder: '', type: TableColumnEnum.DATE_FORMAT, translateCol: 'SSGENERIC.DATE'}

@@ -77,7 +77,7 @@ export class SalereportByuserComponent implements OnInit, OnDestroy {
       field: 'TotalRefunds', header: 'Refund Quantity', sorting: 'TotalRefunds', placeholder: '',
       type: TableColumnEnum.CURRENCY_SYMBOL, translateCol: 'SSGENERIC.REFUNDQUANTITY'
     },
-    { field: 'COGS', header: 'COGS', sorting: 'COGS', placeholder: '', translateCol: 'SSGENERIC.COGS' },
+    { field: 'COGS', header: 'COGS', sorting: 'COGS', placeholder: '', type: TableColumnEnum.CURRENCY_SYMBOL, translateCol: 'SSGENERIC.COGS' },
     {
       field: 'COGS_Refund', header: 'COGS Refund', sorting: 'COGS_Refund', placeholder: '',
       type: TableColumnEnum.CURRENCY_SYMBOL, translateCol: 'SSGENERIC.COGSREFUND'
