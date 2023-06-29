@@ -212,9 +212,23 @@ export class SingleProductLifeLineComponent implements OnInit, OnDestroy {
 
     if (this.isFirstTime) { return; }
     const filterRequestModel = new FilterRequestModel();  
+    filterRequestModel.FromDate = new Date((this.datepipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss') ?? "") + "Z");
+    filterRequestModel.ToDate = new Date((this.datepipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss') ?? "") + "Z");
+    filterRequestModel.SubCategoryID = 0;
     filterRequestModel.PageNo = filterRM.PageNo;
     filterRequestModel.PageSize = filterRM.PageSize;
-    filterRequestModel.ID = this.selectedProduct.value;
+    filterRequestModel.IsGetAll = true;
+    filterRequestModel.IsReceived = true;
+    filterRequestModel.Type = 1;
+    filterRequestModel.ID = this.selectedProduct.value
+    filterRequestModel.Product = filterRM.Product;
+    
+    filterRequestModel.UserID = 0;
+
+    // filterRequestModel.PageNo = filterRM.PageNo;
+    // filterRequestModel.PageSize = filterRM.PageSize;
+    // filterRequestModel.Product = filterRM.Product;
+    // filterRequestModel.ID = this.selectedProduct.value;
 
     this.storageService.setItem('SingleProductLifeLinePurchaseValues', filterRequestModel);
     this.isLoadingPurchases = true;

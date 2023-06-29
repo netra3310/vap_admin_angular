@@ -369,6 +369,7 @@ export class SsGenericTableComponent implements OnInit, OnChanges {
   
       // if (!event.columnfilter &&((this.pager.startIndex / this.pager.rows) > 0 || event.globalFilter)) {
       if (!event.columnfilter) {
+        console.log("column filter")
         const start = this.pager.startIndex / this.pager.rows;
         const product = "";
         if (this.isGlobalFilter) {
@@ -384,6 +385,7 @@ export class SsGenericTableComponent implements OnInit, OnChanges {
         this.filterRequestModel.PageSize = this.pager.rows;
         this.filterRequestModel.Type = event.sortOrder;
         event.globalFilter = undefined;
+        console.log("filter model === ", this.filterRequestModel);
         this.getLazyData.emit(this.filterRequestModel);
       }
 

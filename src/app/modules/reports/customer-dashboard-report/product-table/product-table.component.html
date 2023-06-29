@@ -47,7 +47,7 @@
         <thead>
           <tr class="fw-bolder text-muted">
             <th class="min-w-150px">ITEM</th>
-            <th class="min-w-140px">Price</th>
+            <th class="min-w-140px">Quantity</th>
           </tr>
         </thead>
         <!-- end::Table head -->
@@ -64,9 +64,9 @@
                     <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
                       {{product.product_name}}
                     </a>
-                    <span class="text-muted fw-bold text-muted d-block fs-7">
+                    <!-- <span class="text-muted fw-bold text-muted d-block fs-7">
                       Quantity : {{product.quantity}}
-                    </span>
+                    </span> -->
                   </div>
                 </div>
               </td>
@@ -75,7 +75,7 @@
                   class="text-dark fw-bolder text-hover-primary d-block fs-6"
                 >
                   <!-- € {{product.price}} -->
-                  € {{product.price ?? '0'}}
+                  {{product.quantity}}
                 </a>
               </td>
             </tr>

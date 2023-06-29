@@ -990,7 +990,8 @@ export const locale = {
                 RECEIVEDQUANTITY:"Received Quantity",
                 PURCHASEDATE:"Purchase Date",
                 STATUS:"Status",
-                PREORDERDATE:"Pre Order Date"
+                PREORDERDATE:"Pre Order Date",
+                ACTIVITYLOGS: "Activity Logs"
         
             },
             ORDERS:{

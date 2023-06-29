@@ -279,7 +279,11 @@ export class GenricTableComponent implements OnInit, OnChanges {
   }
 
   searchData() {
+    console.log("data === ", this.data);
+    console.log("selected columns === ", this.selectedColumns);
+    console.log("my search === ", this.mySearch);
     let searchResult = new SearchPipe().transform(this.data, this.selectedColumns, this.mySearch);
+    console.log("search result === ", searchResult)
     this.realData = searchResult;
   }
 
